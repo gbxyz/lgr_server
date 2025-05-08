@@ -1,0 +1,740 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">2</version>
+    <date>2024-10-25</date>
+    <language>und-Ethi</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+       <div class="instructions">
+<h2>INSTRUCTIONS</h2>
+  <ul>
+    <li>These instructions cover how to adopt an LGR based on this reference LGR for a given
+    zone and how to prepare the file for deposit in the IANA Repository of IDN Practices.</li>
+    <li>As described  the IANA procedure (https://www.iana.org/help/idn-repository-procedure) an 
+    LGR MUST contain the following elements in its header:
+      <ul style="list-style-type:square;">
+        <li>Script or Language Designator (see below for guidance) </li>
+        <li>Version Number (this must increase with each amendment to the LGR, even if the updates 
+            are limited to the header itself) </li>
+        <li>Effective Date (the date at which the policy becomes applicable in operational use) </li>
+        <li>Registry Contact Details (contact name, email address, and/or phone number)</li>
+      </ul>
+    </li>
+    <li>The following information is optional:
+    <ul style="list-style-type:square;">
+    <li>Document creation date</li>
+    <li>Applicable Domain(s)</li>
+    <li>Changes made to the Reference LGR before adopting</li>
+    </ul>
+    </li>
+  </ul>
+  <p>Please add or modify the following items in the <b>XML source code for this file</b> before 
+  depositing the document in the IANA Repository. (https://www.iana.org/domains/idn-tables)</p>
+<h3>Meta Data</h3>
+<p>Note: version numbers start at 1. RFC 7940 recommends using simple integers. The version comment is optional, 
+   please replace or delete the default comment. Version comments may be used by some tools as part of the page header.</p>
+  <p><code>&lt;version comment=&quot;</code>[Please replace (or delete) the optional comment]<code>&quot;&gt;</code>[Please fill in version number, starting at 1]<code>&lt;/version&gt;</code></p>
+  <p><code>&lt;date&gt;</code>[Please fill in with publication date, in YYYY-MM-DD format]<code>&lt;/date&gt;</code></p>
+  <p><code>&lt;validity-start&gt;</code>[Please fill in effective date, in YYYY-MM-DD format]<code>&lt;/validity-start&gt;</code></p>
+  <p>Note: the scope element may be repeated, so that the same document can serve for multiple domains.</p>
+  <p><code>&lt;scope type=&quot;domain&quot;&gt;</code>[Please provide, in &quot;.domain&quot; format]<code>&lt;/scope&gt;</code></p>
+<p><strong>Registry Contact Information:</strong></p>
+  <p>Please fill in the <a href="#registry_contact_details">Registry Contact Details</a>.</p>
+<p><strong>Change History</strong></p>
+  <p>If you made technical modifications to the LGR, please summarize them in the <a href="#change_history">Change History</a> (and also note the details in the appropriate section of the description).</p>
+<p>PLEASE DELETE THESE INSTRUCTIONS BEFORE DEPOSITING THE DOCUMENT</p></div>
+       
+       <section id="registry_contact_details">
+<h2>Registry Contact Details</h2>
+<ul style="list-style:none;">
+<li><b>Contact Name:</b> [Please fill in Contact Name]</li>
+<li><b>Email address:</b> [Please fill in Email address]</li>
+<li><b>Phone Number:</b> [Please fill in optional Phone Number]</li>
+</ul>
+</section>
+
+        <h1>Label Generation Rules for the Ethiopic Script</h1>
+        <h2>Overview</h2>
+
+    <p>This document specifies a set of Label Generation Rules (LGR) for the Ethiopic script for the second level domain or domains identified above. 
+    The starting point for the development of this LGR can be found in the related Root Zone LGR [RZ-LGR-Ethi]. 
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Ethiopic Script” [Ref-LGR-und-Ethi], for details, see <a href="#change_history">Change History</a> below.</p>
+
+        <p>For details and additional background on the Ethiopic script, see  “Proposal for Ethiopic Script Root Zone LGR” [Proposal-Ethiopic].</p>
+
+        <h2>Repertoire</h2>
+        <p>The repertoire contains 311 code points for letters and 
+        only includes code points used by languages that are actively written in the Ethiopic script. 
+        The repertoire is a subset of [Unicode 11.0.0]. For details, see Section 5, “Repertoire” in [Proposal-Ethiopic].
+        (The proposal cited has been adopted for the Ethiopic script portion of the Root Zone LGR.)</p>
+
+        <p>For the second level, the repertoire has been augmented with the ASCII digits, U+0030 to U+0039, plus U+002D HYPHEN-MINUS, for a total of 322 repertoire elements.</p>
+
+        <p><b>Repertoire Listing:</b> Each code point or range is tagged with the script or scripts with which the code point is used and one or more other character categories. For each repertoire element,
+      one or more references document sufficient justification for inclusion in the repertoire; see the <a href="#ref_desc_sec_References">“References”</a> below.
+    For code points that are part of the repertoire, comments identify the languages using the code point along with their [EGIDS] level.</p>
+
+        <h2>Variants</h2>
+
+        <p>The variants defined in this LGR are limited to those required for use in zones not shared with any other script. 
+    However, because it does not share cross-script
+    variants with other script LGRs, this LGR can be mixed easily with other LGRs in the same zone.</p>
+
+        <p>As described in Section 6, “Variants” in [Proposal-Ethiopic], there are significant numbers of code points that can 
+        be used interchangeably in the writing system of the Amharic language. Two code points are variants of each 
+        other if they can be used interchangeably in the writing system of the Amharic language and their use yields 
+        identical lexical terms for canonical labels (for labels with dictionary meaning) and same or identical representation(s) 
+        for non-canonical labels (for labels that do not have dictionary meaning). The Amharic language is the official working
+        language of the Federal Democratic Republic of Ethiopia and many of the states within the federal system. Due to 
+        security problems these variants pose, they are treated as script wide variants beyond the Amharic language.</p>
+
+        <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that 
+        differ only by these variants mutually exclusive: whichever label containing either of 
+        these variants is chosen earlier would be delegated, while any other equivalent label should be blocked. There is no preference among these labels.</p>
+
+        <p>This LGR does not define allocatable variants.</p>
+
+        <p>The specification of variants in this LGR follows the guidelines in [RFC 8228].</p>
+
+        <h2>Character Classes</h2>
+
+        <p>This LGR does not define named character classes.</p>
+
+        <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+        <h3>Common Rules</h3>
+
+        <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+
+        <h3>Default Actions</h3>
+
+        <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+        <h3>Ethiopic-specific Rules</h3>
+
+        <p>This LGR does not define rules specific to the Ethiopic script.</p>
+
+        <h2>Methodology and Contributors</h2>
+
+        <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Ethiopic Script was developed by Michel Suignard and Asmus Freytag, based on the Root Zone LGR for the Ethiopic 
+       script and information contained or referenced therein; see [RZ-LGR-Ethi]. Suitable extensions for the second level have been applied according to the [Guidelines] and with community input. 
+       The original proposal for a Root Zone LGR for the Ethiopic script, that this LGR is based on, was developed by the Ethiopic Generation Panel. 
+       For more information on methodology and contributors to the underlying Root Zone LGR, see Sections 4 and 8 in [Proposal-Ethiopic], as well as [RZ-LGR-Overview].</p>
+
+        <section id="change_history">
+        <h3>Changes from Version Dated 15 December 2020</h3> <p>Unicode Version has been updated.</p>
+
+        <h3>Changes from Version Dated 25 October 2024</h3>
+        <p>Adopted from the Second Level Reference LGR for the Ethiopic Script [Ref-LGR-und-Ethi] without normative changes.</p>
+        </section>
+
+       <h2>References</h2>
+       <p>The following general references are cited in this document: </p>
+       <dl class="references">
+       <dt>[EGIDS]</dt>
+         <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+       <dt>[Guidelines]</dt>
+         <dd>ICANN, “Guidelines for Developing Reference LGRs for the Second Level”, (Los Angeles, California: ICANN, 27 May 2020), https://www.icann.org/en/system/files/files/lgr-guidelines-second-level-27may20-en.pdf</dd>
+       <dt>[Level-2-Overview]</dt>
+         <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+       <dt>[Proposal-Ethiopic]</dt>
+         <dd>Ethiopic Generation Panel, “Proposal for Ethiopic Script Root Zone LGR”, 17 May, 2017, https://www.icann.org/en/system/files/files/proposal-ethiopic-lgr-17may17-en.pdf</dd>
+       <dt>[RFC 7940]</dt>
+         <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+       <dt>[RFC 8228]</dt>
+         <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+       <dt>[RZ-LGR-Overview]</dt>
+          <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022 (PDF), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+       <dt>[RZ-LGR-Ethi]</dt>
+         <dd>ICANN, Root Zone Label Generation Rules for the Ethiopic Script (und-Ethi), 26 May 2022 (XML)
+      https://www.icann.org/sites/default/files/lgr/rz-lgr-5-ethiopic-script-26may22-en.xml</dd>
+
+        <dt>[Ref-LGR-und-Ethi]</dt>
+        <dd>ICANN, Second Level Reference Label Generation Rules for the Ethiopic Script (und-Ethi), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-ethiopic-script-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-ethiopic-script-25oct24-en.html</dd>
+
+       <dt>[SIL-Ethnologue]</dt>
+        <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+       <dt>[Unicode 11.0.0]</dt>
+        <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+      </dl>
+
+      <p>For references consulted particularly in designing the repertoire for the Ethiopic Script for the second level 
+      please see details in the <a href="#table_of_references">Table of References</a> below.</p>
+
+     <p>Reference [3] and [7] refer to the Unicode Standard versions in which corresponding code points 
+      were initially encoded. Reference [101] to [104] correspond to sources given in [Proposal-Ethiopic] for justifying 
+      the inclusion of for the corresponding code points. Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.</p>
+
+    ]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="3" comment="Any code point originally encoded in Unicode Version 3.0">The Unicode Standard, Version 3.0</reference>
+      <reference id="7" comment="Any code point originally encoded in Unicode Version 4.1">The Unicode Standard, Version 4.1</reference>
+      <reference id="101" comment="Ethiopic Script Versions for the Eight Languages">The Online Encyclopedia of Writing Systems &amp; Languages, https://www.omniglot.com/writing/amharic.htm, https://www.omniglot.com/writing/argobba.htm, https://www.omniglot.com/writing/awngi.htm, https://www.omniglot.com/writing/harari.htm, https://www.omniglot.com/writing/xamtanga.htm, https://www.omniglot.com/writing/silte.htm, https://www.omniglot.com/writing/tigre.htm, https://www.omniglot.com/writing/tigrinya.htm</reference>
+      <reference id="102" comment="Cited as Auxiliary Evidence for Tigrigna Code Points">Corpus Analysis performed by crawling 598 html  and 40 PDF files with Tigrigna Contents published online, August 2016</reference>
+      <reference id="103" comment="Cited as Auxiliary Evidence for Amharic Code Points">Corpus Analysis performed by crawling 14,850 html Amharic Contents of size .8 GB published online, August 2016</reference>
+      <reference id="104" comment="Cited for Amharic-Driven Variants in Ethiopic Script">Daniel Yacob “ Application of the Double Metaphone Algorithm to Amharic Orthography”, International Conference of Ethiopian Studies XV,  https://www.semanticscholar.org/paper/Application-of-the-Double-Metaphone-Algorithm-to-Yacob/2f71033d74d2f17a9502867e4a43dc4374500726</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS; &#x235F;" />
+    <char cp="0030" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F;" />
+    <char cp="0031" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F;" />
+    <char cp="0032" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F;" />
+    <char cp="0033" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F;" />
+    <char cp="0034" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F;" />
+    <char cp="0035" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F;" />
+    <char cp="0036" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F;" />
+    <char cp="0037" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F;" />
+    <char cp="0038" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F;" />
+    <char cp="0039" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F;" />
+    <char cp="1200" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1210" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1280" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1201" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1211" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1281" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1202" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1212" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1282" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1203" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1213" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1283" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1204" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="1214" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1284" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1205" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1215" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1285" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1206" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="1216" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1286" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1208" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1209" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="120A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="120B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="120C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="120D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Harari (4)" />
+    <char cp="120E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="120F" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1)" />
+    <char cp="1210" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1200" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1280" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1211" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1201" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1281" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1212" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1202" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1282" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1213" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1203" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1283" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1214" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1204" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1284" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1215" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1205" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1285" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1216" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Argobba (4),Tigrigna (2)">
+      <var cp="1206" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1286" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1217" tag="sc:Ethi" ref="3 103" comment="Amharic (1)">
+      <var cp="1288" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1218" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1219" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="121A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="121B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="121C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="121D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="121E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="121F" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1), Tigrigna (2)" />
+    <char cp="1220" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1230" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1221" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1231" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1222" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1232" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1223" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1233" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1224" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1234" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1225" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1235" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1226" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1236" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1227" tag="sc:Ethi" ref="3 103" comment="Amharic (1)">
+      <var cp="1237" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1228" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1229" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="122A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="122B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="122C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="122D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="122E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="122F" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1230" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1220" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1231" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1221" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1232" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1222" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1233" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1223" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1234" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="1224" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1235" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="1225" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1236" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="1226" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1237" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)">
+      <var cp="1227" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1238" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1239" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="123A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="123B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="123C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="123D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="123E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="123F" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1240" tag="sc:Ethi" ref="3 101 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1241" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1242" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1243" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1244" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4)" />
+    <char cp="1245" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1246" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4)" />
+    <char cp="1247" tag="sc:Ethi" ref="7 103" comment="Amharic (1)" />
+    <char cp="1248" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="124A" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="124B" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="124C" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="124D" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="1250" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1251" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1252" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1253" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1254" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1255" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1256" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="1258" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Tigrigna (2)" />
+    <char cp="125A" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Tigrigna (2)" />
+    <char cp="125B" tag="sc:Ethi" ref="3 101" comment="Tigrigna (2)" />
+    <char cp="125C" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Tigrigna (2)" />
+    <char cp="125D" tag="sc:Ethi" ref="3 101 102" comment="Tigrigna (2)" />
+    <char cp="1260" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4)" />
+    <char cp="1261" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4)" />
+    <char cp="1262" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4)" />
+    <char cp="1263" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4)" />
+    <char cp="1264" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Hamt’agna (4)" />
+    <char cp="1265" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4)" />
+    <char cp="1266" tag="sc:Ethi" ref="3 101 103" comment="Common to all, except: Argobba (4),Hamt’agna (4)" />
+    <char cp="1267" tag="sc:Ethi" ref="3 101 102" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1268" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1269" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126A" tag="sc:Ethi" ref="3 101" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126B" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126C" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126D" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126E" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="126F" tag="sc:Ethi" ref="3 103" comment="Amharic (1)" />
+    <char cp="1270" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1271" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1272" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1273" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1274" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1275" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1276" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1277" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1278" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1279" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="127A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="127B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="127C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="127D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="127E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="127F" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1280" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4)">
+      <var cp="1200" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1210" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1281" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4)">
+      <var cp="1201" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1211" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1282" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4)">
+      <var cp="1202" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1212" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1283" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4)">
+      <var cp="1203" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1213" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1284" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1204" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1214" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1285" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4)">
+      <var cp="1205" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1215" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1286" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="1206" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="1216" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1288" tag="sc:Ethi" ref="3 101" comment="Hamt’agna (4),Tigrè (4)">
+      <var cp="1217" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="128A" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4)" />
+    <char cp="128B" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4)" />
+    <char cp="128C" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Tigrè (4)" />
+    <char cp="128D" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4)" />
+    <char cp="1290" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1291" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1292" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1293" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1294" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1295" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1296" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1297" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="1298" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="1299" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129A" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129B" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129C" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129D" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129E" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Harari (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="129F" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="12A0" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="12A3" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D0" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D3" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A1" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="12D1" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A2" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="12D2" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A3" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)">
+      <var cp="12A0" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D0" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D3" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A4" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="12D4" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A5" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages">
+      <var cp="12D5" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A6" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="12D6" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12A7" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="12A8" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12A9" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12AA" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12AB" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="12AC" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12AD" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12AE" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)">
+      <var cp="12B0" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12B0" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Harari (4)">
+      <var cp="12AE" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12B2" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Harari (4)" />
+    <char cp="12B3" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Harari (4)" />
+    <char cp="12B4" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Tigrè (4),Tigrigna (2)" />
+    <char cp="12B5" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="12B8" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Hamt’agna (4),Tigrigna (2)" />
+    <char cp="12B9" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Hamt’agna (4),Tigrigna (2)" />
+    <char cp="12BA" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Hamt’agna (4),Tigrigna (2)" />
+    <char cp="12BB" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrigna (2)" />
+    <char cp="12BC" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="12BD" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Hamt’agna (4),Tigrigna (2)" />
+    <char cp="12BE" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="12C0" tag="sc:Ethi" ref="3 103" comment="Amharic (1)" />
+    <char cp="12C2" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="12C3" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="12C4" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Tigrigna (2)" />
+    <char cp="12C5" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Awngi (4),Tigrigna (2)" />
+    <char cp="12C8" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12C9" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12CA" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12CB" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="12CC" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12CD" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12CE" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12CF" tag="sc:Ethi" ref="7 102" comment="Tigrigna (2)" />
+    <char cp="12D0" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A0" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12A3" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D3" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D1" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A1" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D2" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A2" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D3" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A0" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12A3" type="blocked" ref="104" comment="Amharic variant" />
+      <var cp="12D0" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D4" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A4" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D5" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A5" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D6" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4),Tigrè (4)">
+      <var cp="12A6" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="12D8" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12D9" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12DA" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12DB" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="12DC" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12DD" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12DE" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12DF" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="12E0" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E1" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E2" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E3" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E4" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E5" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E6" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="12E7" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="12E8" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12E9" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12EA" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12EB" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="12EC" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12ED" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12EE" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12EF" tag="sc:Ethi" ref="7 102" comment="Tigrigna (2)" />
+    <char cp="12F0" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12F1" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12F2" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12F3" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="12F4" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12F5" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="12F6" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="12F7" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1300" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1301" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1302" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1303" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1304" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1305" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1306" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1307" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrigna (2)" />
+    <char cp="1308" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1309" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="130A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="130B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="130C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="130D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="130E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1310" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Harari (4),Silt’e (4)" />
+    <char cp="1312" tag="sc:Ethi" ref="3 101 102" comment="Common to all, except: Argobba (4),Harari (4),Silt’e (4)" />
+    <char cp="1313" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Harari (4),Silt’e (4)" />
+    <char cp="1314" tag="sc:Ethi" ref="3 101 103" comment="Common to all, except: Argobba (4),Hamt’agna (4),Harari (4),Silt’e (4)" />
+    <char cp="1315" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Harari (4),Silt’e (4)" />
+    <char cp="1318" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4),Hamt’agna (4)" />
+    <char cp="1319" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Hamt’agna (4)" />
+    <char cp="131A" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Hamt’agna (4)" />
+    <char cp="131B" tag="sc:Ethi" ref="3 101" comment="Hamt’agna (4)" />
+    <char cp="131C" tag="sc:Ethi" ref="3 101" comment="Awngi (4)" />
+    <char cp="131D" tag="sc:Ethi" ref="3 101" comment="Awngi (4),Hamt’agna (4)" />
+    <char cp="131E" tag="sc:Ethi" ref="3 101" comment="Awngi (4)" />
+    <char cp="1320" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1321" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1322" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1323" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1324" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4)" />
+    <char cp="1325" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="1326" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4)" />
+    <char cp="1327" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="1328" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="1329" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Argobba (4),Awngi (4),Hamt’agna (4)" />
+    <char cp="132F" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="1330" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1331" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1332" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1333" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1334" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1335" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1336" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1337" tag="sc:Ethi" ref="3 103" comment="Amharic (1)" />
+    <char cp="1338" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1340" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1339" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1341" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133A" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1342" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133B" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1343" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133C" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1344" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133D" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1345" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133E" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Hamt’agna (4),Tigrè (4),Tigrigna (2)">
+      <var cp="1346" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="133F" tag="sc:Ethi" ref="3 101 102 103" comment="Amharic (1),Tigrè (4),Tigrigna (2)" />
+    <char cp="1340" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="1338" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1341" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="1339" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1342" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="133A" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1343" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)">
+      <var cp="133B" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1344" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="133C" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1345" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="133D" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1346" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1),Awngi (4)">
+      <var cp="133E" type="blocked" ref="104" comment="Amharic variant" />
+    </char>
+    <char cp="1348" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="1349" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="134A" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="134B" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4)" />
+    <char cp="134C" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="134D" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all Ethiopic languages" />
+    <char cp="134E" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="134F" tag="sc:Ethi" ref="3 101 103" comment="Amharic (1)" />
+    <char cp="1350" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1351" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1352" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1353" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Awngi (4),Hamt’agna (4)" />
+    <char cp="1354" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1355" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1356" tag="sc:Ethi" ref="3 101 102 103" comment="Common to all, except: Hamt’agna (4)" />
+    <char cp="1357" tag="sc:Ethi" ref="3 103" comment="Amharic (1)" />
+    <char cp="1358" tag="sc:Ethi" ref="3 101" comment="Amharic (1)" />
+    <char cp="1359" tag="sc:Ethi" ref="3 101" comment="Amharic (1)" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth position in the label">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" ref="150" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

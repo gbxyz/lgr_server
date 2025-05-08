@@ -1,0 +1,2251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">3</version>
+    <date>2024-10-25</date>
+    <language>ar</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+
+      <h1>Label Generation Rules for the Arabic Language</h1>
+
+      <h2>Overview</h2>
+
+    <p>This document specifies a set of Label Generation Rules (LGR) for the Arabic language for the second level domain or domains identified above.
+     The ultimate starting point for the development of this LGR can be found in the related Root Zone LGR [RZ-LGR-Arab]. 
+     Note that while it is the Arabic Script Root Zone LGR that forms the starting point, the LGR defined here covers the Arabic Language.
+     The format of this file follows [RFC 7940].
+     This LGR is adapted from the “Reference LGR for the Second Level for the Arabic Language” [Ref-LGR-ar-Arab], for details, see <a href="#change_history">Change History</a> below.</p>
+
+       <p>For details and additional background on the Arabic script, see “Proposal for Arabic Script Root Zone LGR”, Version 3.4, 18 November 2015 [Proposal-Arabic].
+       Additional work was done by a TF-AIDN group to create extensions appropriate to the second level and these are incorporated in this LGR. (See “Methodology” below).</p> 
+
+     <p>The document contains certain provisions for customization. (See “Customizing actions for International Reachability” below.)</p>
+
+     <p><b>Standalone LGR:</b> This LGR is designed to be used in a zone that does not cater to IDNs 
+	other than those valid under this LGR. 
+	This LGR lacks features that would allow its use in the context
+	of another LGR in the same zone, and it may contain other features incompatible with such use.</p>
+
+    <h2>Repertoire</h2> 
+    <p>The repertoire is a subset of the one described  in Section 3.2 of [Proposal-Arabic] and 
+      only includes the 36 code points for letters in active everyday general use in the Arabic language.
+
+     The repertoire is a subset of [Unicode 11.0.0]. For details, see Section 3.2 in [Proposal-Arabic].
+        (The proposal cited has been adopted for the Arabic script portion of the Root Zone LGR.)</p>
+     
+    <p>For the second level, the repertoire has been augmented with the HYPHEN-MINUS, and two sets of decimal digits:</p>
+    <ul>
+        <li>European (common) digits</li>
+        <li>Arabic-Indic digits</li>
+    </ul>
+    <p>for a total of 57 repertoire elements.</p>
+    
+    <p>This LGR does not include combining marks or code point sequences. All combining marks have been 
+     excluded for these reasons:</p>
+    <ul>
+        <li>First, they can significantly overproduce and would require additional rules to contain them effectively, 
+        complicating the design.</li>
+        <li>Second, even where they are required for some languages, they are optional for others.</li>
+        <li>Third, this also circumvents the issue regarding duplication between some precomposed code points and combining sequences raised by [IAB].</li>
+   </ul>
+
+    <p>Any code points outside the Arabic Language repertoire that are targets for
+     out-of-repertoire variants would be included here only if the variant is listed 
+     in this file. In this case they are identified as a reflexive (identity) variant
+     of type “out-of-repertoire-var”. Whether or not they are listed, they do not 
+     form part of the repertoire.</p>
+
+    <p><b>Repertoire Listing:</b> Each code point or range is tagged with the script or scripts with which the code point is used and one or more other character categories. For each repertoire element,
+      one or more references document sufficient justification for inclusion in the repertoire; see the <a href="#ref_desc_sec_References">“References”</a> below.
+     For code points in the repertoire, comments identify the language using the code point.</p>
+
+    <h3>Correlation Between Repertoire and Bidi Rules</h3>
+    <p>Because this LGR contains only a subset of PVALID code points, the Bidi rules expressed in Section 2 of RFC 5893 [160] (Bidi Rule) can be simplified to two constraints:</p>
+    <ul>
+        <li>Prevent digits (whether European, Arabic-Indic, or Extended-Arabic-Indic) from starting a label.</li>
+        <li>In any label, allow only digits from one the sets (whether European, Arabic-Indic, or Extended-Arabic-Indic).</li>
+    </ul>
+
+    <h2>Variants</h2>
+
+     <p>This LGR is designed for use in zones shared by more than one language. For details, see Section 3, 
+      “Use of Multiple Reference LGRs in the Same Zone” in [Level-2-Overview].
+     Where appropriate, cross-language variants have been defined to mutually exclude labels
+     from different languages that could otherwise be substituted by the users. Once a label
+     has been delegated for one language, any of its variant labels consisting entirely of cross-language variants would be
+     blocked. Any label containing at least one code point that is not a cross-language variant
+     would be considered distinct. Because of that, even large numbers of defined cross-language
+     variants generally do not lead to a high percentage of labels experiencing a collision.</p>
+
+     <p id="ref_Digit_Variants"><b>Digit Variants:</b> All Arabic digits are treated as semantic variants of the corresponding common (ASCII) digits.
+     By transitivity, they are also semantic variants of any native digits in scripts that also include the common digits.
+    Such variant relations are deemed to exist implicitly by transitivity but are not listed explicitly in each reference LGR. Instead, if needed, they are applied by using the Common LGR in label processing.</p>
+
+     <p>Because of the restriction on leading digits, most labels would contain a unique code point in addition 
+      to any digits, thus no variant labels would actually result from any pro-forma cross-script variants.
+      </p>
+
+      <p>To keep digit variant sets manageable in zones where multiple scripts are present, no attempt has been made at identifying 
+    cross-script variants among digits of different numeric value or between a digit in one script and a letter in another, 
+    such as between digit zero and Latin letter ‘o’. Other mechanisms may be required to prevent homograph labels.</p>
+
+      <p><b>Variant Disposition:</b> This LGR includes “blocked” and “allocatable” variants, assigned according to Section 4,
+      “Final recommendation of variants for Top Level Domains (TLDs)” in [Proposal-Arabic].
+      These recommendations balance the desire to minimize the number of possible allocatable variants with the need to keep the
+      definition of variants simple. See also the comments given in the listing.</p>
+
+      <p>For the second level, three additional variant types are added: “optionally-allocatable”, “activated”, and “optionally-activated”.
+      They are used to improve user acceptance. The rationale for these new types is provided below.
+      Note that some of these optional variants map to code points that are not declared as part of the repertoire. 
+      If such optional variants are enabled, the reflexive “out-of-repertoire-var” mappings for the
+      targets of these mappings must be removed, lest the generated variants fail to validate.</p>
+
+    <h3>Methodology for Defining Variants</h3>
+      
+    <p>In generating the variant tables, a number of concepts have been used:</p>
+    <ul style="list-style: lower-latin;">
+        <li><p>When building a variant table, for each code point in the Arabic language repertoire,
+            a full study was conducted across the whole Arabic script in order to identify all possible
+            variants corresponding to the code point. This was done for more protection to the registry’s
+            TLD-space and to minimize the overhead of re-studying when the registry decides to support
+            more than one language from the Arabic script. Hence, conducting this variant study across
+            the whole Arabic script provides an IDN registry with the following benefits:</p>
+        <ul style="list-style:disc">
+        <li>Protection to the registry name space regardless of the supported languages.</li>
+        <li>Doing the work for a language one time. No need to re-study the code-point’s relationship
+            each time a new language (or new set of code point) is supported by the registries.</li>
+        <li>Flexibility to add more language as they become ready without affecting currently supported languages.</li>
+        <li>Consistency with the principle of identifying all possible variants  without neglecting or overlooking
+            any similarities without documenting it.</li>
+        </ul>
+    </li>
+
+    <li><p>One of the main principles for the stability of the Internet and IDNs is that the end user
+         should be able to reach a website connected to his/her domain name regardless of location.
+         Additionally, an end user reads and types website addresses based on his/her language alphabet
+         and whatever is available in his/her keyboard. Therefore, in order to enforce this principle
+         the input devices (language table) that the user may use to reach a domain name (based on the
+         user location) should be carefully considered when defining variants. Otherwise, it may cause
+         a reachability problem and reduce the user acceptance. For example, if someone registered the
+         domain name “مكة” (all characters from the Arabic language) and a user try to reach the website
+         connected to this  domain name from an Internet café or airport, say, in Pakistan. He/she will
+         not be able to reach that website unless if the variant “مکۃ” (Urdu variant) is already allocated
+         and activated. Thus, variants need to be studied from both similarity point of view (by language
+         community) and reachability point of view (based on input devices used by other language
+         communities).</p></li>
+
+    <li><p>Consistency is a very important concept in generating variants. Regardless of the selected
+         applied-for label the list of generated allocatable variants should be the same. As we are dealing
+         with normal users at the SLD, their 1st choice (applied-for) label might not be the one that
+         will be used by the internet community. Therefore, a registry should provide the registrant the
+         ability to “correct” his/her choice if he/she was not successful with the first try. For example,
+         the word “Internet” is written in most Arab countries in North Africa as (أنترنت) while it is
+         written in other Arab countries as (إنترنت), while end users often write it as (انترنت).
+         Therefore, if someone registered “أنترنت”, he/she should be able to enable “إنترنت” or “انترنت”.
+         Additionally, many words have two correct ways to write them, for example, both “آدم” and “أدم” are
+         widely used for the same name Adam. Hence, if someone registered “أدم” he/she should be able to
+         enable “آدم” or “ادم”. This is achieved by making variants allocatable in at least one direction in the
+         LGR.</p></li>
+
+    <li><p>Even though we are constructing an LGR at a language level, because we are addressing
+         international reachability, we need to prevent mixing between code points from different
+         language tables while generating a valid variant. Otherwise, some of permuted variants will
+         be composed of characters (code points) that are not part of a single language or they are
+         not easily available for a single input device (keyboard). Therefore, from a practical and
+         realistic point of view, and to significantly minimize the number of allocatable variants
+         and maximize the number of blocked variants, it blocking these unrealistic variants represents
+         best practice.</p></li>
+
+    <li><p>Based on the principle expressed in the previous item, code points not part of the Arabic
+         language repertoire have been added to variant sets to facilitate international reachability.
+         Many of these out-of-repertoire code points are involved in at least one variant mapping of type
+         “activated”, “optionally-activated”, or “optionally-allocatable. The dispositions related to the
+         extended variants may be optionally modified by a registry by editing the appropriate action elements.
+         See the section on “Customizing Actions for International Reachability” for details of how this
+         feature can be made mandatory or disabled.</p></li>
+    </ul>
+
+    <p>Note: Please note that the set of supported languages used for implementing the above concepts
+      (namely international reachability and no mixing between languages) is a first version. The set may be
+      updated in the future by adding new languages whenever they become ready.</p>
+
+    <p>The specification of variants in this LGR follows the guidelines in [RFC 8228].</p>
+
+    <h2>Character Classes</h2>
+    <p>This proposal defines the following named character classes:</p>
+    <ul>
+    <li><b>common-digits</b> &mdash; ASCII digits: U+0030 to U+0039</li>
+    <li><b>arabic-indic-digits</b> &mdash; Arabic-Indic digits used with Arabic: U+0660 to U+0669</li>
+    <li><b>extended arabic-indic-digits</b> &mdash; Arabic-Indic digits used with other languages: U+06F0 to U+06F9</li>
+    <li><b>arabic-language</b> &mdash; code points used in pure Arabic language labels</li>
+    <li><b>pashto-language</b> &mdash; code points used in pure Pashto language labels</li>
+    <li><b>persian-language</b> &mdash; code points used in pure Persian language labels</li>
+    <li><b>urdu-language</b> &mdash; code points used in pure Urdu language labels</li>
+    <li><b>dual-joining</b> &mdash; joining-type D</li>
+    <li><b>right-joining</b> &mdash; joining-type R</li>
+    <li><b>joins-to-the right</b> &mdash; union of joining-type R and joining-type D</li>
+    </ul>
+
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+
+    <h3>Common Rules</h3>
+
+    <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+
+    <h3>Right-to-Left Rules</h3>
+
+    <ul>
+        <li><b>leading-digit</b> &mdash;  restrictions on the allowable placement of digits in a right-to-left context (no leading digit), (see section 2.1 of RFC 5893 [160]); 
+            implemented here as a context rule on each digit.</li>
+        </body>
+    <li><b>digit-mixing</b> &mdash; no mixing between different digit sets (European, Arabic-Indic, and Extended-Arabic-Indic digits)
+        is allowed (see section 2.4 of RFC 5893 [160]); implemented here as a WLE rule with associated action.</li>
+    </ul>
+      
+    <h3>Default Actions</h3> 
+    <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+   <h3>Arabic Language-specific Rules</h3>
+    <p>The following rules aim at reducing the allocation of redundant labels. </p>
+    <ul>
+        <li>No connected ALEF MAKSURA in the Arabic language &mdash; restriction on having ALEF MAKSURA (0649) before a right joining
+         or dual joining code point.</li>
+        <li>No languages mixing in the generated variants &mdash; restriction on mixing code points from different language tables.
+          Any variant must be generated using code point taken from a single supported language table.</li>
+    </ul>
+    
+    <h3>Arabic Language-specific Actions</h3>
+    
+    <p>The LGR includes several actions that invalidate a label violating the constraints expressed by the Arabic-specific rules.
+    In addition, the three non-default variant mapping types used in this LGR trigger actions that result in variant label dispositions as follows:</p>
+    <ul>
+    <li>if at least one variant is in {activated}, force delegation,</li>
+    <li>if at least one variant is in {optionally-activated}, by default the label is allocatable, but the LGR 
+        can be  customized to force delegation for these variant labels by selecting a different disposition in the corresponding action,</li>
+    <li>if at least one variant is in {optionally-allocatable}, by default the label is blocked, but the LGR 
+        can be  customized to make the variant label allocatable instead, by selecting a different disposition in the corresponding action.</li>
+    </ul>
+    <p>Variant mappings of type “activated” lead to a disposition of “activated”, which means the variant label should be delegated. 
+     This variant type is used here for the variant mappings between European and Arabic-Indic digits, to guarantee that labels differing
+     only by the digit set used will all be delegated.
+     Activated variants are handled by the first action above, and are not affected by the optional customizations described below.</p>
+    
+    <h3>Customizing Actions for International Reachability</h3>
+    <p>As described above, this LGR is designed so that full “international reachability” is optionally available. It can easily be enabled
+      with a small customization.</p>
+
+    <p>The disposition for the second of the actions listed above is by default set to “allocatable” which makes the variant available to registrants 
+    that would like to support international reachability. Some registry operators may desire to make support for such variants
+    mandatory, in which case the disposition (disp="allocatable" in the XML) for the relevant action could be changed from “allocatable” to “activated” 
+    without further changes to the LGR.</p>
+    
+    <p>The disposition for the last of the actions listed above is by default set to “blocked” which reserves the variants of type “optionally-allocatable”.
+     Some registry operators may desire to support such variants as allocatable, in which case the disposition (disp=“blocked” in the XML) for the 
+     relevant action could be changed from “blocked” to “allocatable” without further changes to the LGR.</p>
+     
+    <p>Note that this LGR allows variant labels containing out-of-repertoire code points to be “allocatable” or “activated”. 
+     However, independent of which of the customizations for disposition is chosen above, an <b>original label</b> (as applied for) that contains any of the affected code points 
+     would remain unavailable.</p>
+
+    <p>Most of the code points involved in labels resulting in “activated” or “allocatable” actions are subject to a “single-language-label” rule
+     to decrease the number of activated or allocatable variants. This is especially a concern for the “activated” action which results
+     in forced delegation.</p>
+
+    <p>If optional variant labels are all made allocatable, a significantly large number of allocatable variant labels
+     can potentially be created. Keeping the allocatable variant labels manageable is advised by SSAC in their [SAC060] report.
+     One way to contain such variant labels, as suggested by the Arabic script community, is to allow only the variant labels
+     which are usable and still block those which may be redundant, e.g. cannot be typed from a single keyboard supporting a given language.
+     For this purpose, the no languages mixing rule is part of this LGR.</p>
+         
+    <p>Furthermore, applying this customization to variant sets involving code points which are not restricted by the “single-language-label” 
+     rule should be done with caution. This is especially true for the variant set including the ALEF characters, for which an external policy 
+     should be established to ensure that only a strictly limited number of variant labels are allocated. It may not be possible to create 
+     a general policy that determines which of the variants from among a potential large variant pool are indeed suitable; therefore, the 
+     selection may have to be left as a choice to the registrant, but within a strict cap on their number.</p>
+
+    <h2>Methodology and Contributors</h2>
+    
+    <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Arabic Language has been edited by Michel Suignard and Asmus Freytag, based on extensive community input.
+     That LGR is based on the Root Zone LGR for Arabic and relies on information contained or referenced therein, see [RZ-LGR-Arab]. 
+     Suitable extensions for the second level have been applied according to the [Guidelines] and with community input. The specific features related to the Arabic Language LGR were drafted by
+     a TF-AIDN sub-group (namely in alphabetical order: Abdalmonem Tharwat Galila , Abdeslam Nasri , Abdulaziz Al-Zoman, Abdulrahman Alghadir, Hazem Hezzah,
+     Nabil Benamar, Raed Alfayez, Tarik Merghani). In addition, Sarmad Hussain provided editorial support.</p>
+
+    <p>For more information on methodology and contributors to the underlying Root Zone LGR, see Section 2 and Appendix H in [Proposal-Arabic], as well as [RZ-LGR-Overview].</p>
+
+    <section id="change_history">
+    <h3>Changes from Version Dated 13 January 2021</h3><p>Language tag has been updated.</p>
+    
+    <h3>Changes from Version Dated 18 May 2021</h3><p>Unicode Version has been updated.</p>
+
+    <h3>Changes from Version Dated 25 October 2024</h3>
+		<p>This version modifies the Second Level Reference LGR for the Arabic Language [Ref-LGR-ar-Arab] by injecting the complete (maximal) set of cross-repertoire variants, including any imposed by transitivity. Injected variants are marked by special comments. Any character classes, context and WLE rules required for testing are also imported. In all other respects, description or annotations have not been updated to reflect the injected variants. Any LGR elements that might pose a possible conflict when the LGR is used with the Common LGR for cross-repertoire variant resolution are clearly marked. All modifications are carried out mechanically; there may be an occasional context rule or similar that is injected because its definition relates to some repertoire element even though it can never be triggered by any label valid under the modified LGR.
+    </p>
+    </section>
+        
+    <h2>References</h2>
+    <h3>General references for the language</h3>
+    <ul>
+    <li>Wikipedia: Arabic alphabet 
+        https://en.wikipedia.org/wiki/Arabic_alphabet</li>
+    <li>Omniglot: Arabic 
+        https://www.omniglot.com/writing/arabic.htm</li>
+    </ul>
+
+    <h3>The following general references  cited in this document</h3>
+      <dl class="references">
+      <dt>[Guidelines]</dt>
+        <dd>ICANN, “Guidelines for Developing Reference LGRs for the Second Level”, (Los Angeles, California: ICANN, 27 May 2020), https://www.icann.org/en/system/files/files/lgr-guidelines-second-level-27may20-en.pdf</dd>
+      <dt>[IAB]</dt>
+        <dd>Internet Architecture Board (IAB), “IAB Statement on Identifiers and Unicode 7.0.0"
+           https://www.iab.org/documents/correspondence-reports-documents/2015-2/iab-statement-on-identifiers-and-unicode-7-0-0/</dd>
+      <dt>[IDN-GUIDE]</dt>
+        <dd>Saudi Network Information Center, “Guidelines Rules for writing Arabic IDNs under the IDN ccTLD (السعودية.)” 
+           https://nic.net.sa/docs/Guidelines_for_writing_Arabic_IDNs_under_the_IDN_ccTLD_V1.2-en.pdf</dd>
+      <dt>[Level-2-Overview]</dt>
+         <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+      <dt>[MSR-5]</dt>
+        <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+     https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf</dd>
+      <dt>[Proposal-Arabic]</dt>
+        <dd>TF-AIDN, “Proposal for Arabic Script Root Zone LGR”, Version 3.4, 18 November 2015 
+        https://www.icann.org/en/system/files/files/arabic-lgr-proposal-18nov15-en.pdf</dd>
+      <dt>[RFC 5564]</dt>
+        <dd>RFC 5564, El-Sherbiny, et al. “Linguistic Guidelines for the Use of the Arabic Language in Internet Domains”, RFC5564, February 2010,  https://tools.ietf.org/html/rfc5564 </dd>
+      <dt>[RFC 6365]</dt> 
+        <dd>Hoffman, P. and J. Klensin, “Terminology Used in Internationalization in the IETF”, BCP 166, RFC 6365, DOI 10.17487/RFC6365, September 2011, https://www.rfc-editor.org/info/rfc6365</dd>
+      <dt>[RFC 7940]</dt>
+        <dd> Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+      <dt>[RFC 8228]</dt>
+        <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+      <dt>[RZ-LGR-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022 (PDF), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+      <dt>[RZ-LGR-Arab]</dt>
+        <dd>ICANN,, “Root Zone Label Generation Rules for the Arabic Script”, (Last published as part of RZ-LGR-5, see
+            https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf)</dd>
+      <dt>[SAC060]</dt>
+        <dd>ICANN Security and Stability Advisory Committee (SSAC), “SSAC Comment on Examining the User Experience Implications of Active Variant TLDs Report”,
+            23 July 2013, https://www.icann.org/en/system/files/files/sac-060-en.pdf</dd>
+      <dt>[TF-AIDN]</dt>
+        <dd>Fahd Batayneh, Blog, “Task Force for Arabic Script IDNs”, 23 May 2014, https://community.icann.org/display/MES/Task+Force+on+Arabic+Script+IDNs workspace: https://community.icann.org/display/MES/TF-AIDN+Work+Space</dd>
+          <dt>[Ref-LGR-ar-Arab]</dt>
+              <dd>ICANN, Second Level Reference Label Generation Rules for the Arabic Language (ar-Arab), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-arabic-language-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-arabic-language-25oct24-en.html</dd>
+                <dt>[Unicode 11.0.0]</dt>
+         <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+      <dt>[VIP]</dt>
+        <dd>Internationalized Domain Names Variant Issues Project, “Arabic Case Study Team Issues Report”, 7 October 2011,
+        https://archive.icann.org/en/topics/new-gtlds/arabic-vip-issues-report-07oct11-en.pdf </dd>
+      </dl>
+
+    <p>For references consulted particularly in designing the repertoire for the Arabic language LGR for the second level,
+      please see details in the <a href="#table_of_references">Table of References</a> below. 
+      Reference [0]  refers to Unicode Standard version in which the
+      corresponding code points were initially encoded. References [100] and above correspond to sources
+      justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        references [150] and [160] indicate the source for common rules.
+    </p> 
+
+        ]]></description>
+    <references>
+      <reference id="0" comment="Any code point cited was originally encoded in Unicode Version 1.1">The Unicode Consortium. The Unicode Standard, Version 1.0, Volume 1 
+       Reading, MA, Addison-Wesley Developers Press, 1991. ISBN 0-201-56788-1 and  The Unicode Standard, Version 1.0, Volume 2
+       Reading, MA, Addison-Wesley Developers Press, 1992. ISBN 0-201-60845-6, as amended by Davis, Mark, Unicode Technical Report #4: The Unicode Standard, Version 1.1
+       Cupertino, CA, The Unicode Consortium, 1993</reference>
+      <reference id="100">RFC 5564 Linguistic Guidelines for the Use of the Arabic Language in Internet Domains https://tools.ietf.org/html/rfc5564</reference>
+      <reference id="108">Omniglot Pashto https://omniglot.com/writing/pashto.htm</reference>
+      <reference id="109">Omniglot Persian(Farsi) https://omniglot.com/writing/persian.htm</reference>
+      <reference id="112">Omniglot Urdu https://omniglot.com/writing/urdu.htm</reference>
+      <reference id="126">Urdu, Teh marbuta goal, Code point UZT 76 of Urdu Zabta Takhti 1.01, the official code page standard for Govt. of Pakistan, approved in 2001; see https://cle.org.pk/Publication/papers/2001/uzt1.01.pdf</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+      <reference id="160">RFC 5893, Right-to-Left Scripts for Internationalized Domain Names for Applications (IDNA) https://tools.ietf.org/html/rfc5893</reference>
+      <reference id="201">Omniglot Arabic https://www.omniglot.com/writing/arabic.htm</reference>
+      <reference id="401" comment="Code points cited are from the set of Main Letters">The Unicode Consortium, Common Locale Data Repository.- CLDR Version 28 (2015-09-16)- Locale Data Summary for Arabic (ar)- https://www.unicode.org/cldr/charts/28/summary/ar.html</reference>
+      <reference id="600" comment="Code points cited are from the set of Basic letters">Wikipedia Arabic alphabet https://en.wikipedia.org/wiki/Arabic_alphabet accessed 2015-10-31</reference>
+      <reference id="700">Saudi Network Information Center (.sa, Saudi Arabia ccTLD) https://www.iana.org/domains/idn-tables/tables/sa_ar_2.0.pdf</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS; &#x235F;">
+      <var cp="00B7" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0030" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0660" type="activated" comment="Arabic digit variant" />
+      <var cp="06F0" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0031" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0661" type="activated" comment="Arabic digit variant" />
+      <var cp="06F1" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0032" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0662" type="activated" comment="Arabic digit variant" />
+      <var cp="06F2" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0033" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0663" type="activated" comment="Arabic digit variant" />
+      <var cp="06F3" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0034" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0664" type="activated" comment="Arabic digit variant" />
+      <var cp="06F4" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0035" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0665" type="activated" comment="Arabic digit variant" />
+      <var cp="06F5" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0036" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0666" type="activated" comment="Arabic digit variant" />
+      <var cp="06F6" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0037" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0667" type="activated" comment="Arabic digit variant" />
+      <var cp="06F7" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0038" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0668" type="activated" comment="Arabic digit variant" />
+      <var cp="06F8" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0039" not-when="leading-digit" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F; (context not found in &quot;Common&quot;)">
+      <var cp="0669" type="activated" comment="Arabic digit variant" />
+      <var cp="06F9" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="00B7" comment="Not part of repertoire (injected)">
+      <var cp="002D" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+      <var cp="00B7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="0621" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0622" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0623" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0625" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0627" type="allocatable" comment="U+0622 ALEF WITH MADDA ABOVE is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0623" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0622" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0625" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0627" type="allocatable" comment="U+0623 ALEF WITH HAMZA ABOVE is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0624" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0648" type="allocatable" comment="U+0624 WAV WITH HAMZA ABOVE is simplified to U+0648 WAV in the Arabic language" />
+    </char>
+    <char cp="0625" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0622" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0623" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0627" type="allocatable" comment="U+0625 ALEF WITH HAMZA BELOW is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0626" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0649" type="blocked" comment="Arabic language variant" />
+      <var cp="064A" type="blocked" comment="Arabic language variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06CD" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D0" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D2" type="blocked" comment="Cross-repertoire variant" />
+    </char>
+    <char cp="0627" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0622" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0623" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0625" type="optionally-allocatable" comment="Arabic language variant" />
+      <var cp="0672" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0628" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0629" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0647" type="allocatable" comment="In the Arabic language, U+0647 HEH may be substituted for U+0629 TEH MARBUTA. [RFC 6365]" />
+      <var cp="06BE" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="optionally-activated" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user. Labels in the Arabic language using U+0629 TEH MARBUTA in the final and isolated positions will be typed in other languages using U+06C3 TEH MARBUTA GOAL (Urdu, etc.) which is identical in isolated and has a variant glyph or identical glyph form in final position" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="062A" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="067A" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="062B" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="067D" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="062C" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="062D" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="062E" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="062F" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0630" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0631" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0632" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0633" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0634" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0635" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0636" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0637" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0638" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0639" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="063A" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0641" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0642" type="blocked" comment="(injected)" />
+      <var cp="06A2" type="blocked" comment="(injected)" />
+      <var cp="06A7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0642" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0641" type="blocked" comment="(injected)" />
+      <var cp="06A2" type="blocked" comment="(injected)" />
+      <var cp="06A7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0643" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="06A9" type="optionally-activated" comment="The two have identical shapes in initial and medial positions and are used by different language communities to refer to the same letter" />
+      <var cp="06AA" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0644" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0645" tag="sc:Arab" ref="0 100" comment="Arabic" />
+    <char cp="0646" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="06BA" type="blocked" comment="Cross-repertoire variant" />
+    </char>
+    <char cp="0647" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0629" type="blocked" comment="Arabic language variant" />
+      <var cp="06BE" type="optionally-activated" comment="Labels in the Arabic language using U+0647 HEH in the initial and medial positions will be visually similar in Urdu language to U+06BE LETTER HEH DOACHASHMEE" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="optionally-activated" comment="Labels in the Arabic language using U+0647 HEH in the final and isolated positions will be typed in other languages using U+06C1 HEH GOAL (Urdu, Pashto, Saraiki, etc.) which is identical in isolated and has a variant glyph or identical glyph form in final position" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0648" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0624" type="blocked" comment="Arabic language variant" />
+    </char>
+    <char cp="0649" not-when="initial-or-medial-position" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="064A" type="blocked" comment="Arabic language variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="optionally-activated" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user" />
+      <var cp="06CD" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D0" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D2" type="blocked" comment="Cross-repertoire variant" />
+    </char>
+    <char cp="064A" tag="sc:Arab" ref="0 100" comment="Arabic">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="0649" type="blocked" comment="Arabic language variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="optionally-activated" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user" />
+      <var cp="06CD" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D0" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D2" type="blocked" comment="Cross-repertoire variant" />
+    </char>
+    <char cp="0660" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT ZERO; &#x235F;">
+      <var cp="0030" type="activated" comment="ASCII digit variant" />
+      <var cp="06F0" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0661" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT ONE; &#x235F;">
+      <var cp="0031" type="activated" comment="ASCII digit variant" />
+      <var cp="06F1" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0662" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT TWO; &#x235F;">
+      <var cp="0032" type="activated" comment="ASCII digit variant" />
+      <var cp="06F2" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0663" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT THREE; &#x235F;">
+      <var cp="0033" type="activated" comment="ASCII digit variant" />
+      <var cp="06F3" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0664" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT FOUR; &#x235F;">
+      <var cp="0034" type="activated" comment="ASCII digit variant" />
+      <var cp="06F4" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0665" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT FIVE; &#x235F;">
+      <var cp="0035" type="activated" comment="ASCII digit variant" />
+      <var cp="06F5" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0666" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT SIX; &#x235F;">
+      <var cp="0036" type="activated" comment="ASCII digit variant" />
+      <var cp="06F6" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0667" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT SEVEN; &#x235F;">
+      <var cp="0037" type="activated" comment="ASCII digit variant" />
+      <var cp="06F7" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0668" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT EIGHT; &#x235F;">
+      <var cp="0038" type="activated" comment="ASCII digit variant" />
+      <var cp="06F8" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0669" not-when="leading-digit" tag="Arabic-indic-digit sc:Arab" ref="0 100 201 401 600 700" comment="ARABIC-INDIC DIGIT NINE; &#x235F;">
+      <var cp="0039" type="activated" comment="ASCII digit variant" />
+      <var cp="06F9" type="optionally-activated" comment="Extended digit variant" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0672" comment="Not part of repertoire (injected)">
+      <var cp="0622" type="blocked" comment="(injected)" />
+      <var cp="0623" type="blocked" comment="(injected)" />
+      <var cp="0625" type="blocked" comment="(injected)" />
+      <var cp="0627" type="blocked" comment="(injected)" />
+      <var cp="0672" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="067A" comment="Not part of repertoire (injected)">
+      <var cp="062A" type="blocked" comment="(injected)" />
+      <var cp="067A" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="067B" comment="Not part of repertoire (injected)">
+      <var cp="0626" type="blocked" comment="(injected)" />
+      <var cp="0649" type="blocked" comment="(injected)" />
+      <var cp="064A" type="blocked" comment="(injected)" />
+      <var cp="067B" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06CC" type="blocked" comment="(injected)" />
+      <var cp="06CD" type="blocked" comment="(injected)" />
+      <var cp="06D0" type="blocked" comment="(injected)" />
+      <var cp="06D2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="067D" comment="Not part of repertoire (injected)">
+      <var cp="062B" type="blocked" comment="(injected)" />
+      <var cp="067D" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="06A2" comment="Not part of repertoire (injected)">
+      <var cp="0641" type="blocked" comment="(injected)" />
+      <var cp="0642" type="blocked" comment="(injected)" />
+      <var cp="06A2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06A7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06A7" comment="Not part of repertoire (injected)">
+      <var cp="0641" type="blocked" comment="(injected)" />
+      <var cp="0642" type="blocked" comment="(injected)" />
+      <var cp="06A2" type="blocked" comment="(injected)" />
+      <var cp="06A7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="06A9" tag="sc:Arab" ref="0 108 109 112" comment="Pashto, Persian, Urdu; Not available for original label">
+      <var cp="0643" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06A9" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06AA" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06AA" comment="Not part of repertoire (injected)">
+      <var cp="0643" type="blocked" comment="(injected)" />
+      <var cp="06A9" type="blocked" comment="(injected)" />
+      <var cp="06AA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="06BA" tag="sc:Arab" ref="0 112" comment="Urdu; Not available for original label">
+      <var cp="0646" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06BA" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+    </char>
+    <char cp="06BE" tag="sc:Arab" ref="0 112" comment="Urdu; Not available for original label">
+      <var cp="0629" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="0647" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06BE" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="blocked" comment="Added for transitivity" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="blocked" comment="Added for transitivity" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06C0" comment="Not part of repertoire (injected)">
+      <var cp="0629" type="blocked" comment="(injected)" />
+      <var cp="0647" type="blocked" comment="(injected)" />
+      <var cp="06BE" type="blocked" comment="(injected)" />
+      <var cp="06C0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06C1" type="blocked" comment="(injected)" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="blocked" comment="(injected)" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06C1" tag="sc:Arab" ref="0 112" comment="Urdu; Not available for original label">
+      <var cp="0629" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="0647" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06BE" type="blocked" comment="Added for transitivity" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="blocked" comment="Added for transitivity" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06C2" comment="Not part of repertoire (injected)">
+      <var cp="0629" type="blocked" comment="(injected)" />
+      <var cp="0647" type="blocked" comment="(injected)" />
+      <var cp="06BE" type="blocked" comment="(injected)" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="blocked" comment="(injected)" />
+      <var cp="06C2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06C3" type="blocked" comment="(injected)" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06C3" tag="sc:Arab" ref="0 126" comment="Urdu; Not available for original label">
+      <var cp="0629" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="0647" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06BE" type="blocked" comment="Added for transitivity" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="blocked" comment="Added for transitivity" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06D5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06CC" tag="sc:Arab" ref="0 108 109 112" comment="Pashto, Persian, Urdu; Not available for original label">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="0649" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="064A" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06CD" type="blocked" comment="Added for transitivity" />
+      <var cp="06D0" type="blocked" comment="Added for transitivity" />
+      <var cp="06D2" type="blocked" comment="Added for transitivity" />
+    </char>
+    <char cp="06CD" tag="sc:Arab" ref="0 108" comment="Pashto; Not available for original label">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="0649" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="064A" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06CD" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06D0" type="blocked" comment="Added for transitivity" />
+      <var cp="06D2" type="blocked" comment="Added for transitivity" />
+    </char>
+    <char cp="06D0" tag="sc:Arab" ref="0 108" comment="Pashto; Not available for original label">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="0649" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="064A" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06CD" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D0" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+      <var cp="06D2" type="blocked" comment="Cross-repertoire variant" />
+    </char>
+    <char cp="06D2" tag="sc:Arab" ref="0 112" comment="Urdu; Not available for original label">
+      <var cp="0626" type="blocked" comment="Arabic language variant" />
+      <var cp="0649" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="064A" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="067B" type="blocked" comment="(injected)" />
+      <var cp="06CC" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06CD" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D0" type="blocked" comment="Cross-repertoire variant" />
+      <var cp="06D2" type="out-of-repertoire-var" comment="Not part of the Arabic language repertoire" />
+    </char>
+    <char cp="06D5" comment="Not part of repertoire (injected)">
+      <var cp="0629" type="blocked" comment="(injected)" />
+      <var cp="0647" type="blocked" comment="(injected)" />
+      <var cp="06BE" type="blocked" comment="(injected)" />
+      <var cp="06C0" type="blocked" comment="(injected)" />
+      <var cp="06C1" type="blocked" comment="(injected)" />
+      <var cp="06C2" type="blocked" comment="(injected)" />
+      <var cp="06C3" type="blocked" comment="(injected)" />
+      <var cp="06D5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="06F0" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0030" type="blocked" comment="ASCII digit variant" />
+      <var cp="0660" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F0" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F1" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0031" type="blocked" comment="ASCII digit variant" />
+      <var cp="0661" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F1" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F2" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0032" type="blocked" comment="ASCII digit variant" />
+      <var cp="0662" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F2" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F3" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0033" type="blocked" comment="ASCII digit variant" />
+      <var cp="0663" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F3" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F4" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0034" type="blocked" comment="ASCII digit variant" />
+      <var cp="0664" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F4" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F5" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0035" type="blocked" comment="ASCII digit variant" />
+      <var cp="0665" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F5" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F6" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0036" type="blocked" comment="ASCII digit variant" />
+      <var cp="0666" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F6" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F7" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0037" type="blocked" comment="ASCII digit variant" />
+      <var cp="0667" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F7" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F8" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0038" type="blocked" comment="ASCII digit variant" />
+      <var cp="0668" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F8" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F9" not-when="leading-digit" tag="Extended-arabic-indic-digit sc:Arab" ref="0 109">
+      <var cp="0039" type="blocked" comment="ASCII digit variant" />
+      <var cp="0669" type="blocked" comment="Arabic digit variant" />
+      <var cp="06F9" type="out-of-repertoire-var" comment="Not part of Arabic language repertoire" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0966" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0967" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0968" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0969" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096A" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096B" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096C" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096D" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096E" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096F" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09ED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AAA" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AB0" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E50" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E51" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E52" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E53" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E54" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E55" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E56" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E57" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E58" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E59" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED0" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED1" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED2" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED3" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED4" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED5" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED6" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED7" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED8" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED9" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1040" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1041" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1042" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1043" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1044" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1045" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1046" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1047" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1048" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1049" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="17E0" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E1" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E2" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E3" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E4" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E5" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E6" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E7" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E8" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E9" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="right-joining" property="jt:R" />
+    <class name="dual-joining" property="jt:D" />
+    <union name="joins-to-the-right">
+      <class by-ref="right-joining" />
+      <class by-ref="dual-joining" />
+    </union>
+    <class name="arabic-language" comment="(class not found in &quot;Common&quot;)">002D 0030-0039 0621-063A 0641-064A 0660-0669</class>
+    <class name="urdu-language" comment="(class not found in &quot;Common&quot;)">002D 0030-0039 0621-0622 0626-0628 062A-063A 0641-0642 0644-0646 0648 0679 067E 0686 0688 0691 0698 06A9 06AF 06BA 06BE 06C1 06C3 06CC 06D2 06F0-06F9</class>
+    <class name="persian-language" comment="(class not found in &quot;Common&quot;)">002D 0030-0039 0621-0622 0626-0628 062A-063A 0641-0642 0644-0648 067E 0686 0698 06A9 06AF 06CC 06F0-06F9</class>
+    <class name="pashto-language" comment="(class not found in &quot;Common&quot;)">002D 0030-0039 0621-0622 0624 0626-0628 062A-063A 0641-0642 0644-0648 064A 067C 067E 0681 0685-0686 0689 0693 0696 0698 069A 06A9 06AB 06BC 06CC-06CD 06D2 06F0-06F9</class>
+    <class name="common-digits" from-tag="Common-digit" comment="Digits from the ASCII range &#x235F;" />
+    <class name="arabic-indic-digits" from-tag="Arabic-indic-digit" comment="Arabic-Indic digits; &#x235F;" />
+    <class name="extended-arabic-indic-digits" from-tag="Extended-arabic-indic-digit" comment="Extended Arabic-Indic digits" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth position in the label">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="single-language-label" comment="a label/variant can only be written using characters from one of the 4 languages (rule not found in &quot;Common&quot;)">
+      <start />
+      <choice>
+        <rule>
+          <class by-ref="arabic-language" count="1+" />
+        </rule>
+        <rule>
+          <class by-ref="persian-language" count="1+" />
+        </rule>
+        <rule>
+          <class by-ref="urdu-language" count="1+" />
+        </rule>
+        <rule>
+          <class by-ref="pashto-language" count="1+" />
+        </rule>
+      </choice>
+      <end />
+    </rule>
+    <rule name="leading-digit" ref="160" comment="RFC 5893 RTL labels cannot start with a digit &#x235F;">
+      <look-behind>
+        <start />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="digit-mixing" ref="160" comment="RFC 5892 and RFC 5893 restrictions on mixing digits; extended to all three sets">
+      <choice>
+        <rule>
+          <class by-ref="common-digits" />
+          <any count="0+" />
+          <choice>
+            <class by-ref="arabic-indic-digits" />
+            <class by-ref="extended-arabic-indic-digits" />
+          </choice>
+        </rule>
+        <rule>
+          <class by-ref="arabic-indic-digits" />
+          <any count="0+" />
+          <choice>
+            <class by-ref="common-digits" />
+            <class by-ref="extended-arabic-indic-digits" />
+          </choice>
+        </rule>
+        <rule>
+          <class by-ref="extended-arabic-indic-digits" />
+          <any count="0+" />
+          <choice>
+            <class by-ref="common-digits" />
+            <class by-ref="arabic-indic-digits" />
+          </choice>
+        </rule>
+      </choice>
+    </rule>
+    <rule name="initial-or-medial-position" comment="U+0649 ALEF MAKSURA must not be in initial or medial position">
+      <anchor />
+      <look-ahead>
+        <class by-ref="joins-to-the-right" />
+      </look-ahead>
+    </rule>
+    <rule name="Common--surrounded-by-L" comment="code point both follows and precedes L, required context for Ela Geminada &#x235F; (injected, but possibly optional)">
+      <look-behind>
+        <char cp="006C" />
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <char cp="006C" />
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" not-match="single-language-label" comment="all labels (including variants) must be entirely within one of four languages (unique: not in &quot;Common&quot;)" />
+    <action disp="invalid" match="digit-mixing" comment="a label matching the RFC 5892 and RFC 5893 restriction on digit mixing is invalid" />
+    <action disp="invalid" match="leading-combining-mark" comment="RFC 5892: labels with leading combining marks are invalid  &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="disallow code points that are out of repertoire" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="blocked" any-variant="optionally-allocatable" comment="optional allocation for certain within-repertoire variants; to make allocation possible, change (blocked) to (allocatable)" />
+    <action disp="allocatable" any-variant="optionally-activated" comment="optional delegation for certain cross-repertoire variants; to make delegation mandatory, change (allocatable) to (activated)" />
+    <action disp="activated" any-variant="activated" comment="forced delegation for certain in-repertoire variants" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable" />
+    <action disp="valid" comment="catch all (default action)" />
+  </rules>
+</lgr>

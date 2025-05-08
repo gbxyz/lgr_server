@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">3</version>
+    <date>2024-10-25</date>
+    <language>uk</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+       <div class="instructions">
+<h2>INSTRUCTIONS</h2>
+  <ul>
+    <li>These instructions cover how to adopt an LGR based on this reference LGR for a given
+    zone and how to prepare the file for deposit in the IANA Repository of IDN Practices.</li>
+    <li>As described  the IANA procedure (https://www.iana.org/help/idn-repository-procedure) an 
+    LGR MUST contain the following elements in its header:
+      <ul style="list-style-type:square;">
+        <li>Script or Language Designator (see below for guidance) </li>
+        <li>Version Number (this must increase with each amendment to the LGR, even if the updates 
+            are limited to the header itself) </li>
+        <li>Effective Date (the date at which the policy becomes applicable in operational use) </li>
+        <li>Registry Contact Details (contact name, email address, and/or phone number)</li>
+      </ul>
+    </li>
+    <li>The following information is optional:
+    <ul style="list-style-type:square;">
+    <li>Document creation date</li>
+    <li>Applicable Domain(s)</li>
+    <li>Changes made to the Reference LGR before adopting</li>
+    </ul>
+    </li>
+  </ul>
+  <p>Please add or modify the following items in the <b>XML source code for this file</b> before 
+  depositing the document in the IANA Repository. (https://www.iana.org/domains/idn-tables)</p>
+<h3>Meta Data</h3>
+<p>Note: version numbers start at 1. RFC 7940 recommends using simple integers. The version comment is optional, 
+   please replace or delete the default comment. Version comments may be used by some tools as part of the page header.</p>
+  <p><code>&lt;version comment=&quot;</code>[Please replace (or delete) the optional comment]<code>&quot;&gt;</code>[Please fill in version number, starting at 1]<code>&lt;/version&gt;</code></p>
+  <p><code>&lt;date&gt;</code>[Please fill in with publication date, in YYYY-MM-DD format]<code>&lt;/date&gt;</code></p>
+  <p><code>&lt;validity-start&gt;</code>[Please fill in effective date, in YYYY-MM-DD format]<code>&lt;/validity-start&gt;</code></p>
+  <p>Note: the scope element may be repeated, so that the same document can serve for multiple domains.</p>
+  <p><code>&lt;scope type=&quot;domain&quot;&gt;</code>[Please provide, in &quot;.domain&quot; format]<code>&lt;/scope&gt;</code></p>
+<p><strong>Registry Contact Information:</strong></p>
+  <p>Please fill in the <a href="#registry_contact_details">Registry Contact Details</a>.</p>
+<p><strong>Change History</strong></p>
+  <p>If you made technical modifications to the LGR, please summarize them in the <a href="#change_history">Change History</a> (and also note the details in the appropriate section of the description).</p>
+<p>PLEASE DELETE THESE INSTRUCTIONS BEFORE DEPOSITING THE DOCUMENT</p></div>
+       
+       <section id="registry_contact_details">
+<h2>Registry Contact Details</h2>
+<ul style="list-style:none;">
+<li><b>Contact Name:</b> [Please fill in Contact Name]</li>
+<li><b>Email address:</b> [Please fill in Email address]</li>
+<li><b>Phone Number:</b> [Please fill in optional Phone Number]</li>
+</ul>
+</section>
+
+        <h1>Label Generation Rules for Ukrainian</h1>
+        <h2>Overview</h2>
+        <p>This document specifies a set of Label Generation Rules (LGR) for the Ukrainian language
+    using a language-specific repertoire for the second level domain or domains identified above.
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Ukrainian Language” [Ref-LGR-uk-Cyrl], for details, see <a href="#change_history">Change History</a> below.</p>
+
+        <p><b>Standalone LGR:</b> This LGR is designed to be used in a zone that does not cater to IDNs 
+    other than those valid under this LGR. 
+    This LGR lacks features that would allow its use in the context
+    of another LGR in the same zone, and it may contain other features incompatible with such use.</p>
+
+        <h2>Repertoire</h2>
+        <p>Most references converge on 33 Cyrillic code points. There is some
+        disagreement concerning U+044A CYRILLIC SMALL LETTER HARD SIGN and U+0451
+        CYRILLIC SMALL LETTER IO. While CLDR considers U+0451 CYRILLIC SMALL LETTER IO
+        part of the main alphabet, these appear to be used in Russian words or names,
+        not in Ukrainian words and names themselves. Both of these letters are part of the
+        extended repertoire as defined here along with many letters used for Ukrainian.
+        In Russian, the hard sign indicates the non-palatalization of a consonant
+        preceding a morpheme beginning with a iotated vowel; in Ukrainian this
+        function is met by the use of an apostrophe or of U+02BC MODIFIER LETTER
+        APOSTROPHE. </p>
+
+        <p>Note that, while U+02BC MODIFIER LETTER APOSTROPHE is used in Ukrainian and is protocol valid
+         (PVALID) in IDNA2008; other forms of apostrophes such as U+0027 APOSTROPHE
+         or U+2019 RIGHT SINGLE QUOTATION MARK are DISALLOWED. As [RFC 6912] points
+         out, in a public zone, many users may read U+02BC as indistinguishable from the
+         regular apostrophe. Therefore, following the principle of conservatism, and in 
+         response to a comment made by the IAB during public comment proceedings, 
+         the code point U+02BC is not included here.</p>
+
+        <p>An IDN table published in the IANA Repository of IDN Practices for Ukrainian by .ua (Ukrainian cctld)
+        in [700] contains many code points beyond what would be used in Ukrainian and even
+        languages used in adjacent areas. Code points not corroborated by any
+        other reference but used for Belarusian, Russian, and Moldovan have been added to the extended repertoire. 
+        South Slavic characters are excluded here.</p>
+
+        <p>For other IDNA TLD dedicated to Ukrainian: see .укр [YKP]
+         and the IDNA table in [701]. That table
+        shows a repertoire combining Russian and Ukrainian.</p>
+
+        <p>In Ukrainian, the <i>acute accent</i> may be used as a stress mark on the vowel of a
+        syllable or to disambiguate between minimal pairs. However, as in Russian,
+        it is restricted to dictionaries and educational materials.
+        See Stress and Disambiguation in [ACUTE].</p>
+
+        <h3>Excluded code points</h3>
+        <p>Letters documented in some references but not included:</p>
+        <ul class="cp-list">
+         <li><p>U+02BC MODIFIER LETTER APOSTROPHE</p></li>
+         <li><p>U+0450 CYRILLIC SMALL LETTER IE WITH GRAVE</p></li>
+         <li><p>U+0452 CYRILLIC SMALL LETTER DJE</p></li>
+         <li><p>U+0453 CYRILLIC SMALL LETTER GJE</p></li>
+         <li><p>U+0455 CYRILLIC SMALL LETTER DZE</p></li>
+         <li><p>U+0458 CYRILLIC SMALL LETTER JE</p></li>
+         <li><p>U+0459 CYRILLIC SMALL LETTER LJE</p></li>
+         <li><p>U+045A CYRILLIC SMALL LETTER NJE</p></li>
+         <li><p>U+045B CYRILLIC SMALL LETTER TSHE</p></li>
+         <li><p>U+045C CYRILLIC SMALL LETTER KJE</p></li>
+         <li><p>U+045D CYRILLIC SMALL LETTER I WITH GRAVE</p></li>
+         <li><p>U+045F CYRILLIC SMALL LETTER DZHE</p></li>
+         <li><p>U+0430 U+0301 CYRILLIC SMALL LETTER A WITH ACUTE ACCENT</p></li>
+         <li><p>U+0435 U+0301 CYRILLIC SMALL LETTER IE WITH ACUTE ACCENT</p></li>
+         <li><p>U+0438 U+0301 CYRILLIC SMALL LETTER I WITH ACUTE ACCENT</p></li>
+         <li><p>U+043E U+0301 CYRILLIC SMALL LETTER O WITH ACUTE ACCENT</p></li>
+         <li><p>U+0443 U+0301 CYRILLIC SMALL LETTER U WITH ACUTE ACCENT</p></li>
+         <li><p>U+044E U+0301 CYRILLIC SMALL LETTER YU WITH ACUTE ACCENT</p></li>
+         <li><p>U+044F U+0301 CYRILLIC SMALL LETTER YA WITH ACUTE ACCENT</p></li>
+         <li><p>U+0454 U+0301 CYRILLIC SMALL LETTER UKRAINIAN IE WITH ACUTE ACCENT</p></li>
+         <li><p>U+0456 U+0301 CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I WITH ACUTE ACCENT</p></li>
+         <li><p>U+0457 U+0301 CYRILLIC SMALL LETTER YI WITH ACUTE ACCENT</p></li>
+        </ul>
+
+        <h3>Extended code points</h3>
+
+        <p>A number of letters not considered essential to writing the core vocabulary of the language are nevertheless in common use. 
+        Where they have not been added to the core repertoire, they are flagged as “extended-cp” in the table of code points.
+        A context rule is provided that by default will prohibit labels with such extended code points. To support extended single code points or code point 
+        sequences, delete the context “extended-cp” from their repertoire definition.</p>
+
+           <p>Any code points outside the Ukrainian Language repertoire that are targets for
+     out-of-repertoire variants would be included here only if the variant is listed 
+     in this file. In this case they are identified as a reflexive (identity) variant
+     of type “out-of-repertoire-var”. Whether or not they are listed, they do not 
+     form part of the repertoire.</p>
+
+        <h2>Variants</h2>
+
+        <p>There are no variants defined between Cyrillic letters.</p>
+
+        <p><b>No ASCII Variants:</b> Note that this LGR does not contain
+    definitions for “blocked” variants for letters that look indistinguishable from ASCII letters (homoglyphs).
+    If concurrent use of LDH labels is desired, the resulting conflicts can be handled by using the “Common LGR” in processing. 
+    For details, see Section 3, 
+    “Use of Multiple Reference LGRs in the Same Zone” in [Level-2-Overview].
+    </p>
+
+        <p>Note: a study of a possible variant relationship concerning U+0433 CYRILLIC SMALL LETTER GHE and U+0491
+        CYRILLIC SMALL LETTER GHE WITH UPTURN was undertaken in the context of Ukrainian by a Cyrillic case study team in
+        [CYRILLIC-VIP] (page 6, section 3.2). The experts point to some instability concerning the encoding of the GHE WITH
+        UPTURN and the possible confusion between the two code points by non-Ukrainian users. However, in the context
+        of a Ukrainian LGR it does not seem necessary to establish such a variant relationship between these
+        two code points.</p>
+
+        <h2>Character Classes</h2>
+
+        <p>This LGR does not define named character classes.</p>
+
+        <h2>Rules</h2>
+        <h3>Common Rules</h3>
+
+        <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+
+        <h2>Actions</h2>
+
+        <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+        <h2>Methodology and Contributors</h2>
+
+        <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Ukrainian Language was developed
+        by Michel Suignard and Asmus Freytag, including input by Michael Everson,
+        Nicholas Ostler, and Wil Tan, and based on multiple
+        open public consultations.</p>
+
+        <section id="change_history">
+        <h3>Changes from Version Dated 19 December 2016</h3><p>Language tag has been updated.</p>
+        
+        <h3>Changes from Version Dated 18 May 2021</h3><p>Unicode Version has been updated.</p>
+        
+        <h3>Changes from Version Dated 25 October 2024</h3>
+        <p>Adopted from the Second Level Reference LGR for the Ukrainian Language [Ref-LGR-uk-Cyrl] without normative changes.</p>
+        </section>
+
+        <h2>References</h2>
+        <p>General reference for the language:</p>
+        <ul>
+          <li><p>Shevelov, George Y. 1993. “Ukrainian”, in Bernard Comrie &amp; Greville G. Corbett,
+                 eds. The Slavonic languages. London; New York: Routledge. ISBN 0-415-04755-2</p></li>
+        </ul>
+        <p>Other references cited in this document:</p>
+        <dl>
+         <dt>[ACUTE]</dt>
+         <dd>Wikipedia, “Acute accent”  https://en.wikipedia.org/wiki/Acute_accent</dd>
+         <dt>[CYRILLIC-VIP]</dt>
+         <dd>Sozonov, A. et al., “IDN Variant TLDs – Cyrillic Script Issues”. (Marina del Rey, California: ICANN, October 2011). 
+            https://archive.icann.org/en/topics/new-gtlds/cyrillic-vip-issues-report-06oct11-en.pdf</dd>
+         <dt>[HARD-SIGN]</dt>
+         <dd>Wikipedia, “Hard sign”, https://en.wikipedia.org/wiki/Hard_sign</dd>
+         <dt>[Level-2-Overview]</dt>
+         <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+         <dt>[Ref-LGR-uk-Cyrl]</dt>
+         <dd>ICANN, Second Level Reference Label Generation Rules for the Ukrainian Language (uk-Cyrl), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-ukrainian-language-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-ukrainian-language-25oct24-en.html</dd>
+         <dt>[RFC 6912]</dt>
+         <dd>Sullivan, A., Thaler, D., Klensin, J., and O. Kolkman,  “Principles for Unicode Code Point Inclusion in Labels in the DNS”, RFC 6912, April 2013, https://www.rfc-editor.org/info/rfc6912</dd>
+         <dt>[RFC 7940]</dt>
+         <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+         <dt>[RFC 8228]</dt>
+         <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+         <dt>[Unicode 11.0.0]</dt>
+         <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+         <dt>[YKP]</dt>
+         <dd>U-Regristry.com website (in Ukrainian) https://namestore.u-registry.com/</dd>
+        </dl>
+
+        <p>In the listing of the <a href="#repertoire">repertoire by code point</a>, references starting from [0] refer to
+        the version of the Unicode Standard in which the corresponding code point was initially encoded.
+        Other references (starting from [100]) document usage of code points. Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.
+        For more details, see the      <a href="#table_of_references">Table of References</a> below.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point cited was originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="100">Internetstiftelsen i Sverige (IIS), Ukrainian https://github.com/dotse/IDN-ref-tables/blob/master/language-tables/ukrainian-lang-ref-table.txt accessed on 2016-12-19</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+      <reference id="130">RFC 5992, section 2.7 https://tools.ietf.org/html/rfc5992</reference>
+      <reference id="201">Omniglot Ukrainian https://www.omniglot.com/writing/ukrainian.htm</reference>
+      <reference id="301">Everson, Michael, The Alphabets of Europe, Ukrainian https://evertype.com/alphabets/ukrainian.pdf</reference>
+      <reference id="401" comment="Code points cited are from the set of Main Letters">The Unicode Consortium, Common Locale Data Repository - CLDR Version 28 (2015-09-16) - Locale Data Summary for Ukrainian [uk]- https://www.unicode.org/cldr/charts/28/summary/uk.html</reference>
+      <reference id="402" comment="Code points cited are from the set of Auxiliary Letters">The Unicode Consortium, Common Locale Data Repository - CLDR Version 28 (2015-09-16) - Locale Data Summary for Ukrainian [uk]- https://www.unicode.org/cldr/charts/28/summary/uk.html</reference>
+      <reference id="700">Communication Systems Ltd (.ua Ukrain cctld), https://www.iana.org/domains/idn-tables/tables/ua_cyrl_1.2.txt</reference>
+      <reference id="701">Ukrainian Network Information Centre (UANIC) .укр https://namestore.u-registry.com/Ukrainian_IDN_Table_v3.txt</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS" />
+    <char cp="0030" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F;" />
+    <char cp="0031" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F;" />
+    <char cp="0032" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F;" />
+    <char cp="0033" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F;" />
+    <char cp="0034" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F;" />
+    <char cp="0035" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F;" />
+    <char cp="0036" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F;" />
+    <char cp="0037" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F;" />
+    <char cp="0038" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F;" />
+    <char cp="0039" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F;" />
+    <char cp="0430" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER A" />
+    <char cp="0431" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER BE" />
+    <char cp="0432" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER VE" />
+    <char cp="0433" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER GHE" />
+    <char cp="0434" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER DE" />
+    <char cp="0435" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER IE" />
+    <char cp="0436" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER ZHE" />
+    <char cp="0437" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER ZE" />
+    <char cp="0438" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER I" />
+    <char cp="0439" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER SHORT I" />
+    <char cp="043A" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER KA" />
+    <char cp="043B" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER EL" />
+    <char cp="043C" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER EM" />
+    <char cp="043D" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER EN" />
+    <char cp="043E" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER O" />
+    <char cp="043F" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER PE" />
+    <char cp="0440" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER ER" />
+    <char cp="0441" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER ES" />
+    <char cp="0442" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER TE" />
+    <char cp="0443" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER U" />
+    <char cp="0444" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER EF" />
+    <char cp="0445" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER HA" />
+    <char cp="0446" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER TSE" />
+    <char cp="0447" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER CHE" />
+    <char cp="0448" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER SHA" />
+    <char cp="0449" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER SHCHA" />
+    <char cp="044A" when="extended-cp" tag="sc:Cyrl" ref="0 130 301 402 700 701" comment="CYRILLIC SMALL LETTER HARD SIGN" />
+    <char cp="044B" when="extended-cp" tag="sc:Cyrl" ref="0 301 402 700 701" comment="CYRILLIC SMALL LETTER YERU" />
+    <char cp="044C" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER SOFT SIGN" />
+    <char cp="044D" when="extended-cp" tag="sc:Cyrl" ref="0 301 402 700 701" comment="CYRILLIC SMALL LETTER E" />
+    <char cp="044E" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER YU" />
+    <char cp="044F" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER YA" />
+    <char cp="0451" when="extended-cp" tag="sc:Cyrl" ref="0 301 402 700 701" comment="CYRILLIC SMALL LETTER IO" />
+    <char cp="0454" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER UKRAINIAN IE" />
+    <char cp="0456" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I" />
+    <char cp="0457" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER YI" />
+    <char cp="045E" when="extended-cp" tag="sc:Cyrl" ref="0 700" comment="CYRILLIC SMALL LETTER SHORT U" />
+    <char cp="0491" tag="sc:Cyrl" ref="0 100 130 201 301 401 700 701" comment="CYRILLIC SMALL LETTER GHE WITH UPTURN" />
+    <char cp="04C2" when="extended-cp" tag="sc:Cyrl" ref="0 700" comment="CYRILLIC SMALL LETTER ZHE WITH BREVE" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="extended-cp" comment="context to gate off code points from the extended range, matches no label &#x235F;">
+      <start />
+      <end />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="by default, labels with leading combining marks are invalid" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="valid" comment="catch all (default action)" />
+  </rules>
+</lgr>

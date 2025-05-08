@@ -1,0 +1,2042 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">3</version>
+    <date>2024-10-25</date>
+    <language>bg</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+
+        <h1>Label Generation Rules for Bulgarian</h1>
+        <h2>Overview</h2>
+        <p>This document specifies a set of Label Generation Rules (LGR) for the Bulgarian language
+    using a language-specific repertoire for the second level domain or domains identified above.
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Bulgarian Language” [Ref-LGR-bg-Cyrl], for details, see <a href="#change_history">Change History</a> below.</p>
+
+        <p><b>Standalone LGR:</b> This LGR is designed to be used in a zone that does not cater to IDNs 
+	other than those valid under this LGR. 
+	This LGR lacks features that would allow its use in the context
+	of another LGR in the same zone, and it may contain other features incompatible with such use.</p>
+
+        <h2>Repertoire</h2>
+        <p>All references converge on 30 Cyrillic code points (23 + 9 as defined
+        by RFC 5992 [130]). CLDR in its auxiliary list adds 7 code points of which 2 
+        correspond to historic letters. These code points are U+0463 CYRILLIC
+        SMALL LETTER YAT and U+046B CYRILLIC SMALL LETTER BIG YUS. They are
+        also excluded from [MSR-5]
+        as being obsolete. Of the other 5, 3 have no other sources and are
+        not included. The last 2: U+0450 CYRILLIC SMALL LETTER IE WITH GRAVE
+        and U+045D CYRILLIC SMALL LETTER I WITH GRAVE have additional sources
+        and are part of the extended set.</p>
+
+        <p>Note: The article in [605] indicates that “In Bulgarian and Macedonian,
+        the grave accent is sometimes, although not very often, used on the
+        vowels а, о, у, е, и and ъ (ъ exists in Bulgarian only) to mark
+        stress. In a few cases (mostly on the vowels е and и) the stress mark
+        is orthographically required to distinguish words which are Homographs".</p>
+
+        <p>There is an IDN table published in the IANA Repository of IDN Practices for Bulgarian by .bg (Bulgaria cctld) in
+        [700]</p>
+
+        <h3>Excluded code points</h3>
+        <p>Letters documented in some references but not included:</p>
+        <ul class="cp-list">
+         <li><p>U+044B CYRILLIC SMALL LETTER YERU</p></li>
+         <li><p>U+044D CYRILLIC SMALL LETTER E</p></li>
+         <li><p>U+0451 CYRILLIC SMALL LETTER IO</p></li>
+         <li><p>U+0463 CYRILLIC SMALL LETTER YAT</p></li>
+         <li><p>U+046B CYRILLIC SMALL LETTER BIG YUS</p></li>
+         <li><p>U+0463 CYRILLIC SMALL LETTER YAT</p></li>
+         <li><p>U+0430 U+0300  CYRILLIC SMALL LETTER A WITH GRAVE ACCENT</p></li>
+         <li><p>U+043E U+0300  CYRILLIC SMALL LETTER O WITH GRAVE ACCENT</p></li>
+         <li><p>U+0443 U+0300  CYRILLIC SMALL LETTER U WITH GRAVE ACCENT</p></li>
+         <li><p>U+044A U+0300  CYRILLIC SMALL LETTER HARD SIGN WITH GRAVE ACCENT</p></li>
+         <li><p>U+044E U+0300  CYRILLIC SMALL LETTER YU WITH GRAVE ACCENT</p></li>
+         <li><p>U+044F U+0300  CYRILLIC SMALL LETTER YA WITH GRAVE ACCENT</p></li>
+        </ul>
+
+        <h3>Extended code points</h3>
+
+        <p>A number of letters not considered essential to writing the core vocabulary of the language are nevertheless in common use. 
+        Where they have not been added to the core repertoire, they are flagged as “extended-cp” in the table of code points.
+        A context rule is provided that by default will prohibit labels with such extended code points. To support extended single code points or code point 
+        sequences, delete the context “extended-cp” from their repertoire definition.</p>
+
+        <p>Any code points outside the Bulgarian Language repertoire that are targets for
+     out-of-repertoire variants would be included here only if the variant is listed 
+     in this file. In this case they are identified as a reflexive (identity) variant
+     of type “out-of-repertoire-var”. Whether or not they are listed, they do not 
+     form part of the repertoire.</p>
+
+        <h2>Variants</h2>
+
+        <p>There are no variants defined between Cyrillic letters.</p>
+
+        <p><b>No ASCII Variants:</b> Note that this LGR does not contain
+    definitions for “blocked” variants for letters that look indistinguishable from ASCII letters (homoglyphs).
+    If concurrent use of LDH labels is desired, the resulting conflicts can be handled by using the “Common LGR” in processing. 
+    For details, see Section 3, 
+    “Use of Multiple Reference LGRs in the Same Zone” in [Level-2-Overview].
+    </p>
+
+        <h2>Character Classes</h2>
+
+        <p>This LGR does not define named character classes.</p>
+
+        <h2>Rules</h2>
+         <h3>Common Rules</h3>
+
+         <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+        
+        <h2>Actions</h2>
+
+        <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+        <p>Variant-related actions included to facilitate integration as appropriate.</p>
+
+        <h2>Methodology and Contributors</h2>
+
+        <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Bulgarian Language was developed
+        by Michel Suignard and Asmus Freytag, including input by Michael Everson,
+        Nicholas Ostler, and Wil Tan, and based on multiple
+        open public consultations.</p>
+
+        <section id="change_history">
+        <h3>Changes from Version Dated 10 October 2016</h3><p>Language tag has been updated.</p>
+        
+        <h3>Changes from Version Dated 18 May 2021</h3><p>Unicode Version has been updated.</p>
+
+        <h3>Changes from Version Dated 25 October 2024</h3>
+		<p>This version modifies the Second Level Reference LGR for the Bulgarian Language [Ref-LGR-bg-Cyrl] by injecting the complete (maximal) set of cross-repertoire variants, including any imposed by transitivity. Injected variants are marked by special comments. Any character classes, context and WLE rules required for testing are also imported. In all other respects, description or annotations have not been updated to reflect the injected variants. Any LGR elements that might pose a possible conflict when the LGR is used with the Common LGR for cross-repertoire variant resolution are clearly marked. All modifications are carried out mechanically; there may be an occasional context rule or similar that is injected because its definition relates to some repertoire element even though it can never be triggered by any label valid under the modified LGR.
+    </p>
+        </section>
+
+        <h2>References</h2>
+        <p>General reference for the language:</p>
+        <ul>
+          <li><p>Scatton, Ernest B. 1993. “Bulgarian”, in Bernard Comrie & Greville G. Corbett, 
+              eds. The Slavonic languages. London; New York: Routledge. ISBN 0-415-04755-2</p></li>
+        </ul>
+
+        <p>Other references cited in this document:</p>
+        <dl>
+         <dt>[Level-2-Overview]</dt>
+         <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+
+         <dt>[MSR-5]</dt>
+         <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+     https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf</dd>
+         <dt>[Ref-LGR-bg-Cyrl]</dt>
+         <dd>ICANN, Second Level Reference Label Generation Rules for the Bulgarian Language (bg-Cyrl), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-bulgarian-language-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-bulgarian-language-25oct24-en.html</dd>
+  
+         <dt>[RFC 7940]</dt>
+         <dd> Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+
+         <dt>[RFC 8228]</dt>
+         <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+         <dt>[Unicode 11.0.0]</dt>
+         <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+       </dl>
+       
+        <p>In the listing of the <a href="#repertoire">repertoire by code point</a>, references starting from [0] refer to
+        the version of the Unicode Standard in which the corresponding code point was initially encoded.
+        Other references (starting from [100]) document usage of code points. Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.
+        For more details, see the      <a href="#table_of_references">Table of References</a> below.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Code points cited were originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="3" comment="Code points cited were originally encoded in Unicode Version 3.0">The Unicode Standard, Version 3.0</reference>
+      <reference id="100">Internetstiftelsen i Sverige (IIS), Bulgarian https://github.com/dotse/IDN-ref-tables/blob/master/language-tables/bulgarian-lang-ref-table.txt accessed on 2016-10-16</reference>
+      <reference id="130">RFC 5992, Internationalized Domain Names Registration and Administration Guidelines for European Languages Using Cyrillic - section 2.2 Bulgarian https://tools.ietf.org/html/rfc5992</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+      <reference id="201" comment="Code points cited form the standard set">Omniglot Bulgarian https://www.omniglot.com/writing/bulgarian.htm</reference>
+      <reference id="204" comment="Code points cited are rare or archaic">Omniglot Bulgarian https://www.omniglot.com/writing/bulgarian.htm</reference>
+      <reference id="301" comment="Code points cited form the standard set">Everson, Michael, The Alphabets of Europe, Bulgarian https://evertype.com/alphabets/bulgarian.pdf</reference>
+      <reference id="304" comment="Code points cited are rare or archaic">Everson, Michael, The Alphabets of Europe, Bulgarian https://evertype.com/alphabets/bulgarian.pdf</reference>
+      <reference id="401" comment="Code points cited are from the set of Main Letters">The Unicode Consortium, Common Locale Data Repository - CLDR Version 28 (2015-09-16) - Locale Data Summary for Bulgarian [bg]- https://www.unicode.org/cldr/charts/28/summary/bg.html</reference>
+      <reference id="402" comment="Code points cited are from the set of Auxiliary Letters">The Unicode Consortium, Common Locale Data Repository - CLDR Version 28 (2015-09-16) - Locale Data Summary for Bulgarian [bg]- https://www.unicode.org/cldr/charts/28/summary/bg.html</reference>
+      <reference id="605" comment="Article providing evidence for the use of the grave accent in Bulgarian and Macedonian">Wikipedia https://en.wikipedia.org/wiki/Grave_accent accessed 2015-11-11</reference>
+      <reference id="700">Register.BG (.bg cctld Bulgarian Register) https://www.iana.org/domains/idn-tables/tables/bg_bg-bg_1.0.html</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS">
+      <var cp="00B7" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0030" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F;">
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0031" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F;">
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0032" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F;">
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0033" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F;">
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0034" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F;">
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0035" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F;">
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0036" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F;">
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0037" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F;">
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0038" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F;">
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0039" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F;">
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0061" comment="Not part of repertoire (injected)">
+      <var cp="0061" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="00E1" type="blocked" comment="(injected)" />
+      <var cp="03AC" type="blocked" comment="(injected)" />
+      <var cp="03B1" type="blocked" comment="(injected)" />
+      <var cp="0430" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0063" comment="Not part of repertoire (injected)">
+      <var cp="0063" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0441" type="blocked" comment="(injected)" />
+      <var cp="1004" type="blocked" comment="(injected)" />
+      <var cp="1455" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0065" comment="Not part of repertoire (injected)">
+      <var cp="0065" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0435" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="006F" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0070" comment="Not part of repertoire (injected)">
+      <var cp="0070" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03C1" type="blocked" comment="(injected)" />
+      <var cp="0440" type="blocked" comment="(injected)" />
+      <var cp="146D" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0072" comment="Not part of repertoire (injected)">
+      <var cp="0072" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0433" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0078" comment="Not part of repertoire (injected)">
+      <var cp="0078" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0445" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0079" comment="Not part of repertoire (injected)">
+      <var cp="0079" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0263" type="blocked" comment="(injected)" />
+      <var cp="03B3" type="blocked" comment="(injected)" />
+      <var cp="0443" type="blocked" comment="(injected)" />
+      <var cp="04AF" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="00B7" comment="Not part of repertoire (injected)">
+      <var cp="002D" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+      <var cp="00B7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="00E1" comment="Not part of repertoire (injected)">
+      <var cp="0061" type="blocked" comment="(injected)" />
+      <var cp="00E1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03AC" type="blocked" comment="(injected)" />
+      <var cp="03B1" type="blocked" comment="(injected)" />
+      <var cp="0430" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="00F3" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0263" comment="Not part of repertoire (injected)">
+      <var cp="0079" type="blocked" comment="(injected)" />
+      <var cp="0263" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03B3" type="blocked" comment="(injected)" />
+      <var cp="0443" type="blocked" comment="(injected)" />
+      <var cp="04AF" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03AC" comment="Not part of repertoire (injected)">
+      <var cp="0061" type="blocked" comment="(injected)" />
+      <var cp="00E1" type="blocked" comment="(injected)" />
+      <var cp="03AC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03B1" type="blocked" comment="(injected)" />
+      <var cp="0430" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03B1" comment="Not part of repertoire (injected)">
+      <var cp="0061" type="blocked" comment="(injected)" />
+      <var cp="00E1" type="blocked" comment="(injected)" />
+      <var cp="03AC" type="blocked" comment="(injected)" />
+      <var cp="03B1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0430" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03B3" comment="Not part of repertoire (injected)">
+      <var cp="0079" type="blocked" comment="(injected)" />
+      <var cp="0263" type="blocked" comment="(injected)" />
+      <var cp="03B3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0443" type="blocked" comment="(injected)" />
+      <var cp="04AF" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03BA" comment="Not part of repertoire (injected)">
+      <var cp="03BA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="043A" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03BF" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03C1" comment="Not part of repertoire (injected)">
+      <var cp="0070" type="blocked" comment="(injected)" />
+      <var cp="03C1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0440" type="blocked" comment="(injected)" />
+      <var cp="146D" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03C4" comment="Not part of repertoire (injected)">
+      <var cp="03C4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0442" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03C6" comment="Not part of repertoire (injected)">
+      <var cp="03C6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0444" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="03CC" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0430" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER A">
+      <var cp="0061" type="blocked" comment="(injected)" />
+      <var cp="00E1" type="blocked" comment="(injected)" />
+      <var cp="03AC" type="blocked" comment="(injected)" />
+      <var cp="03B1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0431" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER BE" />
+    <char cp="0432" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER VE" />
+    <char cp="0433" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER GHE">
+      <var cp="0072" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0434" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER DE" />
+    <char cp="0435" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER IE">
+      <var cp="0065" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0436" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER ZHE" />
+    <char cp="0437" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER ZE" />
+    <char cp="0438" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER I" />
+    <char cp="0439" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER SHORT I" />
+    <char cp="043A" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER KA">
+      <var cp="03BA" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="043B" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER EL" />
+    <char cp="043C" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER EM" />
+    <char cp="043D" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER EN" />
+    <char cp="043E" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER O">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="043F" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER PE" />
+    <char cp="0440" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER ER">
+      <var cp="0070" type="blocked" comment="(injected)" />
+      <var cp="03C1" type="blocked" comment="(injected)" />
+      <var cp="146D" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0441" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER ES">
+      <var cp="0063" type="blocked" comment="(injected)" />
+      <var cp="1004" type="blocked" comment="(injected)" />
+      <var cp="1455" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0442" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER TE">
+      <var cp="03C4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0443" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER U">
+      <var cp="0079" type="blocked" comment="(injected)" />
+      <var cp="0263" type="blocked" comment="(injected)" />
+      <var cp="03B3" type="blocked" comment="(injected)" />
+      <var cp="04AF" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0444" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER EF">
+      <var cp="03C6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0445" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER HA">
+      <var cp="0078" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0446" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER TSE" />
+    <char cp="0447" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER CHE" />
+    <char cp="0448" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER SHA">
+      <var cp="0561" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0449" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER SHCHA" />
+    <char cp="044A" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER HARD SIGN" />
+    <char cp="044C" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER SOFT SIGN" />
+    <char cp="044E" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER YU" />
+    <char cp="044F" tag="sc:Cyrl" ref="0 100 130 201 301 401 700" comment="CYRILLIC SMALL LETTER YA" />
+    <char cp="0450" when="extended-cp" tag="sc:Cyrl" ref="3 301 402 605" comment="CYRILLIC SMALL LETTER IE WITH GRAVE (unique: not in &quot;Common&quot;)" />
+    <char cp="045D" when="extended-cp" tag="sc:Cyrl" ref="3 301 402 605" comment="CYRILLIC SMALL LETTER I WITH GRAVE (unique: not in &quot;Common&quot;)" />
+    <char cp="04AF" comment="Not part of repertoire (injected)">
+      <var cp="0079" type="blocked" comment="(injected)" />
+      <var cp="0263" type="blocked" comment="(injected)" />
+      <var cp="03B3" type="blocked" comment="(injected)" />
+      <var cp="0443" type="blocked" comment="(injected)" />
+      <var cp="04AF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="0561" comment="Not part of repertoire (injected)">
+      <var cp="0448" type="blocked" comment="(injected)" />
+      <var cp="0561" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="0585" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="05E1" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0660" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0661" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0662" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0663" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0664" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0665" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0666" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0667" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0668" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0669" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F0" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F1" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F2" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F3" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F4" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F5" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F6" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F7" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F8" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="06F9" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0966" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0967" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0968" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0969" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096A" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096B" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096C" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096D" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096E" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="096F" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09E9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09ED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="09EF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AAA" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AB0" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AE9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0AEF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0B20" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE6" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE7" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE8" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CE9" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEA" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEB" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEC" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CED" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEE" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0CEF" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0D20" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E50" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E51" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E52" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E53" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E54" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E55" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E56" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E57" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E58" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0E59" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED0" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED1" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED2" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED3" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED4" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED5" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED6" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED7" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED8" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="0ED9" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1004" comment="Not part of repertoire (injected)">
+      <var cp="0063" type="blocked" comment="(injected)" />
+      <var cp="0441" type="blocked" comment="(injected)" />
+      <var cp="1004" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="1455" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="101D" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="3007" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1040" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E0" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1041" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E1" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1042" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E2" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1043" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E3" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1044" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E4" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1045" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E5" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1046" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E6" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1047" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E7" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1048" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E8" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1049" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+      <var cp="17E9" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="1455" comment="Not part of repertoire (injected)">
+      <var cp="0063" type="blocked" comment="(injected)" />
+      <var cp="0441" type="blocked" comment="(injected)" />
+      <var cp="1004" type="blocked" comment="(injected)" />
+      <var cp="1455" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="146D" comment="Not part of repertoire (injected)">
+      <var cp="0070" type="blocked" comment="(injected)" />
+      <var cp="03C1" type="blocked" comment="(injected)" />
+      <var cp="0440" type="blocked" comment="(injected)" />
+      <var cp="146D" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E0" comment="Not part of repertoire (injected)">
+      <var cp="0030" type="blocked" comment="(injected)" />
+      <var cp="0660" type="blocked" comment="(injected)" />
+      <var cp="06F0" type="blocked" comment="(injected)" />
+      <var cp="0966" type="blocked" comment="(injected)" />
+      <var cp="09E6" type="blocked" comment="(injected)" />
+      <var cp="0AE6" type="blocked" comment="(injected)" />
+      <var cp="0CE6" type="blocked" comment="(injected)" />
+      <var cp="0E50" type="blocked" comment="(injected)" />
+      <var cp="0ED0" type="blocked" comment="(injected)" />
+      <var cp="1040" type="blocked" comment="(injected)" />
+      <var cp="17E0" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E1" comment="Not part of repertoire (injected)">
+      <var cp="0031" type="blocked" comment="(injected)" />
+      <var cp="0661" type="blocked" comment="(injected)" />
+      <var cp="06F1" type="blocked" comment="(injected)" />
+      <var cp="0967" type="blocked" comment="(injected)" />
+      <var cp="09E7" type="blocked" comment="(injected)" />
+      <var cp="0AE7" type="blocked" comment="(injected)" />
+      <var cp="0CE7" type="blocked" comment="(injected)" />
+      <var cp="0E51" type="blocked" comment="(injected)" />
+      <var cp="0ED1" type="blocked" comment="(injected)" />
+      <var cp="1041" type="blocked" comment="(injected)" />
+      <var cp="17E1" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E2" comment="Not part of repertoire (injected)">
+      <var cp="0032" type="blocked" comment="(injected)" />
+      <var cp="0662" type="blocked" comment="(injected)" />
+      <var cp="06F2" type="blocked" comment="(injected)" />
+      <var cp="0968" type="blocked" comment="(injected)" />
+      <var cp="09E8" type="blocked" comment="(injected)" />
+      <var cp="0AB0" type="blocked" comment="(injected)" />
+      <var cp="0AE8" type="blocked" comment="(injected)" />
+      <var cp="0CE8" type="blocked" comment="(injected)" />
+      <var cp="0E52" type="blocked" comment="(injected)" />
+      <var cp="0ED2" type="blocked" comment="(injected)" />
+      <var cp="1042" type="blocked" comment="(injected)" />
+      <var cp="17E2" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E3" comment="Not part of repertoire (injected)">
+      <var cp="0033" type="blocked" comment="(injected)" />
+      <var cp="0663" type="blocked" comment="(injected)" />
+      <var cp="06F3" type="blocked" comment="(injected)" />
+      <var cp="0969" type="blocked" comment="(injected)" />
+      <var cp="09E9" type="blocked" comment="(injected)" />
+      <var cp="0AE9" type="blocked" comment="(injected)" />
+      <var cp="0CE9" type="blocked" comment="(injected)" />
+      <var cp="0E53" type="blocked" comment="(injected)" />
+      <var cp="0ED3" type="blocked" comment="(injected)" />
+      <var cp="1043" type="blocked" comment="(injected)" />
+      <var cp="17E3" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E4" comment="Not part of repertoire (injected)">
+      <var cp="0034" type="blocked" comment="(injected)" />
+      <var cp="0664" type="blocked" comment="(injected)" />
+      <var cp="06F4" type="blocked" comment="(injected)" />
+      <var cp="096A" type="blocked" comment="(injected)" />
+      <var cp="09EA" type="blocked" comment="(injected)" />
+      <var cp="0AEA" type="blocked" comment="(injected)" />
+      <var cp="0CEA" type="blocked" comment="(injected)" />
+      <var cp="0E54" type="blocked" comment="(injected)" />
+      <var cp="0ED4" type="blocked" comment="(injected)" />
+      <var cp="1044" type="blocked" comment="(injected)" />
+      <var cp="17E4" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E5" comment="Not part of repertoire (injected)">
+      <var cp="0035" type="blocked" comment="(injected)" />
+      <var cp="0665" type="blocked" comment="(injected)" />
+      <var cp="06F5" type="blocked" comment="(injected)" />
+      <var cp="096B" type="blocked" comment="(injected)" />
+      <var cp="09EB" type="blocked" comment="(injected)" />
+      <var cp="0AAA" type="blocked" comment="(injected)" />
+      <var cp="0AEB" type="blocked" comment="(injected)" />
+      <var cp="0CEB" type="blocked" comment="(injected)" />
+      <var cp="0E55" type="blocked" comment="(injected)" />
+      <var cp="0ED5" type="blocked" comment="(injected)" />
+      <var cp="1045" type="blocked" comment="(injected)" />
+      <var cp="17E5" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E6" comment="Not part of repertoire (injected)">
+      <var cp="0036" type="blocked" comment="(injected)" />
+      <var cp="0666" type="blocked" comment="(injected)" />
+      <var cp="06F6" type="blocked" comment="(injected)" />
+      <var cp="096C" type="blocked" comment="(injected)" />
+      <var cp="09EC" type="blocked" comment="(injected)" />
+      <var cp="0AEC" type="blocked" comment="(injected)" />
+      <var cp="0CEC" type="blocked" comment="(injected)" />
+      <var cp="0E56" type="blocked" comment="(injected)" />
+      <var cp="0ED6" type="blocked" comment="(injected)" />
+      <var cp="1046" type="blocked" comment="(injected)" />
+      <var cp="17E6" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E7" comment="Not part of repertoire (injected)">
+      <var cp="0037" type="blocked" comment="(injected)" />
+      <var cp="0667" type="blocked" comment="(injected)" />
+      <var cp="06F7" type="blocked" comment="(injected)" />
+      <var cp="096D" type="blocked" comment="(injected)" />
+      <var cp="09ED" type="blocked" comment="(injected)" />
+      <var cp="0AED" type="blocked" comment="(injected)" />
+      <var cp="0CED" type="blocked" comment="(injected)" />
+      <var cp="0E57" type="blocked" comment="(injected)" />
+      <var cp="0ED7" type="blocked" comment="(injected)" />
+      <var cp="1047" type="blocked" comment="(injected)" />
+      <var cp="17E7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E8" comment="Not part of repertoire (injected)">
+      <var cp="0038" type="blocked" comment="(injected)" />
+      <var cp="0668" type="blocked" comment="(injected)" />
+      <var cp="06F8" type="blocked" comment="(injected)" />
+      <var cp="096E" type="blocked" comment="(injected)" />
+      <var cp="09EE" type="blocked" comment="(injected)" />
+      <var cp="0AEE" type="blocked" comment="(injected)" />
+      <var cp="0CEE" type="blocked" comment="(injected)" />
+      <var cp="0E58" type="blocked" comment="(injected)" />
+      <var cp="0ED8" type="blocked" comment="(injected)" />
+      <var cp="1048" type="blocked" comment="(injected)" />
+      <var cp="17E8" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="17E9" comment="Not part of repertoire (injected)">
+      <var cp="0039" type="blocked" comment="(injected)" />
+      <var cp="0669" type="blocked" comment="(injected)" />
+      <var cp="06F9" type="blocked" comment="(injected)" />
+      <var cp="096F" type="blocked" comment="(injected)" />
+      <var cp="09EF" type="blocked" comment="(injected)" />
+      <var cp="0AEF" type="blocked" comment="(injected)" />
+      <var cp="0CEF" type="blocked" comment="(injected)" />
+      <var cp="0E59" type="blocked" comment="(injected)" />
+      <var cp="0ED9" type="blocked" comment="(injected)" />
+      <var cp="1049" type="blocked" comment="(injected)" />
+      <var cp="17E9" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="3007" comment="Not part of repertoire (injected)">
+      <var cp="006F" type="blocked" comment="(injected)" />
+      <var cp="00F3" type="blocked" comment="(injected)" />
+      <var cp="03BF" type="blocked" comment="(injected)" />
+      <var cp="03CC" type="blocked" comment="(injected)" />
+      <var cp="043E" type="blocked" comment="(injected)" />
+      <var cp="0585" type="blocked" comment="(injected)" />
+      <var cp="05E1" type="blocked" comment="(injected)" />
+      <var cp="0B20" type="blocked" comment="(injected)" />
+      <var cp="0D20" type="blocked" comment="(injected)" />
+      <var cp="101D" type="blocked" comment="(injected)" />
+      <var cp="3007" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="extended-cp" comment="context to gate off code points from the extended range, matches no label &#x235F; (rule not found in &quot;Common&quot;)">
+      <start />
+      <end />
+    </rule>
+    <rule name="Common--surrounded-by-L" comment="code point both follows and precedes L, required context for Ela Geminada &#x235F; (injected, but possibly optional)">
+      <look-behind>
+        <char cp="006C" />
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <char cp="006C" />
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="by default, labels with leading combining marks are invalid" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="valid" comment="catch all (default action)" />
+  </rules>
+</lgr>

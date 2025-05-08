@@ -1,0 +1,1326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">2</version>
+    <date>2024-10-25</date>
+    <language>und-Sinh</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+       <div class="instructions">
+<h2>INSTRUCTIONS</h2>
+  <ul>
+    <li>These instructions cover how to adopt an LGR based on this reference LGR for a given
+    zone and how to prepare the file for deposit in the IANA Repository of IDN Practices.</li>
+    <li>As described  the IANA procedure (https://www.iana.org/help/idn-repository-procedure) an 
+    LGR MUST contain the following elements in its header:
+      <ul style="list-style-type:square;">
+        <li>Script or Language Designator (see below for guidance) </li>
+        <li>Version Number (this must increase with each amendment to the LGR, even if the updates 
+            are limited to the header itself) </li>
+        <li>Effective Date (the date at which the policy becomes applicable in operational use) </li>
+        <li>Registry Contact Details (contact name, email address, and/or phone number)</li>
+      </ul>
+    </li>
+    <li>The following information is optional:
+    <ul style="list-style-type:square;">
+    <li>Document creation date</li>
+    <li>Applicable Domain(s)</li>
+    <li>Changes made to the Reference LGR before adopting</li>
+    </ul>
+    </li>
+  </ul>
+  <p>Please add or modify the following items in the <b>XML source code for this file</b> before 
+  depositing the document in the IANA Repository. (https://www.iana.org/domains/idn-tables)</p>
+<h3>Meta Data</h3>
+<p>Note: version numbers start at 1. RFC 7940 recommends using simple integers. The version comment is optional, 
+   please replace or delete the default comment. Version comments may be used by some tools as part of the page header.</p>
+  <p><code>&lt;version comment=&quot;</code>[Please replace (or delete) the optional comment]<code>&quot;&gt;</code>[Please fill in version number, starting at 1]<code>&lt;/version&gt;</code></p>
+  <p><code>&lt;date&gt;</code>[Please fill in with publication date, in YYYY-MM-DD format]<code>&lt;/date&gt;</code></p>
+  <p><code>&lt;validity-start&gt;</code>[Please fill in effective date, in YYYY-MM-DD format]<code>&lt;/validity-start&gt;</code></p>
+  <p>Note: the scope element may be repeated, so that the same document can serve for multiple domains.</p>
+  <p><code>&lt;scope type=&quot;domain&quot;&gt;</code>[Please provide, in &quot;.domain&quot; format]<code>&lt;/scope&gt;</code></p>
+<p><strong>Registry Contact Information:</strong></p>
+  <p>Please fill in the <a href="#registry_contact_details">Registry Contact Details</a>.</p>
+<p><strong>Change History</strong></p>
+  <p>If you made technical modifications to the LGR, please summarize them in the <a href="#change_history">Change History</a> (and also note the details in the appropriate section of the description).</p>
+<p>PLEASE DELETE THESE INSTRUCTIONS BEFORE DEPOSITING THE DOCUMENT</p></div>
+       
+       <section id="registry_contact_details">
+<h2>Registry Contact Details</h2>
+<ul style="list-style:none;">
+<li><b>Contact Name:</b> [Please fill in Contact Name]</li>
+<li><b>Email address:</b> [Please fill in Email address]</li>
+<li><b>Phone Number:</b> [Please fill in optional Phone Number]</li>
+</ul>
+</section>
+
+    <h1>Label Generation Rules for the Sinhala Script</h1>
+    
+    <h2>Overview</h2>
+
+    <p>This document specifies a set of Label Generation Rules (LGR) for the Sinhala script for the second level domain or domains identified above. 
+    The starting point for the development of this LGR can be found in the related Root Zone LGR [RZ-LGR-Sinh]. 
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Sinhala Script” [Ref-LGR-und-Sinh], for details, see <a href="#change_history">Change History</a> below.</p>
+
+    <p>For details and additional background on the Sinhala script, see “Proposal for a 
+    Sinhala Script Root Zone Label Generation Rules-Set  (LGR)" [Proposal-Sinhala].</p>
+
+    <h2>Repertoire</h2>
+    <p>The repertoire covers the Sinhala language as written with the Sinhala script and contains 72 code points for letters.  
+    In addition, 4 sequences are used in the definition of variants.
+    The repertoire is a subset of [Unicode 11.0.0]. For details, see Section 5, “Repertoire” in [Proposal-Sinhala].
+        (The proposal cited has been adopted for the Sinhala script portion of the Root Zone LGR.)</p>
+
+    <p>For the second level, the repertoire has been augmented with the ASCII digits, U+0030 to U+0039, and U+002D HYPHEN-MINUS,
+    and the number of sequences increased to 112 by adding common sequences using ZWJ (U+200D), including some with variants,
+    for a total of 303 repertoire elements. In addition to ZWJ, the letter U+0DA6 SINHALA LETTER SANYAKA JAYANNA
+    is  defined only in the context of an enumerated sequence.</p>
+
+    <p><b>Repertoire Listing:</b> Each code point or range is tagged with the script or scripts with which the code point is used and one or more other character categories. For each repertoire element,
+      one or more references document sufficient justification for inclusion in the repertoire; see the <a href="#ref_desc_sec_References">“References”</a> below.</p>
+
+    <h2>Variants</h2>
+
+    <p>The variants defined in this LGR are limited to those required for use in zones not shared with any other script. 
+    However, because it does not share cross-script
+    variants with other script LGRs, this LGR can be mixed easily with other LGRs in the same zone.</p>
+    
+    <p>This LGR defines variants within Sinhala as described in Section 6, “Variants”, in “[Proposal-Sinhala]”. Additionally,
+    some of the common conjuncts have alternates which are treated as variants.</p>
+
+    <p><b>Digit Variants:</b> The Sinhala reference LGR does not include native digits, so there are no semantic variants defined.</p>
+
+    <p>The LGR defines certain allocatable fallback variants as
+    described in Section 4.5.5 “Allocatable Fallback Variants” in [Level-2-Overview]. A fallback variant is a variant label that uses 
+    substitute code points for code points or sequences not available (or not allowed) in some contexts, that would 
+    otherwise be required for a linguistically accurate rendering of some label.</p>
+
+    <p>When “fallback” variants are defined, two labels may be allocated: a single label with the spelling preferred by the 
+    applicant, plus a single fallback variant for that label. 
+    The fallback exclusively uses the fallback characters for any characters for which fallbacks are defined, while the
+    “preferred” label may use any otherwise valid mix of code points. 
+    If the fallback variant is the one applied for, no other variant label is allocatable.</p>
+
+    <p>For sequences including one or more U+200D, the LGR also includes variant sequences without the ZWJ. Because IDNA2003 was 
+    removing ZWJ in its name processing, sequences without ZWJ are treated as an allocatable fallback representations.</p>
+   
+    <h3>In-script Variant Mapping Types</h3>
+    <p>In each of the fallback variant pairs defined above, the mapping type from the first element to the second is of type
+    “fallback”, while the variant type for the other direction is “blocked”. In addition, the first element of each pair uses the
+    reflexive mapping “r-original”.
+     (By convention, the prefix “r-” marks a type used in a reflexive variant mapping, that is, it represents an instance 
+     of the original code point at that location in a variant label, see Section 5.3.4 in [RFC 7940].)</p>
+
+    <p><b>Variant Disposition:</b> Except for limited exceptions for the fallback variants defined above, variants defined here result
+    in a variant label disposition of “blocked”.</p>
+    
+    <p>The specification of variants in this LGR follows the guidelines in [RFC 8228].</p>
+
+    <p><b>Context Rules for Variants:</b> for some of the variants defined in this LGR 
+     the sequences or code points making up source and target are constrained by explicit
+    context rules on the code points (or by implicit context rules defined for the adjacent code points). 
+     In such a case, any variants may require context rules that match the intersection
+    between the effective contexts for both source and target; otherwise, a sequence might be considered valid in some
+    variant label when it would not be valid in an equivalent context in an original label.
+    Symmetry requires the same context rule for both forward and reverse mappings.</p>
+
+  <h2>Character Classes</h2>
+  <p>As most Brahmi-derived scripts, Sinhala is an alphasyllabary writing system and written from 
+  left to right. All the categories of Consonants, Vowels, Matras, Halant, Anusvara, Visarga and Sannjakas are discussed below. </p>
+
+  <p><b>Consonants:</b> There are 40 consonants in Sinhala alphabet and 38 of them are selected for inclusion. 
+  Its consonants imply inherent vowel a (අ) when they are used without dependent vowels. Absence of the 
+  inherent vowel is marked by adding hal kirima (remover of the inherent vowel) to the consonant; thus ක 
+  /ka/ but ක් /k/, and ව /va/ but ව් /v/. More details in Section 3.3.1, “The Consonants” in [Proposal-Sinhala].</p>
+  
+  <p><b>Vowels and Matras:</b> There are separate symbols (dependent vowels) for all the vowels except the inherent 
+  vowel අ in Sinhala. Independent vowels are used at the beginning of a word and dependent vowels (matras) are used after 
+  consonants.  More details in Section 3.3.2, “The Vowels” in [Proposal-Sinhala]. </p>
+
+  <p><b>Halanta:</b>  The Halanta, which is also called halkirima or hallakuna, is encoded as U+0DCA SINHALA SIGN AL-LAKUNA.  
+  This sign is used to remove the 
+  inherent vowel of the consonants in Sinhala, and to join consonants and form conjunct 
+  characters. More details in Section 3.3.3, “Halanta: The Inherent Vowel Remover” in [Proposal-Sinhala]. </p>
+
+  <p><b>Anusvara:</b> U+0D82 SINHALA SIGN ANUSVARAYA, pronounced /ŋ/, represents all the 
+  nasals. It can be preceded by any sign except halanta (U+0DCA). More details 
+  in Section 3.3.4, “The Anusvara” in [Proposal-Sinhala]. </p>
+  
+  <p><b>Visarga:</b> U+0D83 SINHALA SIGN VISARGAYA is a rarely used sign and pronounced as /h/. It can be
+   preceded by any sign except halanta (U+0DCA). More details in 
+   Section 3.3.5, “The Visarga” in [Proposal-Sinhala]. </p>
+
+  <p><b>Sannjakas:</b> There are five separate letters for prenasalized voiced stops called sannjakas in 
+  Sinhala. From among these, ඦ is not frequently used. Sannjakas cannot 
+  be followed by halanta. More details in Section 3.3.6, “Sannjakas” in [Proposal-Sinhala]. </p>
+
+  <p><b>Zero Width Joiner:</b> This character is used in the formation of certain conjuncts in Sinhala.
+  In this LGR, ZWJ (U+200D) is not listed by itself but available as part of many defined sequences.</p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+  <h3>Common Rules</h3>
+
+    <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+
+   <h3>Sinhala-specific Rules</h3>
+   <p>These rules have been formulated so that they can be adopted for  LGR specification.</p>
+   <p>The following symbols are used in the WLE rules: 
+   <br/>C  → Consonant
+   <br/>M  → Matra / Vowel Signs
+   <br/>V  → Vowel
+   <br/>B  → Anusvara (Bindu) 
+   <br/>X  → Visarga
+   <br/>H  → Halanta / Virama   
+   <br/>J  → Sannjaka
+   </p>
+  
+   <p>The rules are: </p>
+    <ul>
+    <li>1. H: must be preceded by C</li>
+    <li>2. M: must be preceded by C or J</li>
+    <li>3. X: must be preceded by either V, C, or M </li>
+    <li>4. B: must be preceded by either V, C, J or M</li>
+    <li>5. H: must not follow conjunct sequence</li>
+    </ul>
+
+    <p>The following context rules apply to code points in variant sets to ensure the variant transitivity.</p>
+    <ul>
+    <li>5. variants are undefined preceding a Halant or Matra</li>
+    <li>6. variants are undefined preceding an Anusvara, Visarga, Halant or Matra</li>
+    </ul>
+  
+   <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Sinhala].</p>
+
+    <h3>Default Actions</h3>
+
+    <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+    <p>Because this LGR defines allocatable fallback variants the following default actions are applicable.</p>
+
+    <ul>
+    <li><b>blocked</b> &mdash;  a variant label containing a blocked variant will receive a disposition of “blocked”.</li>
+    <li><b>r-original</b> &mdash; a label containing one or more of this reflexive variant type 
+       and no others represents an original label 
+       and receives a disposition of “valid”.</li>
+    <li><b>fallback</b> &mdash; a label containing one or more of these variant types and no others 
+       represents a label that contains only fallback variants
+       and receives a disposition of “allocatable”.</li> 
+    <li><b>fallback plus other</b> &mdash; any label remaining containing both this variant type and any others
+        receives a disposition of “blocked”.</li>
+    </ul>
+    <p>These actions resolve as “allocatable” any label where all variants are of type “fallback”, and as “valid” any label 
+    where all variants are of type “r-original”. Labels with a mix of variant types are resolved as “blocked”.</p>
+    
+    <p>To account for original code points in a permuted variant, reflexive variant 
+    mappings with an “r-” prefix are used. (See [RFC 7940]). 
+    In particular, the mapping type “r-original” is given to any code point that has a fallback mapping, 
+    but that appears in its non-fallback form in the original label, and thus “maps to itself”.</p>
+
+     <p>Default actions that are
+     triggered by the LGR-specific variant types described above limit the “allocatable” variant
+     labels to those variants resulting from removal of ZWJ, while disallowing mixed use of variants with or without ZWJ, except
+     as in the original applied-for label.</p>
+    
+    <p>Note that the mapping types for variants are not symmetric: they depend on which code point is considered
+     the source or the target in a given mapping. As specified in [RFC 7940], when mapping types are evaluated
+     code points in a label that are unchanged use the type of their “reflexive” mapping. 
+     Per [RFC 7940] the actions are always applied one after the other, and the evaluation stops at the first 
+     action that assigns a disposition to a given label.</p>
+     
+    <h2>Methodology and Contributors</h2>
+    
+    <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Sinhala Script was developed by Michel Suignard and Asmus Freytag, based on the Root Zone LGR for the Sinhala 
+      script and information contained or referenced therein; see [RZ-LGR-Sinh]. Suitable extensions for the second level have been applied according to the [Guidelines] and with community input. 
+      The original proposal for a Root Zone LGR for the Sinhala script, that this reference LGR is based on, was developed by the Sinhala Generation Panel in consultation with the Neo-Brahmi Generation Panel.
+      For more information on methodology and contributors to the underlying Root Zone LGR, see Sections 4 and 8 in [Proposal-Sinhala], as well as [RZ-LGR-Overview].</p>
+ 
+    <section id="change_history">
+    <h3>Changes from Version Dated 22 April 2021</h3> 
+    <p>Unicode Version has been updated.</p>
+    <p>Fallback variants have been added to sequences including ZWJ. These fallback variants do not contain ZWJ to
+    provide compatibility with IDNA:2003 compliant labels.</p>
+
+    <h3>Changes from Version Dated 25 October 2024</h3>
+        <p>Adopted from the Second Level Reference LGR for the Sinhala Script [Ref-LGR-und-Sinh] without normative changes.</p>
+    </section>
+
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+      <dt>[Guidelines]</dt>
+      <dd>ICANN, “Guidelines for Developing Reference LGRs for the Second Level”, (Los Angeles, California: ICANN, 27 May 2020), https://www.icann.org/en/system/files/files/lgr-guidelines-second-level-27may20-en.pdf</dd>
+
+     <dt>[Level-2-Overview]</dt>
+     <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+
+      <dt>[Proposal-Sinhala]</dt> 
+      <dd>Sinhala Generation Panel, “Proposal for a Sinhala Script Root Zone Label Generation Ruleset (LGR)”, 22 April 2019, https://www.icann.org/en/system/files/files/proposal-sinhala-lgr-22apr19-en.pdf</dd>
+
+      <dt>[RFC 7940]</dt>
+      <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+   
+      <dt>[RFC 8228]</dt>
+      <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+      
+      <dt>[RZ-LGR-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022 (PDF), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+      <dt>[RZ-LGR-Sinh]</dt>
+      <dd>ICANN, Root Zone Label Generation Rules for the Sinhala Script (und-Sinh), 26 May 2022 (XML)
+      https://www.icann.org/sites/default/files/lgr/rz-lgr-5-sinhala-script-26may22-en.xml</dd>
+
+     <dt>[Ref-LGR-und-Sinh]</dt>
+     <dd>ICANN, Second Level Reference Label Generation Rules for the Sinhala Script (und-Sinh), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-sinhala-script-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-sinhala-script-25oct24-en.html</dd>
+ 
+      <dt>[Unicode 11.0.0]</dt>
+      <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+   </dl>
+
+     <p>For references consulted particularly in designing the repertoire for the Sinhala Script for the second level 
+      please see details in the <a href="#table_of_references">Table of References</a> below.</p>
+
+      <p>Reference [0] refers to the Unicode Standard version in which the
+      corresponding code points were initially encoded. References [102] and above correspond to sources
+      given in [Proposal-Sinhala] justifying the inclusion of the corresponding code points. 
+      Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="102">Disanayaka, JB. 2006. Sinhala Akshara Vicharaya (Sinhala Graphology), Sumitha Publishers, Kalubovila. ISBN: 955-1146-44-1</reference>
+      <reference id="103">Sections 5.8 through 5.10, and 6.4 “Conjunct Letters” in SRI LANKA STANDARD 1134 : 2011  https://www.language.lk/wp-content/uploads/2018/03/SLS-1134-2011.pdf [language.lk]</reference>
+      <reference id="201">Omniglot: The on-line encyclopedia of writing system and Languages, “Sinhala”  https://www.omniglot.com/writing/sinhala.htm</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.0</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS; &#x235F;" />
+    <char cp="0030" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F;" />
+    <char cp="0031" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F;" />
+    <char cp="0032" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F;" />
+    <char cp="0033" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F;" />
+    <char cp="0034" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F;" />
+    <char cp="0035" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F;" />
+    <char cp="0036" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F;" />
+    <char cp="0037" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F;" />
+    <char cp="0038" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F;" />
+    <char cp="0039" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F;" />
+    <char cp="0D82" when="follows-V-C-J-or-M" tag="Anusvara sc:Sinh" ref="3 102 201" />
+    <char cp="0D83" when="follows-V-C-or-M" tag="sc:Sinh Visarga" ref="3 102 201" />
+    <char cp="0D85" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D86" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D87" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D88" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D89" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8A" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8B" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8C" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8D" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0D9D 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0DC3 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D91" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D92" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5 0DCA" not-when="followed-by-B-X-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D93" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5 0DD9" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D94" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB9" type="blocked" />
+    </char>
+    <char cp="0D95" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D96" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D9A" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0D9A 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9A 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9A 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9A 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9A 0DCA 0DC2" ref="103" comment="Commonly used conjunct">
+      <var cp="0D9A 0DCA 200D 0DC2" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9A 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9A 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9A 0DCA 200D 0DBA" type="r-original" />
+    </char>
+    <char cp="0D9A 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9A 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9A 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9A 0DCA 200D 0DC2" ref="103" comment="Commonly used conjunct">
+      <var cp="0D9A 0DCA 0DC2" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9A 0DCA 200D 0DC2" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9B" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DB6" type="blocked" />
+    </char>
+    <char cp="0D9B 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9B 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9B 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9B 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9B 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9B 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9B 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9B 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9B 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9B 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9C" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0D9C 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9C 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9C 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9C 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9C 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9C 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9C 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9C 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9C 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9C 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9D" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC3" type="blocked" />
+    </char>
+    <char cp="0D9D 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9D 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9D 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9D 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0D9D 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0D9D 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9D 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9D 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0D9D 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0D9D 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0D9D 0DD8" ref="102 201" comment="variant of IRUYANNA">
+      <var cp="0D8D" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0DC3 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D9F" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DA0" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC0" type="blocked" />
+    </char>
+    <char cp="0DA0 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA0 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA0 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA0 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA0 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA0 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA0 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA0 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA0 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA0 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA1 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA1 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA1 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA1 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA1 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA1 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA1 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA1 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA1 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA1 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA2" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA2 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA2 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA2 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA2 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA2 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA2 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA2 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA2 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA2 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA2 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA3" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA3 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA3 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA3 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA3 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA3 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA3 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA3 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA3 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA3 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA3 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA4" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA4 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA4 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA4 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA4 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA4 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA4 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA4 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA4 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA4 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA4 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA5" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA5 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA5 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA5 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA5 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA5 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA5 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA5 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA5 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA5 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA5 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA7" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA7 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA7 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA7 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA7 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA7 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA7 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA7 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA7 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA7 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA7 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA8" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA8 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA8 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA8 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA8 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA8 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA8 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA8 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA8 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA8 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA8 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA9" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA9 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA9 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA9 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA9 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DA9 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DA9 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA9 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DA9 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DA9 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DA9 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAA" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAA 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAA 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAA 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAA 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAA 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAA 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAA 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAA 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAA 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAA 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAB" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAB 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAB 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAB 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAB 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAB 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAB 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAB 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAB 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAB 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAB 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAC" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DAD" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAD 0DCA 0DAE" ref="103" comment="Commonly used conjunct">
+      <var cp="0DAD 0DCA 200D 0DAE" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAD 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAD 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAD 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAD 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAD 0DCA 200D 0DAE" ref="103" comment="Commonly used conjunct">
+      <var cp="0DAD 0DCA 0DAE" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAD 0DCA 200D 0DAE" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAD 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAD 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAD 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAD 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAD 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAD 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAE" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAE 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAE 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAE 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAE 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAE 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAE 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAE 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAE 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAE 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAE 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAF" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAF 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAF 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAF 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAF 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DAF 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DAF 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAF 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DAF 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DAF 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DAF 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB0" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB0 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB0 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB0 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB0 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB0 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB0 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB0 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB0 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB0 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB0 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB1 0DCA 0DAE" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 200D 0DAE" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB1 0DCA 0DAF" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 200D 0DAF" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB1 0DCA 0DB0" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 200D 0DB0" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB1 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB1 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB1 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB1 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB1 0DCA 200D 0DAE" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 0DAE" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB1 0DCA 200D 0DAE" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB1 0DCA 200D 0DAF" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 0DAF" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB1 0DCA 200D 0DAF" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB1 0DCA 200D 0DB0" not-when="followed-by-H" ref="103" comment="Commonly used conjunct">
+      <var cp="0DB1 0DCA 0DB0" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB1 0DCA 200D 0DB0" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB1 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB1 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB1 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB1 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB1 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB1 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB3" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DB4" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB4 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB4 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB4 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB4 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB4 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB4 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB4 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB4 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB4 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB4 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB5" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D91" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB5 0DCA" ref="102 201" comment="variant of  EEYANNA">
+      <var cp="0D92" not-when="followed-by-B-X-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB5 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB5 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB5 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB5 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB5 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB5 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB5 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB5 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB5 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB5 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB5 0DD9" ref="102 201" comment="variant of AIYANNA">
+      <var cp="0D93" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB6" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D9B" type="blocked" />
+    </char>
+    <char cp="0DB6 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB6 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB6 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB6 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB6 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB6 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB6 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB6 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB6 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB6 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB7" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC4" type="blocked" />
+    </char>
+    <char cp="0DB7 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB7 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB7 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB7 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB7 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB7 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB7 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB7 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB7 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB7 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB8" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB8 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB8 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB8 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB8 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DB8 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DB8 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB8 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB8 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DB8 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DB8 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DB9" tag="Sannjaka sc:Sinh" ref="3 102 201">
+      <var cp="0D94" type="blocked" />
+    </char>
+    <char cp="0DBA" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DBA 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DBA 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBA 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DBA 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBA 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DBA 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBA 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBA 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DBA 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBA 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DBB 0DCA 0D9A" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0D9A" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0D9B" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0D9B" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0D9C" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0D9C" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0D9D" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0D9D" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA0" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA1" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA2" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA2" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA3" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA3" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA4" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA5" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA6" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA7" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA7" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA8" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA8" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DA9" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DA9" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DAA" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DAA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DAB" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DAB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DAD" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DAD" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DAE" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DAE" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DAF" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DAF" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB0" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB1" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB4" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB5" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB6" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB7" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB7" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DB8" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DB8" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DBA 0DCA 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBA 0DCA 200D 0DBA" type="blocked" comment="Common alternate" />
+    </char>
+    <char cp="0DBB 0DCA 0DBA 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Conjunct">
+      <var cp="0DBB 0DCA 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBA" type="blocked" comment="Common alternate" />
+      <var cp="0DBB 0DCA 200D 0DBA 0DCA 200D 0DBA" type="blocked" comment="Common alternate" />
+    </char>
+    <char cp="0DBB 0DCA 0DBD" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DBD" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC0" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC1" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC2" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC2" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC3" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC3" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC4" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC5" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 0DC6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 200D 0DC6" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0D9A" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0D9A" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0D9A" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0D9B" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0D9B" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0D9B" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0D9C" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0D9C" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0D9C" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0D9D" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0D9D" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0D9D" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA0" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA0" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA1" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA1" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA2" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA2" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA2" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA3" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA3" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA3" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA4" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA4" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA5" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA5" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA6" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA6" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA7" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA7" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA7" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA8" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA8" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA8" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DA9" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DA9" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DA9" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DAA" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DAA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DAA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DAB" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DAB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DAB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DAD" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DAD" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DAD" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DAE" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DAE" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DAE" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DAF" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DAF" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DAF" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB0" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB0" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB1" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB1" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB4" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB4" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB5" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB5" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB6" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB6" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB7" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB7" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB7" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DB8" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DB8" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DB8" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 0DBA 0DCA 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+      <var cp="0DBB 0DCA 200D 0DBA 0DCA 200D 0DBA" type="blocked" comment="Common alternate" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DBA 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Conjunct">
+      <var cp="0DBB 0DCA 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 0DBA 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBA" type="blocked" comment="Common alternate" />
+      <var cp="0DBB 0DCA 200D 0DBA 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DBD" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DBD" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DBD" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC0" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC0" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC0" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC1" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC1" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC1" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC2" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC2" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC2" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC3" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC3" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC3" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC4" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC4" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC4" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC5" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC5" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC5" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBB 0DCA 200D 0DC6" not-when="followed-by-H" ref="103" comment="Letter with REPAYA">
+      <var cp="0DBB 0DCA 0DC6" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBB 0DCA 200D 0DC6" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBD" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DBD 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DBD 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBD 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DBD 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DBD 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DBD 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBD 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DBD 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DBD 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DBD 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC0" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DA0" type="blocked" />
+    </char>
+    <char cp="0DC0 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC0 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC0 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC0 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC0 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC0 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC0 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC0 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC0 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC0 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC1 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC1 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC1 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC1 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC1 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC1 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC1 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC1 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC1 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC1 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC2" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC2 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC2 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC2 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC2 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC2 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC2 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC2 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC2 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC2 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC2 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC3" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D9D" type="blocked" />
+    </char>
+    <char cp="0DC3 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC3 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC3 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC3 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC3 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC3 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC3 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC3 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC3 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC3 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC3 0DD8" ref="102 201" comment="variant of IRUYANNA">
+      <var cp="0D8D" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0D9D 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DC4" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DB7" type="blocked" />
+    </char>
+    <char cp="0DC4 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC4 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC4 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC4 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC4 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC4 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC4 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC4 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC4 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC4 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC5" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC5 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC5 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC5 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC5 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC5 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC6" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC6 0DCA 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC6 0DCA 200D 0DBA" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC6 0DCA 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC6 0DCA 200D 0DBB" type="blocked" comment="IDNA2003 Compatibility" />
+    </char>
+    <char cp="0DC6 0DCA 200D 0DBA" not-when="followed-by-H" ref="103" comment="Letter with YANSAYA">
+      <var cp="0DC6 0DCA 0DBA" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC6 0DCA 200D 0DBA" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DC6 0DCA 200D 0DBB" not-when="followed-by-H" ref="103" comment="Letter with RAKARANSAYA">
+      <var cp="0DC6 0DCA 0DBB" type="fallback" comment="IDNA2003 Compatibility" />
+      <var cp="0DC6 0DCA 200D 0DBB" type="r-original" comment="zwj form" />
+    </char>
+    <char cp="0DCA" when="follows-C" tag="Halant sc:Sinh" ref="3 102 201" />
+    <char cp="0DCF" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD0" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD1" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD2" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD3" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD4" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD6" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD8" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD9" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDA" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDB" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDC" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDD" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDE" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DF2" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Sinhala consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Sinhala independent vowel" />
+    <class name="M" from-tag="Matra" comment="Any Sinhala vowel sign (matra)" />
+    <class name="J" from-tag="Sannjaka" comment="Any Sinhala Sannjaka" />
+    <class name="H" from-tag="Halant" comment="The Sinhala Al-Lakuna (Halant)" />
+    <class name="B" from-tag="Anusvara" comment="The Sinhala Anusvara" />
+    <class name="X" from-tag="Visarga" comment="The Sinhala Visarga" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth position in the label">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 1: Halanta/Virama must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-or-J" comment="Section 7, WLE 2: Matra must be preceded by C or J">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="J" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-or-M" comment="Section 7, WLE 3: Visarga must be preceded by V, C or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-J-or-M" comment="Section 7, WLE 4: Anusvara (Bindu) must be preceded by V, C, J or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="J" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="followed-by-H" ref="103" comment="sequences cannot be followed by a Halant">
+      <anchor />
+      <look-ahead>
+        <class by-ref="H" />
+      </look-ahead>
+    </rule>
+    <rule name="followed-by-H-or-M" comment="variants are undefined preceding a Halant or Matra">
+      <anchor />
+      <look-ahead>
+        <choice>
+          <class by-ref="H" />
+          <class by-ref="M" />
+        </choice>
+      </look-ahead>
+    </rule>
+    <rule name="followed-by-B-X-H-or-M" comment="variants are undefined preceding an Anusvara, Visarga, Halant or Matra">
+      <anchor />
+      <look-ahead>
+        <choice>
+          <class by-ref="B" />
+          <class by-ref="X" />
+          <class by-ref="H" />
+          <class by-ref="M" />
+        </choice>
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" ref="150" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="allocatable" all-variants="fallback" comment="any label with all variants of type fallback is allocatable &#x235F;" />
+    <action disp="blocked" any-variant="fallback" comment="any variant label with a mix of variant forms is blocked &#x235F;" />
+    <action disp="valid" all-variants="r-original" comment="any remaining label containing only original code points is valid  &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

@@ -1,26 +1,78 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import re
+from argparse import ArgumentParser
 import os
+import pkgconfig
 import json
 import idna
+import subprocess
+import picu
 from lgr.parser.xml_parser import XMLParser
+import munidata
 from munidata import UnicodeDataVersionManager
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 from pprint import pprint
 from glob import glob
-import subprocess
+from getopt import getopt
 
 class LGRServer(BaseHTTPRequestHandler):
-    charset = "utf-8"
-    unimanager = UnicodeDataVersionManager()
-    lgr_dir = os.path.dirname(__file__) + "/lgrs/"
-    lgrs = {}
+
+    charset     = "utf-8"
+    unimanager  = UnicodeDataVersionManager()
+    lgr_dir     = "{}/lgrs/second-level-reference".format(os.path.abspath(os.path.dirname(__file__)))
+    lgrs        = {}
+
+    def run():
+        p = ArgumentParser("LGR Server", " A simple REST API for accessing Label Generation Rulesets (LGRS)")
+        p.add_argument('--lgr-set', choices=['full-variant-set', 'second-level-reference'])
+
+        args = p.parse_args()
+
+        LGRServer.icu_libver = int(float(pkgconfig.modversion("icu-uc")))
+
+        if str(LGRServer.icu_libver) not in picu.loader.KNOWN_ICU_VERSIONS:
+            print("Note: monkey patching picu.loader.KNOWN_ICU_VERSIONS")
+            picu.loader.KNOWN_ICU_VERSIONS = picu.loader.KNOWN_ICU_VERSIONS + (str(LGRServer.icu_libver),)
+
+        if not hasattr(munidata.idna.idnatables.IDNA_UNICODE_MAPPING, '15.0.0'):
+            print("Note: monkey patching munidata.idna.idnatables.IDNA_UNICODE_MAPPING")
+            munidata.idna.idnatables.IDNA_UNICODE_MAPPING['15.0.0'] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING['12.1.0']
+
+        libs = {}
+        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", '.*/libicu\\(uc\\|i18n\\).so.72']).decode(LGRServer.charset).strip().split("\n"):
+            libs[os.path.splitext(os.path.basename(path))[0]] = path
+
+        LGRServer.icu_libpath = libs['libicuuc.so']
+        LGRServer.icu_i18n_libpath = libs['libicui18n.so']
+
+        if hasattr(args, "lgr_set") and args.lgr_set is not None:
+            LGRServer.lgr_dir = "{0}/lgrs/{1}".format(os.path.abspath(os.path.dirname(__file__)), args.lgr_set)
+
+        server = HTTPServer(server_address=("0.0.0.0", 8080), RequestHandlerClass=LGRServer)
+
+        print("Server running on http://0.0.0.0:8080")
+
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            exit()
 
     def do_GET(self):
         segments = urlparse(self.path).path[1:].split("/")
+
+        if (len(segments) < 2 or len(segments) > 3):
+            self.send_response(400)
+            self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
+            self.send_header("access-control-allow-origin", "*")
+            self.end_headers()
+            self.wfile.write(bytes(json.dumps({
+                "error": 400,
+                "message": "Invalid path '{}'".format(self.path),
+            }, indent=2), LGRServer.charset))
+            return
+
         tag = segments[0]
         a_label = segments[1]
 
@@ -39,32 +91,48 @@ class LGRServer(BaseHTTPRequestHandler):
 
         code_points = tuple([ord(c) for c in idna.decode(a_label)])
 
-        (eligibility, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
+        (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
 
-        variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
+        if 2 == len(segments):
+            response = {
+                'u_label':              "".join(map(chr, code_points)),
+                'a_label':              a_label,
+                'code_points':          code_points,
+                'tag':                  tag,
+                'invalid_code_points':  list(map(lambda cp: cp[0], invalid_code_points)),
+                'eligible':             eligible,
+                'disposition':          disposition,
+                'approx_variants':      lgr.estimate_variant_number(code_points),
+            }
 
-        response = {
-            'a_label': a_label,
-            'tag': tag,
-            'u_label': "".join(map(chr, code_points)),
-            'code_points': code_points,
-            'invalid_code_points': list(map(lambda cp: cp[0], invalid_code_points)),
-            'eligibility': eligibility,
-            'disposition': disposition,
-        }
+            if (eligible):
+                response['index_label'] = "".join(map(chr, lgr.generate_index_label(code_points)))
 
-        if (eligibility):
-            response['index_label'] = "".join(map(chr, lgr.generate_index_label(code_points)))
-            response['variants'] = []
+        else:
+            if not eligible:
+                self.send_response(404)
+                self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
+                self.send_header("access-control-allow-origin", "*")
+                self.end_headers()
+                self.wfile.write(bytes(json.dumps({
+                    "error": 400,
+                    "message": "Invalid label '{}'".format(a_label),
+                }, indent=2), LGRServer.charset))
+                return
+
+            variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
+
+            response = []
             for (v_label, v_disposition, _, _, _, _) in variant_labels:
                 v_ulabel = "".join(map(chr, v_label))
                 v_alabel = idna.encode(v_ulabel).decode(LGRServer.charset)
+
                 if (v_alabel != a_label):
-                    response['variants'].append({
-                        'a_label': v_alabel,
-                        'code_points': v_label,
-                        'u_label': v_ulabel,
-                        'disposition': v_disposition,
+                    response.append({
+                        'u_label':      v_ulabel,
+                        'a_label':      v_alabel,
+                        'code_points':  v_label,
+                        'disposition':  v_disposition,
                     })
 
         self.send_response(200)
@@ -74,45 +142,20 @@ class LGRServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes(json.dumps(response, indent=2), LGRServer.charset))
 
     def _get_lgr_filename(self, tag):
-        return LGRServer.lgr_dir + tag + ".xml"
+        return "{0}/{1}.xml".format(LGRServer.lgr_dir, tag)
 
     def get_lgr(self, tag):
         if not hasattr(LGRServer.lgrs, tag):
-            try:
-                parser = XMLParser(self._get_lgr_filename(tag))
+            LGRServer.lgrs[tag] = None
+
+            file = self._get_lgr_filename(tag);
+            if os.path.exists(file):
+                parser = XMLParser(file)
                 parser.unicode_database = LGRServer.unimanager.register(None, LGRServer.icu_libpath, LGRServer.icu_i18n_libpath, LGRServer.icu_libver)
+
                 LGRServer.lgrs[tag] = parser.parse_document()
-            except:
-                LGRServer.lgrs[tag] = None
 
         return LGRServer.lgrs[tag]
 
 if __name__ == "__main__":
-    os.putenv("PKG_CONFIG_PATH", "/opt/homebrew/opt/icu4c@75/lib/pkgconfig")
-
-    try:
-        output = subprocess.check_output(["pkg-config", "--modversion", "icu-uc"]).decode("utf-8").strip()
-        LGRServer.icu_libver = int(float(output))
-
-        output = subprocess.check_output(["pkg-config", "--libs", "icu-uc"]).decode("utf-8").strip()
-        libdir = re.match(r"-L([^ ]+)", output).group(1)
-
-        files = {}
-        for f in glob(libdir + "/*"):
-            match = re.match(r"^lib(icuuc|icui18n).\d+\.(dylib|so)$", os.path.basename(f))
-            if match is not None:
-                files[match.group(1)] = match.group(0)
-
-        LGRServer.icu_libpath = libdir + "/" + files["icuuc"]
-
-        LGRServer.icu_i18n_libpath = libdir + "/" + files["icui18n"]
-
-    except:
-        print("Unable to determine ICU lib version using pkg-config")
-        exit(1)
-
-    server = HTTPServer(server_address=("0.0.0.0", 8080), RequestHandlerClass=LGRServer)
-
-    print("Server running on http://0.0.0.0:8080")
-
-    server.serve_forever()
+    LGRServer.run()

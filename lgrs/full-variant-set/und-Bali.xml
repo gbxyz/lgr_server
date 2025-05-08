@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">1</version>
+    <date>2024-10-25</date>
+    <language>und-Bali</language>
+    <unicode-version>14.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+
+<section id="sec_description">
+  <h1 id="reference_label_generation_rules_for_the_balinese_script">Reference Label Generation Rules for the Balinese Script</h1>
+  <section id="sec_desc_overview">
+    <h2 id="desc_overview">Overview</h2>
+    <p>This document specifies a set of Label Generation Rules (LGR) for the Balinese script
+    using a script-specific repertoire for the second level domain or domains identified above.
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Balinese Script” [Ref-LGR-und-Bali], for details, see <a href="#change_history">Change History</a> below.</p>
+    <p><b>Standalone LGR:</b> This LGR is designed to be used in a zone that does not cater to IDNs 
+	other than those valid under this LGR. 
+	This LGR lacks features that would allow its use in the context
+	of another LGR in the same zone, and it may contain other features incompatible with such use.</p>
+    <p>For details and additional background on the Balinese script, see "Balinese Script Reference Label Generation Rules for Second-Level Domain Names" [Proposal-Balinese].</p>
+    <p></p>
+  </section>
+  <section id="sec_desc_repertoire">
+    <h2 id="desc_repertoire">Repertoire</h2>
+    <p>This LGR includes the 65 Balinese letters and signs selected from Section 5.1 “Included Code Points” in [Proposal-Balinese].</p>
+    <p>For the second level, the repertoire has been augmented with U+002D HYPHEN-MINUS, for a total of 66 repertoire elements.</p>
+    <p><b>Repertoire Listing:</b> Each code point or range is tagged with the script or scripts with which the code point is used and one or more other character categories. For each repertoire element,
+      one or more references document sufficient justification for inclusion in the repertoire; see the <a href="#ref_desc_sec_References">“References”</a> below.</p>
+    <section id="sec_desc_excluded_characters">
+      <h3 id="desc_excluded_characters">Excluded Characters</h3>
+      <p>The Common (ASCII) digits are not used with Balinese. The native digits in the Balinese script are not included because some of them share a similar shape with ordinary letters, which could pose a security risk. For example: U+1B52 Balinese digit two and letter U+1B0D la lenga, as well as U+1B58 Balinese digit eight and U+1B28 letter pa kapal typically have identical appearance. While  some fonts may distinguish the latter they are depicted as identical in the Unicode code charts [UNICODE 14.0.0].</p>
+      <p>The sign U+1B34 nukta is seldom found being used today and therefore not included here. </p>
+      <p>The following lists the excluded Balinese script code points:</p>
+      <p>U+1B00 BALINESE SIGN ULU RICEM (Dependent vowel)</p>
+      <p>U+1B01 BALINESE SIGN ULU CANDRA (Sign)</p>
+      <p>U+1B1F BALINESE LETTER DA MURDA ALPAPRANA (Consonant)</p>
+      <p>U+1B34 BALINESE SIGN REREKAN (Sign)</p>
+      <p>U+1B50 BALINESE DIGIT ZERO (Digit)</p>
+      <p>U+1B51 BALINESE DIGIT ONE (Digit)</p>
+      <p>U+1B52 BALINESE DIGIT TWO (Digit)</p>
+      <p>U+1B53 BALINESE DIGIT THREE (Digit)</p>
+      <p>U+1B54 BALINESE DIGIT FOUR (Digit)</p>
+      <p>U+1B55 BALINESE DIGIT FIVE (Digit)</p>
+      <p>U+1B56 BALINESE DIGIT SIX (Digit)</p>
+      <p>U+1B57 BALINESE DIGIT SEVEN (Digit)</p>
+      <p>U+1B58 BALINESE DIGIT EIGHT (Digit)</p>
+      <p>U+1B59 BALINESE DIGIT NINE (Digit)</p>
+      <p>See Section 5.2 “Excluded Code Points” in [Proposal-Balinese].</p>
+    </section>
+    <section id="sec_desc_variants">
+      <h2 id="desc_variants">Variants</h2>
+      <p>This LGR defines a number of in-script variants because they produce the same sound and are perceived as equivalent by script users. Following a thorough analysis described in Section 6.2  “Cross-script Variants”of [Proposal-Balinese] no cross-script variants have been identified based on any discernable similarity with another script or otherwise required for the security of the Balinese LGR.</p>
+      <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that 
+    differ only by these variants mutually exclusive: whichever label containing either of 
+    these variants is chosen earlier would be delegated, while any other equivalent labels should be blocked.
+    There is no preference among these labels.</p>
+
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in this LGR follows the guidelines in [RFC 8228].</p>
+    </section>
+    <section id="sec_desc_character_classes">
+      <h2 id="desc_character_classes">Character Classes</h2>
+      <p>The Balinese script is an abugida where syllables consist of a consonant or independent vowel with attached dependent vowels and signs. This leads to the following classification of characters:</p>
+      <ul>
+        <li>
+          <b>Consonant</b> — each consonant in Balinese has a consonant-vowel sequences are written as a unit.</li>
+        <li>
+          <b>Dependent Vowel</b> — dependent vowels must follow a consonant or an independent vowel.</li>
+        <li>
+          <b>Independent Vowel</b> — independent vowels do not need to follow a consonant and may be followed by a dependent vowel</li>
+        <li>
+          <b>Sign</b> — there are two signs used for Balinese that qualify for use in IDNs</li>
+      </ul>
+    </section>
+    <section id="sec_desc_whole_label_evaluation_(wle)_and_context_rules">
+      <h2 id="desc_whole_label_evaluation_wle_and_context_rules">Whole Label Evaluation (WLE) and Context Rules</h2>
+      <section id="sec_desc_common_rules">
+        <h3 id="desc_common_rules">Common Rules</h3>
+        <p></p>
+        <div> <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul></div>
+        <p>Script-specific rules in this LGR already prevent combining marks in leading position making the "leading-combining-mark" rule technically redundant. It is retained here for consistency.</p>
+      </section>
+      
+      <section id="sec_desc_default_actions">
+        <h3 id="desc_default_actions">Default Actions</h3>
+        <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+      </section>
+      <section id="sec_desc_script-specific_rules">
+        <h3 id="desc_script-specific_rules">Script-specific Rules</h3>
+        <p>This LGR defines the following rules that enforce basic structural rules of the Balinese script. The motivation is to prevent structurally meaningless sequences for which rendering systems or fonts are not prepared as opposed to enforcing spelling rules for any given language.</p>
+        <ul>
+          <li>
+            <b>follows-c</b> — a context rule that ensures U+1B35 must follow a consonant.</li>
+          <li>
+            <b>follows-c-or-iv</b> — a context rule that ensures that, with the exception of U+1B35, all dependent vowels must follow a consonant or independent vowel.</li>
+          <li>
+            <b>disallowed-for-1B44</b> — U+1B44 which functions as virama cannot be at the first position. It cannot follow a sign including itself. It cannot follow a dependent vowel. It cannot follow two consecutive consonants to prevent below 2-base stacking. This is implemented as a context rule defining the prohibited contexts.</li>
+          <li>
+            <b>follows-c-or-iv-or-dv</b> — a context rule that ensures signs may follow any code point other than another sign or hyphen.</li>
+        </ul>
+      </section>
+      <section id="sec_desc_methodology">
+        <h2 id="desc_methodology">Methodology</h2>
+        <p>This Second Level Reference LGR for the Balinese Script was developed by the Balinese community and edited by Asmus Freytag and Michel Suignard, based on community feedback and public review.</p>
+      </section>
+      <section id="sec_desc_change_history">
+        <h3>Changes from Version Dated 25 October 2024</h3>
+		<p>This version modifies the Second Level Reference LGR for the Balinese Script [Ref-LGR-und-Bali] by injecting the complete (maximal) set of cross-repertoire variants, including any imposed by transitivity. Injected variants are marked by special comments. Any character classes, context and WLE rules required for testing are also imported. In all other respects, description or annotations have not been updated to reflect the injected variants. Any LGR elements that might pose a possible conflict when the LGR is used with the Common LGR for cross-repertoire variant resolution are clearly marked. All modifications are carried out mechanically; there may be an occasional context rule or similar that is injected because its definition relates to some repertoire element even though it can never be triggered by any label valid under the modified LGR.
+    </p>
+      </section>
+      <section id="sec_desc_references">
+        <h2 id="desc_references">References</h2>
+        <p>This document cites the following general references.</p>
+        <dl class="references">
+          <dt>[Guidelines]</dt>
+          <dd>ICANN, “Guidelines for Developing Reference LGRs for the Second Level”, (Los Angeles, California: ICANN, 27 May 2020), https://www.icann.org/en/system/files/files/lgr-guidelines-second-level-27may20-en.pdf</dd>
+          <dt>[Level-2-Overview]</dt>
+          <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>
+          <dt>[Proposal-Balinese]</dt>
+          <dd>"Balinese Script Reference Label Generation Rules for Second-Level Domain Names", 12 September 2024, https://www.icann.org/en/system/files/files/proposal-balinese-second-level-12Sep24-en.pdf</dd>
+          <dt>[Ref-LGR-und-Bali]</dt>
+          <dd>ICANN, Second Level Reference Label Generation Rules for the Balinese Script (und-Bali), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-balinese-script-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-balinese-script-25oct24-en.html</dd>
+          <dt>[RFC 7940]</dt>
+          <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+          <dt>[RFC 8228]</dt>
+          <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+          <dt>[UNICODE 14.0.0]</dt>
+          <dd>The Unicode Consortium. The Unicode Standard, Version 14.0.0, (Mountain View, CA: The Unicode Consortium, 2021. ISBN 978-1-936213-29-0) 
+     https://www.unicode.org/versions/Unicode14.0.0/</dd>
+        </dl>
+        <p>References [0] to [8] refer to the Unicode Standard versions in which the corresponding code points were initially encoded. References [112] and above correspond to sources given in [Proposal-Balinese] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.</p>
+      </section>
+    </section>
+  </section>
+</section>]]></description>
+    <references>
+      <reference id="0" comment="Code points cited were originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="8" comment="Code points cited were originally encoded in Unicode Version 5.0">The Unicode Standard, Version 5.0</reference>
+      <reference id="112">Pramartha, C., Iswara, I. B. A. I., Suputra, I. P. G. H., &amp; Dwidasmara, I. B. G., (2021). Digital Humanities: Prototype Development for Balinese Script. In M. Ioannides, E. Fink, L. Cantoni, &amp; E. Champion (Eds.), Digital Heritage. Progress in Cultural Heritage: Documentation, Preservation, and Protection, (pp. 205-214). Springer International Publishing. https://doi.org/https://doi.org/10.1007/978-3-030-73043-7_17</reference>
+      <reference id="116">Suwija, I. N. (2012). Ngiring Nulis Bali. Wineka Media.</reference>
+      <reference id="117">Tinggen, I. N. (1993). Pasang aksara Bali: celah-celah kunci.</reference>
+      <reference id="119">The Unicode Standard, Balinese. Range: 1B00–1B7F Version 14.0. https://www.unicode.org/charts/PDF/U1B00.pdf</reference>
+      <reference id="120">Antara, I. G. N., Medera, N., Semadi, A. A. G. P., Sulibra, I. K. N., Yasa, P. E. G., &amp; Nala, M. B. A. (2023). Pedoman Pasang Aksara Bali (I. N. Suarka &amp; I. W. Suardiana Eds.): Dinas Kebudayaan Provinsi Bali in cooperation with Lembaga Bahasa, Aksara dan Sastra Bali.</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications(IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed">
+      <var cp="00B7" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+    </char>
+    <char cp="00B7" comment="Not part of repertoire (injected)">
+      <var cp="002D" when="Common--surrounded-by-L" type="blocked" comment="(injected)" />
+      <var cp="00B7" type="out-of-repertoire-var" comment="Out-of-repertoire (injected)" />
+    </char>
+    <char cp="1B02" when="follows-c-or-iv-or-dv" tag="sign" ref="8 112 116 117 119 120" />
+    <char cp="1B03" when="follows-c-or-iv-or-dv" tag="sign" ref="8 112 116 117 119 120" />
+    <char cp="1B04" when="follows-c-or-iv-or-dv" tag="sign" ref="8 112 116 117 119 120" />
+    <char cp="1B05" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B06" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B07" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B08" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B09" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0A" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0B" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0C" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0D" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0E" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B0F" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B10" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B11" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B12" tag="iv" ref="8 112 116 117 119 120" />
+    <char cp="1B13" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B14" type="blocked" />
+    </char>
+    <char cp="1B14" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B13" type="blocked" />
+    </char>
+    <char cp="1B15" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B16" type="blocked" />
+    </char>
+    <char cp="1B16" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B15" type="blocked" />
+    </char>
+    <char cp="1B17" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B18" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B19" type="blocked" />
+    </char>
+    <char cp="1B19" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B18" type="blocked" />
+    </char>
+    <char cp="1B1A" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1B" type="blocked" />
+    </char>
+    <char cp="1B1B" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1A" type="blocked" />
+    </char>
+    <char cp="1B1C" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B1D" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1E" type="blocked" />
+      <var cp="1B22" type="blocked" />
+      <var cp="1B23" type="blocked" />
+    </char>
+    <char cp="1B1E" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1D" type="blocked" />
+      <var cp="1B22" type="blocked" />
+      <var cp="1B23" type="blocked" />
+    </char>
+    <char cp="1B20" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B24" type="blocked" />
+      <var cp="1B25" type="blocked" />
+    </char>
+    <char cp="1B21" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B26" type="blocked" />
+    </char>
+    <char cp="1B22" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1D" type="blocked" />
+      <var cp="1B1E" type="blocked" />
+      <var cp="1B23" type="blocked" />
+    </char>
+    <char cp="1B23" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B1D" type="blocked" />
+      <var cp="1B1E" type="blocked" />
+      <var cp="1B22" type="blocked" />
+    </char>
+    <char cp="1B24" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B20" type="blocked" />
+      <var cp="1B25" type="blocked" />
+    </char>
+    <char cp="1B25" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B20" type="blocked" />
+      <var cp="1B24" type="blocked" />
+    </char>
+    <char cp="1B26" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B21" type="blocked" />
+    </char>
+    <char cp="1B27" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B28" type="blocked" />
+    </char>
+    <char cp="1B28" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B27" type="blocked" />
+    </char>
+    <char cp="1B29" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B2A" type="blocked" />
+    </char>
+    <char cp="1B2A" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B29" type="blocked" />
+    </char>
+    <char cp="1B2B" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B2C" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B2D" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B2E" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B2F" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B30" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B31" type="blocked" />
+      <var cp="1B32" type="blocked" />
+    </char>
+    <char cp="1B31" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B30" type="blocked" />
+      <var cp="1B32" type="blocked" />
+    </char>
+    <char cp="1B32" tag="consonant" ref="8 112 116 117 119 120">
+      <var cp="1B30" type="blocked" />
+      <var cp="1B31" type="blocked" />
+    </char>
+    <char cp="1B33" tag="consonant" ref="8 112 116 117 119 120" />
+    <char cp="1B35" when="follows-c" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B36" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B37" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B38" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B39" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3A" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3B" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3C" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3D" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3E" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B3F" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B40" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B41" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B42" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B43" when="follows-c-or-iv" tag="dv" ref="8 112 116 117 119 120" />
+    <char cp="1B44" not-when="disallow-for-1B44" tag="sign" ref="8 112 116 117 119 120" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="c" from-tag="consonant" comment="Any Balinese consonant" />
+    <class name="dv" from-tag="dv" comment="Any Balinese dependent vowel" />
+    <class name="iv" from-tag="iv" comment="Any Balinese independent vowel" />
+    <class name="s" from-tag="sign" comment="Any Balinese sign" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="hyphen-minus-disallowed" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule>
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule>
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule>
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <class property="gc:Mn" />
+      <class property="gc:Mc" />
+    </rule>
+    <rule name="disallow-for-1B44" comment="WLE Rule 1: 1B44 cannot be at the first position. It cannot follow a sign including itself. It cannot follow a dependent vowel. It cannot follow two consecutive consonants to prevent below 2-base stacking.">
+      <choice>
+        <rule>
+          <look-behind>
+            <choice>
+              <start />
+              <char cp="002D" />
+              <class by-ref="s" />
+              <class by-ref="dv" />
+            </choice>
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule>
+          <look-behind>
+            <class by-ref="c" />
+            <char cp="1B44" />
+            <class by-ref="c" />
+          </look-behind>
+          <anchor />
+          <look-ahead>
+            <class by-ref="c" />
+          </look-ahead>
+        </rule>
+      </choice>
+    </rule>
+    <rule name="follows-c-or-iv" comment="WLE Rule 2: Dependent vowel, except 1B35, must follow a consonant or an independent vowel.">
+      <look-behind>
+        <choice>
+          <class by-ref="c" />
+          <class by-ref="iv" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-c" comment="WLE Rule 3: 1B35 must follow a consonant.">
+      <look-behind>
+        <class by-ref="c" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-c-or-iv-or-dv" comment="WLE Rule 2: Dependent vowel, except 1B35, must follow a consonant or an independent vowel.">
+      <look-behind>
+        <choice>
+          <class by-ref="c" />
+          <class by-ref="iv" />
+          <class by-ref="dv" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="Common--surrounded-by-L" comment="code point both follows and precedes L, required context for Ela Geminada &#x235F; (injected, but possibly optional)">
+      <look-behind>
+        <char cp="006C" />
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <char cp="006C" />
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="RFC 5891 restrictions on placement of combining marks &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F; (injected)" />
+    <action disp="valid" comment="catch all; default action &#x235F;" />
+  </rules>
+</lgr>

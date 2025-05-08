@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Second Level Reference LGR">2</version>
+    <date>2024-10-25</date>
+    <language>und-Telu</language>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+       <div class="instructions">
+<h2>INSTRUCTIONS</h2>
+  <ul>
+    <li>These instructions cover how to adopt an LGR based on this reference LGR for a given
+    zone and how to prepare the file for deposit in the IANA Repository of IDN Practices.</li>
+    <li>As described  the IANA procedure (https://www.iana.org/help/idn-repository-procedure) an 
+    LGR MUST contain the following elements in its header:
+      <ul style="list-style-type:square;">
+        <li>Script or Language Designator (see below for guidance) </li>
+        <li>Version Number (this must increase with each amendment to the LGR, even if the updates 
+            are limited to the header itself) </li>
+        <li>Effective Date (the date at which the policy becomes applicable in operational use) </li>
+        <li>Registry Contact Details (contact name, email address, and/or phone number)</li>
+      </ul>
+    </li>
+    <li>The following information is optional:
+    <ul style="list-style-type:square;">
+    <li>Document creation date</li>
+    <li>Applicable Domain(s)</li>
+    <li>Changes made to the Reference LGR before adopting</li>
+    </ul>
+    </li>
+  </ul>
+  <p>Please add or modify the following items in the <b>XML source code for this file</b> before 
+  depositing the document in the IANA Repository. (https://www.iana.org/domains/idn-tables)</p>
+<h3>Meta Data</h3>
+<p>Note: version numbers start at 1. RFC 7940 recommends using simple integers. The version comment is optional, 
+   please replace or delete the default comment. Version comments may be used by some tools as part of the page header.</p>
+  <p><code>&lt;version comment=&quot;</code>[Please replace (or delete) the optional comment]<code>&quot;&gt;</code>[Please fill in version number, starting at 1]<code>&lt;/version&gt;</code></p>
+  <p><code>&lt;date&gt;</code>[Please fill in with publication date, in YYYY-MM-DD format]<code>&lt;/date&gt;</code></p>
+  <p><code>&lt;validity-start&gt;</code>[Please fill in effective date, in YYYY-MM-DD format]<code>&lt;/validity-start&gt;</code></p>
+  <p>Note: the scope element may be repeated, so that the same document can serve for multiple domains.</p>
+  <p><code>&lt;scope type=&quot;domain&quot;&gt;</code>[Please provide, in &quot;.domain&quot; format]<code>&lt;/scope&gt;</code></p>
+<p><strong>Registry Contact Information:</strong></p>
+  <p>Please fill in the <a href="#registry_contact_details">Registry Contact Details</a>.</p>
+<p><strong>Change History</strong></p>
+  <p>If you made technical modifications to the LGR, please summarize them in the <a href="#change_history">Change History</a> (and also note the details in the appropriate section of the description).</p>
+<p>PLEASE DELETE THESE INSTRUCTIONS BEFORE DEPOSITING THE DOCUMENT</p></div>
+       
+       <section id="registry_contact_details">
+<h2>Registry Contact Details</h2>
+<ul style="list-style:none;">
+<li><b>Contact Name:</b> [Please fill in Contact Name]</li>
+<li><b>Email address:</b> [Please fill in Email address]</li>
+<li><b>Phone Number:</b> [Please fill in optional Phone Number]</li>
+</ul>
+</section>
+
+    <h1>Label Generation Rules for the Telugu Script</h1>
+    
+    <h2>Overview</h2>
+
+    <p>This document specifies a set of Label Generation Rules (LGR) for the Telugu script for the second level domain or domains identified above. 
+    The starting point for the development of this LGR can be found in the related Root Zone LGR [RZ-LGR-Telu]. 
+    The format of this file follows [RFC 7940].
+    This LGR is adapted from the “Reference LGR for the Second Level for the Telugu Script” [Ref-LGR-und-Telu], for details, see <a href="#change_history">Change History</a> below.</p>
+
+    <p>For details and additional background on the Telugu script, see “Proposal for a Telugu Script Root Zone Label Generation Ruleset (LGR)” [Proposal-Telugu].</p>
+
+    <h2>Repertoire</h2>
+    <p>The repertoire contains 63 code points for letters catering to the Telugu language written using the Telugu script. Several other languages 
+     with [EGIDS] levels above 4 were also considered in the analysis. 
+     The repertoire is a subset of [Unicode 11.0.0]. For details, see Section 5, “Repertoire” in [Proposal-Telugu].
+        (The proposal cited has been adopted for the Telugu script portion of the Root Zone LGR.)</p>
+
+     <p>For the second level, the repertoire has been augmented with the ASCII digits, U+0030 to U+0039, plus U+002D HYPHEN-MINUS, for a total of 74 repertoire elements.</p>
+
+     <p>Any code points outside the Telugu Script repertoire that are targets for
+     out-of-repertoire variants would be included here only if the variant is listed 
+     in this file. In this case they are identified as a reflexive (identity) variant
+     of type “out-of-repertoire-var”. Whether or not they are listed, they do not 
+     form part of the repertoire.</p>
+
+     <p><b>Repertoire Listing:</b> Each code point or range is tagged with the script or scripts with which the code point is used and one or more other character categories. For each repertoire element,
+      one or more references document sufficient justification for inclusion in the repertoire; see the <a href="#ref_desc_sec_References">“References”</a> below.
+     Comments provide alternate names for some code points.</p>
+
+     <h2>Variants</h2>
+
+    <p>The variants defined in this LGR are limited to those required for use in zones not shared with any other script. 
+    As such, this LGR does not define cross-script variants. 
+    However, using this LGR concurrently with any LGR for Kannada in the same zone will create potential cross-script issues. For details, see Section 6, “Variants” in [Proposal-Telugu].
+    Mitigation of these cross-script variants can be addressed by using the Common LGR. 
+    For details, see Section 3, 
+    “Use of Multiple Reference LGRs in the Same Zone” in [Level-2-Overview].
+    In addition to variants defined by this LGR, the full variant information related to this script and required for concurrent use with the Kannada LGR(s) can be found 
+    in the following LGR: [Ref-LGR-Telugu-Full-Variant-Script]
+  </p>
+
+    <p>There are no in-script variants defined for Telugu. 
+    For details, see Section 6, “Variants” in [Proposal-Telugu].</p>
+    
+    <p><b>Digit Variants:</b> The Telugu reference LGR does not include native digits, so there are no semantic variants defined.</p>
+
+    <p>By transitivity, all ASCII digits are semantic variants of any cross-script native digits.
+    Any Telugu label that is otherwise a cross-script variant of a label in another script, will remain a variant
+    if both labels add digits of the same value in the same position, irrespective of whether they are
+    ASCII digits or (in the case of the other script) native digits.</p>
+    
+    <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that 
+    differ only by these variants mutually exclusive: whichever label containing either of 
+    these variants is chosen earlier would be delegated, while any other equivalent labels should be blocked.
+    There is no preference among these labels.</p>
+
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in this LGR follows the guidelines in [RFC 8228].</p>
+
+    <h2>Character Classes</h2>
+    <p>The Telugu orthography superficially resembles a series of circles and semi-circles. 
+    Most consonants carry a tick mark called ‘talakattu’. The writing system is classified 
+    as abugida type or alphasyllabary. The alphabet consists of vowels, 
+    consonants and modifiers. Each of these vowels and consonants has one or more secondary 
+    allographs.</p>
+
+    <p><b>Consonants:</b> The Telugu consonants contain an implicit vowel  /a/.
+     More details in Section 3.5.4, “The Consonants” in [Proposal-Telugu].</p>
+     
+    <p><b>Vowels and dependent vowel signs:</b> There are fourteen vowel characters in the common inventory of which 
+    one is rarely used: U+0C0C. It and the two obsolete vowels, U+0C60 and U+0C61, are excluded from this LGR.
+    Each vowel, except U+0C05 has a dependent vowel sign, modifying the vowel of the consonant they follow. 
+    These signs may have different appearance depending on the size and 
+    shape of the consonant that functions as an anchor. More details in Section 
+    3.5.1, “The vowels and vowel modifiers” in [Proposal-Telugu]. </p>
+
+    <p><b>Anusvara or sunna:</b> The Anusvara or sunna represents a homorganic nasal before the 
+    corresponding consonant and as a substitute to transcribe word final /mu/. Essentially, 
+    it substitutes a cluster of a Nasal Consonant+Halant before a consonant. More details 
+    in Section 3.5.2, “The Anusvara or sunna” in [Proposal-Telugu].</p>
+    
+     <p><b>Visarga:</b>  Visarga denotes the glottal check.</p>
+    
+     <p><b>Halant:</b> A special sign is needed whenever the implicit vowel in the preceding 
+     consonant is stripped off. This symbol is known as the Halant. (Any vowel sign will also override
+     the implicit vowel). More 
+    details in Section 3.5.1, “The vowels and vowel modifiers” in [Proposal-Telugu].</p>
+
+    <p><b>Common Digits:</b> U+0030 to U+0039 are the set of digits from the ASCII range. </p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Common Rules</h3>
+
+    <p>By default, the LGR includes the rules and actions to implement the following restrictions mandated by the IDNA protocol. They are marked with &#x235F;.</p>
+       <ul>
+       <li><b>Hyphen Restrictions</b> &mdash; restrictions on the allowable placement of hyphens (no leading/ending hyphen
+             and no hyphen in positions 3 and 4). These restrictions are described in Section 4.2.3.1 of RFC 5891 [150]. 
+             They are implemented here as context rule on U+002D (-) HYPHEN-MINUS.</li>
+          <li><b>Leading Combining Marks</b>   &mdash;  restrictions on the allowable placement of combining marks
+             (no leading combining mark). This rule is described in Section 4.2.3.2 of RFC 5891 [150].</li>
+       </ul>
+
+    <h3>Default Actions</h3>
+
+    <p>This LGR includes the default actions for LGRs as well as the action needed to
+        invalidate labels with misplaced combining marks. They are marked with &#x235F;.
+        For a description see [RFC 7940].</p>
+
+     <h3>Telugu-specific Rules</h3>
+    <p>These rules have been formulated so that they can be adopted for  LGR specification.</p>
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C    →    Consonant
+    <br/>M     →    Matra (Dependent vowel signs)
+    <br/>V    →    Vowel
+    <br/>B    →    Anusvara (Bindu)  
+    <br/>X    →    Visarga        
+    <br/>H    →    Halant / Virama
+    </p>
+    
+    <p>The rules are: </p>
+     <ul>
+     <li>1. H: must be preceded by C</li>
+     <li>2. M: must be preceded by C</li>
+     <li>3. X: must be preceded by V, M or C</li>
+     <li>4. B: must be preceded by V, M or C</li>
+     <li>6. V: cannot be preceded by H</li>
+     </ul>
+    
+     <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Telugu]. The numbering of the rules given here, follows that document.</p>
+    
+    <h2>Methodology and Contributors</h2>
+    
+    <p>The LGR in this document has been adapted from the corresponding Reference LGR for the Second Level. The Second Level Reference LGR for the Telugu Script was developed by Michel Suignard and Asmus Freytag, based on the Root Zone LGR for the Telugu 
+      script and information contained or referenced therein; see [RZ-LGR-Telu]. Suitable extensions for the second level have been applied according to the [Guidelines] and with community input. 
+      The original proposal for a Root Zone LGR for the Telugu script, that this reference LGR is based on, was developed by the Neo-Brahmi Generation Panel (NBGP). 
+       For more information on methodology and contributors to the underlying Root Zone LGR, see Sections 4 and 8 in [Proposal-Telugu], as well as [RZ-LGR-Overview].</p>
+
+    <section id="change_history">
+    <h3>Changes from Version Dated 15 December 2020</h3> <p>Unicode Version has been updated.</p>
+
+    <h3>Changes from Version Dated 25 October 2024</h3>
+        <p>Adopted from the Second Level Reference LGR for the Telugu Script [Ref-LGR-und-Telu] without normative changes.</p>
+    </section>
+    
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+
+     <dt>[EGIDS]</dt>
+     <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+
+     <dt>[Guidelines]</dt>
+     <dd>ICANN, “Guidelines for Developing Reference LGRs for the Second Level”, (Los Angeles, California: ICANN, 27 May 2020), https://www.icann.org/en/system/files/files/lgr-guidelines-second-level-27may20-en.pdf</dd> 
+
+     <dt>[Level-2-Overview]</dt>
+     <dd>Internet Corporation for Assigned Names and Numbers, (ICANN),“Reference Label Generation Rules (LGR) for the Second Level: Overview and Summary” (PDF), 
+     (Los Angeles, California: ICANN, 25 October 2024), https://www.icann.org/en/system/files/files/level2-lgr-overview-summary-25oct24-en.pdf
+      </dd>     
+
+     <dt>[Proposal-Telugu]</dt>
+     <dd>Neo-Brahmi Generation Panel, “Proposal for a Telugu Script Root Zone Label Generation Ruleset (LGR)”, 7 June 2019, https://www.icann.org/en/system/files/files/proposal-telugu-lgr-07Jun19-en.pdf</dd>
+
+     <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+
+     <dt>[Ref-LGR-und-Telu]</dt>
+     <dd>ICANN, Second Level Reference Label Generation Rules for the Telugu Script (und-Telu), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-telugu-script-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-telugu-script-25oct24-en.html</dd>
+
+     <dt>[Ref-LGR-Telugu-Full-Variant-Script]</dt>
+     <dd>ICANN, Second Level Reference Label Generation Rules for the Telugu Script (und-Telu), 25 October 2024 (XML)
+      https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-telugu-full-variant-script-25oct24-en.xml
+      non-normative HTML presentation: https://www.icann.org/sites/default/files/packages/lgr/lgr-second-level-telugu-full-variant-script-25oct24-en.html</dd>  
+
+     <dt>[RFC 8228]</dt>
+     <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+
+     <dt>[RZ-LGR-Overview]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022 (PDF), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-Telu]</dt>
+     <dd>ICANN, Root Zone Label Generation Rules for the Telugu Script (und-Telu), 26 May 2022 (XML)
+      https://www.icann.org/sites/default/files/lgr/rz-lgr-5-telugu-script-26may22-en.xml</dd>
+
+     <dt>[SIL-Ethnologue]</dt>
+     <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+      <dt>[Unicode 11.0.0]</dt>
+     <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+
+     </dl>
+
+      <p>For references consulted particularly in designing the repertoire for the Telugu Script for the second level 
+      please see details in the <a href="#table_of_references">Table of References</a> below.</p>
+
+     <p>Reference [0] refers to the Unicode Standard version in which the
+      corresponding code points were initially encoded. References [102] and above correspond to sources
+      given in [Proposal-Telugu] justifying the inclusion of the corresponding code points. 
+      Entries in the table may have
+        multiple source reference values. 
+        In the listing of <a href="#whole_label_evaluation_and_context_rules">whole label evaluation and context rules</a>,
+        reference [150] indicates the source for common rules.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode Version 1.1">The Unicode Standard, Version 1.1</reference>
+      <reference id="102">Krishnamurti, Bhadriraju (Ed.). 2000. Telugu bhaashaa charitra. Hyderabad: P.S. Telugu University. (first edition 1974)</reference>
+      <reference id="103">Krishnamurti, Bhadriraju and J P L Gwynn. 1985.  A Grammar of Modern Telugu. New Delhi: Oxford University Press. ISBN 978-0-19-561664-4</reference>
+      <reference id="150">RFC 5891, Internationalized Domain Names in Applications (IDNA): Protocol https://tools.ietf.org/html/rfc5891</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="002D" not-when="hyphen-minus-disallowed" tag="sc:Zyyy" ref="0" comment="HYPHEN-MINUS; &#x235F;" />
+    <char cp="0030" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ZERO; &#x235F;" />
+    <char cp="0031" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT ONE; &#x235F;" />
+    <char cp="0032" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT TWO; &#x235F;" />
+    <char cp="0033" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT THREE; &#x235F;" />
+    <char cp="0034" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FOUR; &#x235F;" />
+    <char cp="0035" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT FIVE; &#x235F;" />
+    <char cp="0036" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SIX; &#x235F;" />
+    <char cp="0037" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT SEVEN; &#x235F;" />
+    <char cp="0038" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT EIGHT; &#x235F;" />
+    <char cp="0039" tag="Common-digit sc:Zyyy" ref="0" comment="DIGIT NINE; &#x235F;" />
+    <char cp="0C02" when="follows-V-M-or-C" tag="Anusvara sc:Telu" ref="0 102 103" comment="= sunna" />
+    <char cp="0C03" when="follows-V-M-or-C" tag="sc:Telu Visarga" ref="0 102 103" />
+    <char cp="0C05" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C06" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C07" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C08" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C09" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C0A" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C0B" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C0E" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C0F" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C10" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C12" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C13" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C14" not-when="follows-H" tag="sc:Telu Vowel" ref="0 102 103" />
+    <char cp="0C15" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C16" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C17" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C18" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C19" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1A" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1B" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1C" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1D" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1E" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C1F" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C20" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C21" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C22" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C23" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C24" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C25" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C26" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C27" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C28" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2A" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2B" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2C" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2D" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2E" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C2F" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C30" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C32" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C33" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C35" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C36" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C37" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C38" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C39" tag="Consonant sc:Telu" ref="0 102 103" />
+    <char cp="0C3E" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C3F" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C40" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C41" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C42" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C43" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C44" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C46" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C47" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C48" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C4A" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C4B" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C4C" when="follows-C" tag="Matra sc:Telu" ref="0 102 103" />
+    <char cp="0C4D" when="follows-C" tag="Halant sc:Telu" ref="0 102 103" comment="= halant" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Telugu consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Telugu independent vowel" />
+    <class name="M" from-tag="Matra" comment="Any Telugu vowel sign (matra)" />
+    <class name="H" from-tag="Halant" comment="The Telugu Halant / Virama" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" ref="150" comment="RFC 5891 restrictions on placement of combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="hyphen-minus-disallowed" ref="150" comment="RFC 5891 restrictions on placement of U+002D HYPHEN-MINUS &#x235F;">
+      <choice>
+        <rule comment="no leading hyphen">
+          <look-behind>
+            <start />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule comment="no trailing hyphen">
+          <anchor />
+          <look-ahead>
+            <end />
+          </look-ahead>
+        </rule>
+        <rule comment="no consecutive hyphens in third and fourth position in the label">
+          <look-behind>
+            <start />
+            <any />
+            <any />
+            <char cp="002D" comment="hyphen-minus" />
+          </look-behind>
+          <anchor />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 1: H must be preceded by a C; WLE 2: M must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-M-or-C" comment="Section 7, WLE 3: Visarga must be preceded by V, M or C; WLE 4: Anusvara must be preceded by V, M or C">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="M" />
+          <class by-ref="C" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-H" comment="Section 7, WLE 6: V cannot be preceded by H">
+      <look-behind>
+        <class by-ref="H" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" ref="150" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>
