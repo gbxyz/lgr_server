@@ -26,7 +26,7 @@ class LGRServer(BaseHTTPRequestHandler):
 
     def run():
         p = ArgumentParser("LGR Server", " A simple REST API for accessing Label Generation Rulesets (LGRS)")
-        p.add_argument('--lgr-set', choices=['full-variant-set', 'second-level-reference'])
+        p.add_argument("--lgr-set", choices=["full-variant-set", "second-level-reference"])
 
         args = p.parse_args()
 
@@ -36,16 +36,16 @@ class LGRServer(BaseHTTPRequestHandler):
             print("Note: monkey patching picu.loader.KNOWN_ICU_VERSIONS")
             picu.loader.KNOWN_ICU_VERSIONS = picu.loader.KNOWN_ICU_VERSIONS + (str(LGRServer.icu_libver),)
 
-        if not hasattr(munidata.idna.idnatables.IDNA_UNICODE_MAPPING, '15.0.0'):
+        if not hasattr(munidata.idna.idnatables.IDNA_UNICODE_MAPPING, "15.0.0"):
             print("Note: monkey patching munidata.idna.idnatables.IDNA_UNICODE_MAPPING")
-            munidata.idna.idnatables.IDNA_UNICODE_MAPPING['15.0.0'] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING['12.1.0']
+            munidata.idna.idnatables.IDNA_UNICODE_MAPPING["15.0.0"] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING["12.1.0"]
 
         libs = {}
-        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", '.*/libicu\\(uc\\|i18n\\).so.72']).decode(LGRServer.charset).strip().split("\n"):
+        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.72"]).decode(LGRServer.charset).strip().split("\n"):
             libs[os.path.splitext(os.path.basename(path))[0]] = path
 
-        LGRServer.icu_libpath = libs['libicuuc.so']
-        LGRServer.icu_i18n_libpath = libs['libicui18n.so']
+        LGRServer.icu_libpath = libs["libicuuc.so"]
+        LGRServer.icu_i18n_libpath = libs["libicui18n.so"]
 
         if hasattr(args, "lgr_set") and args.lgr_set is not None:
             LGRServer.lgr_dir = "{0}/lgrs/{1}".format(os.path.abspath(os.path.dirname(__file__)), args.lgr_set)
@@ -106,15 +106,15 @@ class LGRServer(BaseHTTPRequestHandler):
                 approx_variants = 0
 
             response = {
-                'u_label':              "".join(map(chr, code_points)),
-                'a_label':              a_label,
-                'code_points':          code_points,
-                'tag':                  tag,
-                'invalid_code_points':  list(map(lambda cp: cp[0], invalid_code_points)),
-                'eligible':             eligible,
-                'disposition':          disposition,
-                'index_label':          index_label,
-                'approx_variants':      approx_variants,
+                "u_label":              "".join(map(chr, code_points)),
+                "a_label":              a_label,
+                "code_points":          code_points,
+                "tag":                  tag,
+                "invalid_code_points":  list(map(lambda cp: cp[0], invalid_code_points)),
+                "eligible":             eligible,
+                "disposition":          disposition,
+                "index_label":          index_label,
+                "approx_variants":      approx_variants,
             }
 
         elif "variants" != segments[2]:
@@ -149,10 +149,10 @@ class LGRServer(BaseHTTPRequestHandler):
 
                 if (v_alabel != a_label):
                     response.append({
-                        'u_label':      v_ulabel,
-                        'a_label':      v_alabel,
-                        'code_points':  v_label,
-                        'disposition':  v_disposition,
+                        "u_label":      v_ulabel,
+                        "a_label":      v_alabel,
+                        "code_points":  v_label,
+                        "disposition":  v_disposition,
                     })
 
         self.send_response(200)
