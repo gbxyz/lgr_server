@@ -41,7 +41,7 @@ class LGRServer(BaseHTTPRequestHandler):
             munidata.idna.idnatables.IDNA_UNICODE_MAPPING["15.0.0"] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING["12.1.0"]
 
         libs = {}
-        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.72"]).decode(LGRServer.charset).strip().split("\n"):
+        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.{0}".format(LGRServer.icu_libver)]).decode(LGRServer.charset).strip().split("\n"):
             libs[os.path.splitext(os.path.basename(path))[0]] = path
 
         LGRServer.icu_libpath = libs["libicuuc.so"]
