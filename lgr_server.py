@@ -3,6 +3,8 @@
 
 from argparse import ArgumentParser
 import os
+from symbol import return_stmt
+
 import pkgconfig
 import json
 import idna
@@ -41,7 +43,8 @@ class LGRServer(BaseHTTPRequestHandler):
             munidata.idna.idnatables.IDNA_UNICODE_MAPPING["15.0.0"] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING["12.1.0"]
 
         libs = {}
-        for path in subprocess.check_output(["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.{0}".format(LGRServer.icu_libver)]).decode(LGRServer.charset).strip().split("\n"):
+        findcmd = ["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.{0}".format(LGRServer.icu_libver)]
+        for path in subprocess.check_output(findcmd).decode(LGRServer.charset).strip().split("\n"):
             libs[os.path.splitext(os.path.basename(path))[0]] = path
 
         LGRServer.icu_libpath = libs["libicuuc.so"]
@@ -59,18 +62,21 @@ class LGRServer(BaseHTTPRequestHandler):
         except KeyboardInterrupt:
             exit()
 
+    def respond(self, code=400, body=""):
+        self.send_response(code)
+        self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
+        self.send_header("access-control-allow-origin", "*")
+        self.end_headers()
+        self.wfile.write(body.encode(LGRServer.charset))
+
+    def _error(self, code=400, message="Bad Request"):
+        self.respond(code, json.dumps({"error": code, "message": message}, indent=2))
+
     def do_GET(self):
         segments = unquote(urlparse(self.path).path[1:], LGRServer.charset).split("/")
 
         if (len(segments) < 2 or len(segments) > 3):
-            self.send_response(400)
-            self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
-            self.send_header("access-control-allow-origin", "*")
-            self.end_headers()
-            self.wfile.write(bytes(json.dumps({
-                "error": 400,
-                "message": "Invalid path '{}'".format(self.path),
-            }, indent=2), LGRServer.charset))
+            self._error(400, "Invalid path '{}'".format(self.path))
             return
 
         tag = segments[0]
@@ -78,22 +84,24 @@ class LGRServer(BaseHTTPRequestHandler):
         if re.match("^xn--", segments[1], re.IGNORECASE):
             a_label = segments[1]
         else:
-            a_label = idna.encode(segments[1]).decode(LGRServer.charset)
+            try:
+                a_label = idna.encode(segments[1]).decode(LGRServer.charset)
+            except:
+                self.send_response(400, "Invalid label '{}'".format(segments[1]))
+                return
 
         lgr = self.get_lgr(tag)
 
         if lgr is None:
-            self.send_response(400)
-            self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
-            self.send_header("access-control-allow-origin", "*")
-            self.end_headers()
-            self.wfile.write(bytes(json.dumps({
-                "error": 404,
-                "message": "Unknown tag '{}'".format(tag),
-            }, indent=2), LGRServer.charset))
+            self._error(400, "Unknown LGR '{}'".format(tag))
             return
 
-        code_points = tuple([ord(c) for c in idna.decode(a_label)])
+        try:
+            code_points = tuple([ord(c) for c in idna.decode(a_label)])
+
+        except:
+            self._error(400, "Invalid label '{}'".format(a_label))
+            return
 
         (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
 
@@ -101,6 +109,7 @@ class LGRServer(BaseHTTPRequestHandler):
             try:
                 index_label = "".join(map(chr, lgr.generate_index_label(code_points)))
                 approx_variants = lgr.estimate_variant_number(code_points)
+
             except:
                 index_label = None
                 approx_variants = 0
@@ -117,27 +126,16 @@ class LGRServer(BaseHTTPRequestHandler):
                 "approx_variants":      approx_variants,
             }
 
+            self.respond(200, json.dumps(response))
+            return
+
         elif "variants" != segments[2]:
-            self.send_response(400)
-            self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
-            self.send_header("access-control-allow-origin", "*")
-            self.end_headers()
-            self.wfile.write(bytes(json.dumps({
-                "error": 400,
-                "message": "Invalid path '{}'".format(self.path),
-            }, indent=2), LGRServer.charset))
+            self._error(400, "Invalid path '{}'".format(self.path))
             return
 
         else:
             if not eligible:
-                self.send_response(404)
-                self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
-                self.send_header("access-control-allow-origin", "*")
-                self.end_headers()
-                self.wfile.write(bytes(json.dumps({
-                    "error": 400,
-                    "message": "Invalid label '{}'".format(a_label),
-                }, indent=2), LGRServer.charset))
+                self._error(404, "Invalid label '{}'".format(a_label))
                 return
 
             variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
@@ -155,11 +153,8 @@ class LGRServer(BaseHTTPRequestHandler):
                         "disposition":  v_disposition,
                     })
 
-        self.send_response(200)
-        self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
-        self.send_header("access-control-allow-origin", "*")
-        self.end_headers()
-        self.wfile.write(bytes(json.dumps(response, indent=2), LGRServer.charset))
+        self.respond(200, json.dumps(response))
+        return
 
     def _get_lgr_filename(self, tag):
         return "{0}/{1}.xml".format(LGRServer.lgr_dir, tag)
