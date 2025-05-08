@@ -3,7 +3,6 @@
 
 from argparse import ArgumentParser
 import os
-from symbol import return_stmt
 
 import pkgconfig
 import json
