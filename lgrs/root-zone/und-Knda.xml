@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Kannada Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Knda</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Kannada Script</h1>
+    
+    <h2>Overview</h2>
+    <p>This file contains Label Generation Rules (LGR) for the Kannada script for the Root Zone.
+    For more details on this LGR and additional background on the script, see “Proposal for a 
+    Kannada Script Root Zone Label Generation Ruleset (LGR)” [Proposal-Kannada]. 
+    This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Kannada], the Kannada LGR contains 62 single code points.</p>
+     <p>This LGR caters to Kannada, Tulu, Beary, Konkani, Havyaka, Kodava, among other languages written 
+      using the Kannada script.</p>
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+    <p>Code points outside the Kannada script that are listed in this file are targets
+        for out-of-script variants and are identified by a reflexive (identity)
+        variant of type “out-of-repertoire-var”. They do not form part of the
+        repertoire.</p>
+
+    <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories, 
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+    Comments provide alternate names of some code points.</p>
+      
+    <h2>Variants</h2>
+    <p>According to Section 6, “Variants”, in [Proposal-Kannada], this LGR defines cross-script variants 
+    which are “Confusing due to deviation from normally perceived character formations by larger linguistic 
+    community”. These cases are not of mere visual similarity; they can cause confusion even to a
+    careful observer and hence have been defined as variants. There are no in-script variants defined for Kannada.</p>
+
+    <p><b>Variant Disposition:</b> All variants are of type “blocked” making labels that differ only 
+    by these variants mutually exclusive:  whichever label containing either of these variants is chosen earlier 
+    would be delegated, while any other equivalent variant label should be blocked. There is no preference among these variants.</p>
+    <p>This LGR does not define allocatable variants.</p>
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+      
+    <h2>Character Classes</h2>
+     <p>The structure of the Kannada script is similar to that of 
+      other Indian scripts; it is particularly closely related to Telugu. The heart of the writing system is the Akshar. 
+      The basic characters are classified into three main categories:
+      swara (vowels), vyanjana (consonants) and yogavahas (semiconsonants). </p>
+    
+    <p><b>Swaras (vowels):</b> There are thirteen vowels. When a vowel follows a consonant, it is 
+    written with a diacritic rather than as a separate letter. Sometimes these are referred 
+    to as vowel signs or matras. More details in Section 3.4.1, “Swaras (vowels)” in [Proposal-Kannada]. </p>
+
+    <p><b>Yogavahas (semiconsonants):</b> The Yogavaha (part-vowel, part consonant) include two letters: </p>
+    <ol>
+    <li>The anusvara: ಅಂ /aṁ/.</li>
+    <li>The visarga: ಅಃ /aḥ/. </li>
+    </ol><p>See Section 3.4.2, “Yogavahas” of [Proposal-Kannada].</p>
+
+    <p><b>Vyanjanas (consonants):</b> Two categories of consonant characters are 
+    defined in Kannada: the structured consonants (vargeeya vyanjana) and the unstructured 
+    consonants (avargeeya vyanjana). For the purpose of this LGR, all consonants are treated the same.
+    More details in Section 3.4.3, “Vyanjanas (consonants)” of the 
+    [Proposal-Kannada].</p>
+    
+    <p><b>Halant / Virama:</b> All consonant code points in Kannada 
+    contain an implicit vowel ಅ /a/. The Unicode character U+0CCD, which 
+    is the Kannada equivalent of the Devanagari Halant (or Virama), U+094D, is applied to 
+    consonants to remove the implicit vowel. More 
+    details in Section 3.4.4, “Implicit vowel ಅ (a) in consonants” in [Proposal-Kannada].</p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Default Whole Label Evaluation Rules and Actions</h3>
+    <p>The LGR includes the set of required default WLE rules and actions applicable to 
+        the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+          default prohibition on leading combining marks is equivalent to ensuring that 
+          a label only starts with a consonant or vowel.</p> 
+        
+    <h3>Kannada-specific Rules</h3>
+    <p>These rules have been formulated so that they can be adopted for  LGR specification.</p>
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C    →    Consonant
+    <br/>M    →    Matra
+    <br/>V    →    Vowel
+    <br/>B    →    Anusvara
+    <br/>X    →    Visarga
+    <br/>H    →    Halant / Virama
+    </p>
+    
+    <p>The rules are: </p>
+     <ul>
+     <li>1. H: must be preceded by C</li>
+     <li>2. M: must be preceded by C</li>
+     <li>3. B: must be preceded by C, V or M</li>
+     <li>4. X: must be preceded by C, V or M</li>
+     <li>5. V: cannot be preceded by H</li>
+     </ul>
+    
+     <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” of [Proposal-Kannada].</p>
+    
+    <h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Kannada script was developed by the Neo-Brahmi Generation Panel (NBGP) the members 
+     of which have experience in linguistics and computational linguistics in a wide variety of languages
+     written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation Panel, there are 
+    nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a 
+    separate LGR, with the Neo-Brahmi GP ensuring that the fundamental philosophy behind building 
+    each LGR is in sync with all other Brahmi-derived scripts. For further details on methodology and
+    contributors, see Sections 4 and 8 in [Proposal-Kannada], as well as [RZ-LGR-5-Overview].</p>
+
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+
+    <dt>[Proposal-Kannada]</dt> 
+    <dd>Neo-Brahmi Generation Panel, “Proposal for a Kannada Script Root Zone Label Generation Ruleset (LGR)”, 6 March 2019, https://www.icann.org/en/system/files/files/proposal-kannada-lgr-06mar19-en.pdf</dd>
+
+    <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+     
+    <dt>[RFC 8228]</dt>
+    <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+    
+      <dt>[RZ-LGR-5-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+     <dt>[Unicode 11.0]</dt>
+     <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     </dl>
+     <p>For references consulted particularly in designing the repertoire for the Kannada script for the Root Zone 
+     please see details in the <a href="#table_of_references">Table of References</a> below. 
+     Reference [0] refers to the Unicode Standard version in which the
+     corresponding code points were initially encoded. References [110] and above correspond to sources
+     given in {Proposal-Kannada] justifying the inclusion of the corresponding code points. Entries in the table may have
+     multiple source reference values.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="110">ಕನ್ನಡ ಮಧ್ಯಮ ವ್ಯಾಕರಣ, ತೀ.ನಂ. ಶ್ರೀಕಂಠಯ್ಯ, ಗೀತಾ ಬುಕ್ ಹೌಸ್, ಮೈಸೂರು, ೨೦೦೧ /Kannada Madhyama Vyakarana/ (An Intermediate Kannada Grammar), T. N. Sreekantaiya, Geetha Book House, Mysore, 2001. </reference>
+      <reference id="111">Omniglot, Kannada (ಕನ್ನಡ), https://www.omniglot.com/writing/kannada.htm</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0C02" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C02" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C82" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C03" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C03" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C83" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C05" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C05" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C85" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C06" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C06" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C86" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C07" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C07" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C87" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C08" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C08" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C88" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C10" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C10" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C90" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C12" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C12" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C92" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C13" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C13" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C93" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C14" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C14" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C94" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C16" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C16" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C96" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C17" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C17" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C97" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C1C" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C1C" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C9C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C1D" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C1D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C9D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C1E" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C1E" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C9E" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C1F" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C1F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0C9F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C20" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C20" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA0" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C21" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C21" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA1" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C22" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C22" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA2" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C23" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C23" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA3" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C25" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C25" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA5" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C26" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C26" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA6" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C27" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C27" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA7" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C28" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C28" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CA8" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C2C" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C2C" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CAC" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C2D" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C2D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CAD" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C2E" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C2E" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CAE" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C2F" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C2F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CAF" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C30" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C30" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CB0" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C32" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C32" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CB2" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C33" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C33" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CB3" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C3F" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C3F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CBF" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C41" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C41" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CC1" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C43" tag="sc:Telu" ref="0" comment="Not part of repertoire">
+      <var cp="0C43" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0CC3" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C82" when="follows-C-V-or-M" tag="Anusvara sc:Knda" ref="0 110 111">
+      <var cp="0C02" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C83" when="follows-C-V-or-M" tag="sc:Knda Visarga" ref="0 110 111">
+      <var cp="0C03" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C85" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C05" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C86" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C06" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C87" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C07" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C88" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C08" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C89" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111" />
+    <char cp="0C8A" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111" />
+    <char cp="0C8B" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111" />
+    <char cp="0C8E" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111" />
+    <char cp="0C8F" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111" />
+    <char cp="0C90" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C10" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C92" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C12" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C93" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C13" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C94" not-when="follows-H" tag="sc:Knda Vowel" ref="0 110 111">
+      <var cp="0C14" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C95" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0C96" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C16" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C97" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C17" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C98" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0C99" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0C9A" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0C9B" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0C9C" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C1C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C9D" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C1D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C9E" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C1E" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0C9F" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C1F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA0" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C20" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA1" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C21" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA2" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C22" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA3" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C23" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA4" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CA5" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C25" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA6" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C26" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA7" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C27" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CA8" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C28" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CAA" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CAB" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CAC" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C2C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CAD" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C2D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CAE" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C2E" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CAF" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C2F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CB0" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C30" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CB2" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C32" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CB3" tag="Consonant sc:Knda" ref="0 110 111">
+      <var cp="0C33" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CB5" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CB6" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CB7" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CB8" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CB9" tag="Consonant sc:Knda" ref="0 110 111" />
+    <char cp="0CBE" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CBF" when="follows-C" tag="Matra sc:Knda" ref="0 110 111">
+      <var cp="0C3F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CC0" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CC1" when="follows-C" tag="Matra sc:Knda" ref="0 110 111">
+      <var cp="0C41" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CC2" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CC3" when="follows-C" tag="Matra sc:Knda" ref="0 110 111">
+      <var cp="0C43" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0CC6" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CC7" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CC8" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CCA" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CCB" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CCC" when="follows-C" tag="Matra sc:Knda" ref="0 110 111" />
+    <char cp="0CCD" when="follows-C" tag="Halant sc:Knda" ref="0 110 111" comment="= Halant" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" ref="110 111" comment="Any Kannada consonant" />
+    <class name="V" from-tag="Vowel" ref="110 111" comment="Any Kannada independent vowel" />
+    <class name="M" from-tag="Matra" ref="110 111" comment="Any Kannada vowel sign (matra)" />
+    <class name="H" from-tag="Halant" ref="110 111" comment="The Kannada Halant / Virama" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 1: H must be preceded by C; WLE 2: M must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-V-or-M" comment="Section 7, WLE 3: Anusvara must be preceded by C, V or M; WLE 4: Visarga must be preceded by C, V or M">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="V" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-H" comment="Section 7, WLE 5: V cannot be preceded by H">
+      <look-behind>
+        <class by-ref="H" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

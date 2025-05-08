@@ -1,0 +1,635 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Malayalam Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Mlym</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    
+    <h1>Root Zone Label Generation Rules for the Malayalam script</h1>
+    
+    <h2>Overview</h2>    
+    <p>This file contains Label Generation Rules (LGR) for the Malayalam script for the Root Zone. 
+     For details on the development of this LGR and additional background on the script, 
+     see “Proposal for a Malayalam Script Root Zone Label Generation 
+     Ruleset (LGR)” [Proposal-Malayalam]. 
+     This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+     The format of this file follows [RFC 7940].</p>
+
+    <h2>Repertoire</h2>
+    <p>The repertoire contains 70 code points for letters used in the Malayalam language
+    in addition to 11 sequences used in defining variants, bringing the total repertoire entries to 81.</p>
+
+    <p>For more detail, see Section 5, “Repertoire” in [Proposal-Malayalam].</p>
+
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+    <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+      
+     <p>Code points outside the Malayalam script that are listed in this file are targets
+       for out-of-script variants and are identified by a reflexive (identity)
+       variant of type “out-of-repertoire-var”. They do not form part of the
+       repertoire.</p>
+
+    <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories,
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.</p>
+
+   <h2>Variants</h2>
+    <p>This LGR defines in-script variants and cross-script variants as described in Section 6, “Variants”, in [Proposal-Malayalam].
+    One in-script variant is due to the multiple ways to write the conjunct 
+    “nta” in Malayalam.  Cross-script variants for related scripts are mainly defined for Tamil code points, as well as for Oriya and Myanmar.</p>
+
+    <p>For consistency with other RZ-LGRs, cross-script variants to ASCII code points are listed explicitly as well. For the Malayalam
+    LGR this requires the addition of one redundant sequence U+0D1F U+0D1F. This sequence has no effect on available labels.</p>
+    
+    <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that differ only by these variants mutually exclusive:  
+    whichever label containing either of these variants is chosen earlier, the other one equivalent variant label should be blocked. 
+    There is no preference among these variants.</p>
+
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p><b>Additional Variants:</b> This LGR inherits additional blocked cross-script variants by integration; they may not be listed here unless they result in
+    in-script variants. See the merged, Common LGR [RZ-LGR-5] for details of all applicable cross-script variants,
+    including any not listed here; always use the Common LGR for determining cross-script collisions of labels.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+    <p><b>Context Rules for Variants:</b> some of the variants defined in this LGR are “effective null variants”, that is,
+    some code points in the source map to “nothing” in the target with all other code points unchanged.
+    (Because mappings are symmetric, it does not matter whether it is the forward or reverse mapping that
+    maps to “null” ). Such variants require a context rule to keep the variant set well-behaved. Symmetry requires
+    the same context rule for both forward and reverse mappings.</p>
+   
+    <p>In other cases, the sequences or code points making up source and target are constrained by context
+    rules on the code points. In such a case, any variants require context rules that match the intersection
+    between the contexts for both source and target; otherwise a sequence might be considered valid in some
+    variant label when it would not be valid in an equivalent context in an original label.</p>
+
+    <h2>Character Classes</h2>
+    <p>The basic characters in Malayalam are classified here into the following categories: Consonants, Vowels, 
+    Matra and Reordrant Vowel Diacritics, Halant, Visarga, Anusvara and Chillu letters. </p>
+    
+    <p><b>Consonant:</b> Malayalam is written in an abugida script derived ultimately from Brahmi in which 
+    every consonant carries an inherent /a/. More details in Section 3.8, “The Structure of 
+    Malayalam Script” of [Proposal-Malayalam].</p>
+    
+    <p><b>Vowels:</b> Like consonants, the independent vowels can follow any other class of code points in a label.</p>
+
+    <p><b>Matra:</b> Vowels other than the inherent vowel are written as vowel diacritics. They are referred to as Matras, 
+    when they follow consonants. More details in Section 3.8, “The Structure of Malayalam Script” of [Proposal-Malayalam].</p>
+    
+    <p><b>Halant:</b> A consonant can be combined with another consonant or conjunct 
+    using the halant encoded as U+0D4D MALAYALAM SIGN VIRAMA. This strips off the implicit vowel. 
+     More details in Section 3.8, “The Structure of Malayalam Script” of [Proposal-Malayalam].</p>
+
+    <p><b>Anusvara:</b> In Malayalam, anusvara represented as U+0D02, simply represents a consonant /m/ after a vowel, 
+    though this /m/ may be assimilated to another nasal consonant. More details in Section 3.8, “The Structure of Malayalam 
+    Script” of [Proposal-Malayalam].</p>
+
+    <p><b>Visarga:</b> The visarga represents a consonant /h/ after a vowel, 
+    and is transliterated as ḥ. Like the anusvara, it is a special symbol, and is never followed by an 
+    inherent vowel or another vowel. More details in Section 3.8, “The Structure of Malayalam 
+    Script” of [Proposal-Malayalam].</p>
+
+    <p><b>Chillu:</b> Chillu letters, aka “Chillaksharam”, represent pure consonants without any vowel sound. 
+    More details in Section 3.8, “The Structure of Malayalam Script” of [Proposal-Malayalam].</p>
+    
+    <p><b>Reordrant:</b> Vowel diacritics, part of which reorder around the preceding character or conjunct. 
+    More details in Sections 6.1 “In-script Variants” and 7.1.1 “Variables or definitions” of [Proposal-Malayalam].</p>    
+        
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+   <h3>Default Whole Label Evaluation Rules and Actions</h3>
+   <p>The LGR includes the set of required default WLE rules and actions applicable to 
+    the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+    default prohibition on leading combining marks is equivalent to ensuring that 
+    a label only starts with a consonant or vowel.</p>
+    
+    <h3>Malayalam-specific Rules</h3>
+    <p>There are constraints on the context for many of the character classes in Malayalam. 
+    A corresponding set of context and whole label rules has been formulated for LGR specification, as described in
+    Section 7, “Whole Label Evaluation (WLE) Rules” in [Proposal-Malayalam].</p>
+    
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C    →    Consonant
+    <br/>M    →    Matra
+    <br/>V    →    Vowel
+    <br/>B    →    Anusvara
+    <br/>X    →    Visarga 
+    <br/>D    →    Chandrabindu
+    <br/>H    →    Halant
+    <br/>L    →    Chillu
+    <br/>R    →    Reordrant Matra
+    </p>
+    <p><b>Note:</b> the Reordrant Matras include one sequence. That requires an auxiliary rule R in addition to class R.</p>
+    
+    <p>The rules are: </p>
+    <ul>
+        <li>1. H: must be preceded by C or U+0D41</li>
+        <li>2. M: must be preceded by C</li>
+        <li>3. B: must be preceded by C, V or M</li>
+        <li>4. X: must be preceded by C, V or M</li>
+        <li>5. L: cannot be preceded by B, X or H</li>
+        <li>6. A label does not begin with L</li> 
+    </ul>
+    <p>The following context rules apply to Consonants U+0D33 LLA and U+0D31 RRA as well as to sequences ending in these code points:</p>
+    <ul>
+      <li>7. The character U+0D33 cannot immediately follow U+0D33, except as part of a defined sequence</li>
+      <li>8. The character U+0D31 cannot immediately follow U+0D31, except as part of a defined sequence</li>
+    </ul>
+    <p><b>Note:</b> the implementation of Rules 7 &amp; 8 relies on the fact that a context rule is not evaluated between code points in the same sequence. 
+    For example, if a label contains two adjacent U+0D33 U+0D33 surrounded by other code points , the two code points can only be interpreted 
+    as the sequence U+0D33 U+0D33 because a singleton U+0D33 is not allowed to be followed by another U+0D33.
+    </p>
+    <p>The following context rule applies to the sequence Chillu N + Halant (U+0D7B U+0D4D):</p>
+    <ul>
+      <li>9. The sequence U+0D7B U+0D4D must be preceded by C, L, M, V and must be followed by U+0D31</li>
+    </ul>
+    
+    <h3>Context rules for Variants</h3>
+    <p>The following context rules apply to variants:</p>
+    <ul>
+        <li>V1: A variant is defined when followed by U+0D31</li>
+        <li>V2: A variant preceded by 0D33+Halant or followed by R or Halant+0D33 is not defined</li>
+        <li>V3: A variant preceded by 0D31+Halant or followed by R or Halant+0D31 is not defined</li>
+    </ul>
+    
+    <p>These rules ensure that the variant label sets are well-behaved in cases where variant sequences overlap.</p>
+
+    <p><b>Note:</b> any sequences ending with 0D31 would overlap with the various variant sequences beginning with 0D31, therefore this
+    LGR drops the 0D31 from the end of these sequences, but adds context rule V1, when="followed-by-0D31" instead. Because all the variants
+    also end in 0D31, this results in the same generated variants as if the sequences had been defined with trailing U+0D31, but now the 
+    variants are well-behaved in all contexts.</p>
+
+    <p>More details in Section 6.1, “In-script Variants” and Section 7, “Whole Label Evaluation Rules (WLE)” of [Proposal-Malayalam]</p>
+
+    <p>There are a number of cross-script homoglyphs to U+0D31 RRA, which would interact with the definition of in-script sequences and 
+    variants, leading to unacceptable complexity. These variants would affect only labels made solely of letters
+    RRA, and no other labels. Rule 8 already restricts labels consisting solely of copies of the letter RRA to either “റ” or “ററ”, thus 
+    allowing only two such labels. The following rule disallows the remaining two possible labels, obviating any need to define these
+    cross-script variants.</p>
+    
+    <ul>
+        <li>10. A label cannot consist solely of letters U+0D31 RRA</li>
+    </ul>
+
+    <h3>Malayalam-specific actions</h3>
+    <p>WLE rules 6 and 10 trigger Malayalam-specific actions to invalidate any original and variant labels not satisfying the constraints. 
+    See Section 7, “Whole Label Evaluation (WLE) Rules” in [Proposal-Malayalam].</p>
+
+    <h2>Methodology and Contributors</h2>
+     <p>The Root Zone LGR for the Malayalam script was developed by the Neo-Brahmi Generation Panel (NBGP) the members of which have experience in
+     linguistics and computational linguistics in a wide variety of languages written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation 
+     Panel, there are nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a separate LGR, with the 
+     Neo-Brahmi GP ensuring that the fundamental philosophy behind building each LGR is in sync with all other Brahmi-derived scripts. For 
+     further details on methodology and contributors, see Sections 4 and 8 in [Proposal-Malayalam], as well as [RZ-LGR-5-Overview].</p>
+
+     <h3>Changes from LGR-3</h3>
+
+     <p>This LGR has been updated for LGR-4 to address an inconsistency involving the conjunct “nta” and to eliminate some potentially complex 
+     interactions with cross-script variants. For the prior version see [RZ-LGR-3-Mlym].</p> 
+
+     <ol>
+     <li>
+     <p>Removed Chillu N from rule 1 and added a new context rule applied to the sequence Chillu N + Halant (U+0D7B U+0D4D):</p>
+     <ul>
+      <li>9. The sequence U+0D7B U+0D4D must be preceded by C, L, M, V and must be followed by U+0D31</li>
+     </ul>
+     <p>This change disallows some contexts that should not have been allowed for U+0D4D when following U+0D7B.</p>
+     </li>
+     <li>
+     <p>Added a new context rule applied to variants:</p>
+     <ul>
+       <li>V1: A variant is defined when followed by U+0D31</li>
+     </ul>
+     <p>The definition of the sequences to which this context rule applies has been changed by dropping the final U+0D31. 
+     This is an equivalent formulation. The change simplifies the formulation of other rules and variant definitions.</p>
+     </li>
+     <li>
+      <p>Added a new whole-label rule (and corresponding action):</p>
+      <ul>
+         <li>10. A label cannot consist solely of letters U+0D31 RRA</li>
+     </ul>
+     <p>This rule invalidates the two labels U+0D31 and U+0D31 U+0D31, obviating the need to define certain cross-script variants for U+0D31</p>
+     </li>
+     </ol>
+     <p>Note: as result of the update, the LGR is slightly more restrictive.</p>
+     
+    <h3>Changes from LGR-4</h3>
+
+    <p>As result of integration with additional scripts, this LGR has been updated. This update does not change the set of labels available
+    under this LGR. For the prior version see [RZ-LGR-4-Mlym].</p>
+    
+    <p>Integration with scripts newly added to LGR-5 adds cross-script variants to ASCII code points, such as between U+00^F and U+0D20, or 
+    between U+0073 and U+0D1F. For the latter, the Latin LGR [RZ-LGR-Latin] also
+    declares an in-script variant between U+0073 U+0073 and U+00DF, requiring the definition of a sequence U+0073 U+0073. Therefore the sequence 
+    U+0073 U+0073 automatically inherits a variant to any sequence U+0D1F U+0D1F occurring in a Malayalam label. Transitivity of variants on the 
+    code point level requires explicit declaration of a sequence U+0D1F U+0D1F. Except for the purposes of allowing a variant, that sequence 
+    would not need to be defined in the Malayalam LGR because it is redundant: the LGR already supports the repetition of the singleton code point
+    U+0D1F without restriction.</p> 
+
+    <p>Even though cross-script variants with the Latin or other scripts with cross-script variants to U+0D1F are not otherwise listed in this LGR, 
+    the sequence U+0D1F U+0D1F has been added here exceptionally, as have the variants between U+0073 and U+0D1F. Doing so ensures that the sequence 
+    forms part of the merged repertoire in Common LGR [RZ-LGR-5] and that any cross-script variants defined for it can be computed using 
+    that LGR. Being redundant other than in the definition of variants, adding the sequence does not change the labels available under this LGR.</p>
+
+    <p>Note that the listing of variants for U+0D1F and U+0D1F U+0D1F in this LGR is that minimally required for integration. Additional cross-script 
+    variants for these repertoire elements exist and are defined in [RZ-LGR-5].For consistency across RZ-LGRs, imposed variants to ASCII
+    code points and to the Myanmar script are now explicitly listed as well</p>.
+
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021, 
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf</dd> 
+
+    <dt>[Proposal-Malayalam]</dt> 
+    <dd>Neo-Brahmi Generation Panel, “Proposal for a Malayalam Script Root Zone Label Generation Ruleset (LGR)”, Updated 26 June 2020, https://www.icann.org/en/system/files/files/proposal-malayalam-lgr-26jun20-en.pdf</dd>
+
+    <dt>[RFC 7940]</dt>
+    <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+     
+    <dt>[RFC 8228]</dt>
+    <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+
+    <dt>[RZ-LGR-5]</dt>
+    <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+    <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+    <dt>[RZ-LGR-3-Mlym]</dt>
+    <dd>ICANN, Root Zone Label Generation Rules for the Malayalam Script (und-Mlym), Version 3, 10 July 2019 (XML)
+    https://www.icann.org/sites/default/files/lgr/lgr-3-malayalam-script-10jul19-en.xml <br/>
+    <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/lgr-3-malayalam-script-10jul19-en.html</i></dd>
+
+    <dt>[RZ-LGR-4-Mlym]</dt>
+    <dd>ICANN, Root Zone Label Generation Rules for the Malayalam Script (und-Mlym), Version 4, 5 November 2020 (XML)
+    https://www.icann.org/sites/default/files/lgr/lgr-4-malayalam-script-05nov20-en.xml <br/>
+    <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/lgr-4-malayalam-script-05nov20-en.html</i></dd>
+
+    <dt>[RZ-LGR-Latin]</dt>
+    <dd>“Root Zone Label Generation Rules for the Latin Script”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-latin-script-26may22-en.xml <br/>
+    <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-latin-script-26may22-en.html</i></dd>
+
+    <dt>[RZ-LGR-5-Overview]</dt>
+    <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+    <dt>[Unicode 11.0]</dt>
+    <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     </dl>
+      <p>For references consulted particularly in designing the repertoire for the Malayalam script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        References [0] to [9] refer to the Unicode Standard versions in which the
+        corresponding code points were initially encoded. Reference [106] corresponds to a source
+        given in [Proposal-Malayalam] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+     ]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="9" comment="Any code point originally encoded in Unicode 5.1">The Unicode Standard 5.1</reference>
+      <reference id="106">Omniglot, “Malayalam (മലയാളം):” https://www.omniglot.com/writing/malayalam.htm (Accessed on 5th July, 2018)</reference>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.0</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="006F" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0B20" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0D20" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="101D" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0073" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0073" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D1F" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0073 0073" comment="Not part of repertoire">
+      <var cp="0073 0073" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D1F 0D1F" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0B20" tag="sc:Orya" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0B20" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="101D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0B9C" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0B9C" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D1C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BAE" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0BAE" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D25" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BB5" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0BB5" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D16" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BBF" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0BBF" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D3F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BC6" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0BC6" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D46" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BC7" tag="sc:Taml" ref="0" comment="Not part of repertoire">
+      <var cp="0BC7" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0D47" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D02" when="follows-C-V-or-M" tag="Anusvara sc:Mlym" ref="0 106" comment="MALAYALAM SIGN ANUSVARA" />
+    <char cp="0D03" when="follows-C-V-or-M" tag="sc:Mlym Visarga" ref="0 106" comment="MALAYALAM SIGN VISARGA" />
+    <char cp="0D05" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER A" />
+    <char cp="0D06" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER AA" />
+    <char cp="0D07" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER I" />
+    <char cp="0D08" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER II" />
+    <char cp="0D09" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER U" />
+    <char cp="0D0A" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER UU" />
+    <char cp="0D0B" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER VOCALIC R" />
+    <char cp="0D0E" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER E" />
+    <char cp="0D0F" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER EE" />
+    <char cp="0D10" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER AI" />
+    <char cp="0D12" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER O" />
+    <char cp="0D13" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER OO" />
+    <char cp="0D14" tag="sc:Mlym Vowel" ref="0 106" comment="MALAYALAM LETTER AU" />
+    <char cp="0D15" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER KA" />
+    <char cp="0D16" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER KHA">
+      <var cp="0BB5" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D17" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER GA" />
+    <char cp="0D18" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER GHA" />
+    <char cp="0D19" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER NGA" />
+    <char cp="0D1A" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER CA" />
+    <char cp="0D1B" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER CHA" />
+    <char cp="0D1C" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER JA">
+      <var cp="0B9C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D1D" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER JHA" />
+    <char cp="0D1E" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER NYA" />
+    <char cp="0D1F" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER TTA">
+      <var cp="0073" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0D1F 0D1F" comment="Added for cross-script variant">
+      <var cp="0073 0073" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0D20" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER TTHA">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0B20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="101D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D21" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER DDA" />
+    <char cp="0D22" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER DDHA" />
+    <char cp="0D23" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER NNA" />
+    <char cp="0D24" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER TA" />
+    <char cp="0D25" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER THA">
+      <var cp="0BAE" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D26" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER DA" />
+    <char cp="0D27" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER DHA" />
+    <char cp="0D28" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER NA" />
+    <char cp="0D28 0D4D" not-when="follows-B-X-or-H" ref="0 106">
+      <var cp="0D7B" when="followed-by-0D31" type="blocked" />
+      <var cp="0D7B 0D4D" when="followed-by-0D31" type="blocked" />
+    </char>
+    <char cp="0D2A" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER PA" />
+    <char cp="0D2B" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER PHA" />
+    <char cp="0D2C" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER BA" />
+    <char cp="0D2D" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER BHA" />
+    <char cp="0D2E" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER MA" />
+    <char cp="0D2F" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER YA" />
+    <char cp="0D30" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER RA" />
+    <char cp="0D31" not-when="follows-0D31" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER RRA">
+      <var cp="1002" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D31 0D31" not-when="follows-0D31">
+      <var cp="0D31 0D4D 0D31" not-when="follows-0D31-0D4D-or-followed-by-0D4D-0D31-or-R" type="blocked" />
+    </char>
+    <char cp="0D31 0D31 0D4D 0D31" not-when="follows-0D31">
+      <var cp="0D31 0D4D 0D31 0D31" not-when="followed-by-R" type="blocked" />
+    </char>
+    <char cp="0D31 0D4D 0D31" not-when="follows-0D31">
+      <var cp="0D31 0D31" not-when="follows-0D31-0D4D-or-followed-by-0D4D-0D31-or-R" type="blocked" />
+    </char>
+    <char cp="0D31 0D4D 0D31 0D31" not-when="follows-0D31">
+      <var cp="0D31 0D31 0D4D 0D31" not-when="followed-by-R" type="blocked" />
+    </char>
+    <char cp="0D32" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER LA" />
+    <char cp="0D33" not-when="follows-0D33" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER LLA" />
+    <char cp="0D33 0D33" not-when="follows-0D33">
+      <var cp="0D33 0D4D 0D33" not-when="follows-0D33-0D4D-or-followed-by-0D4D-0D33-or-R" type="blocked" />
+    </char>
+    <char cp="0D33 0D33 0D4D 0D33" not-when="follows-0D33">
+      <var cp="0D33 0D4D 0D33 0D33" not-when="followed-by-R" type="blocked" />
+    </char>
+    <char cp="0D33 0D4D 0D33" not-when="follows-0D33">
+      <var cp="0D33 0D33" not-when="follows-0D33-0D4D-or-followed-by-0D4D-0D33-or-R" type="blocked" />
+    </char>
+    <char cp="0D33 0D4D 0D33 0D33" not-when="follows-0D33">
+      <var cp="0D33 0D33 0D4D 0D33" not-when="followed-by-R" type="blocked" />
+    </char>
+    <char cp="0D34" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER LLLA" />
+    <char cp="0D35" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER VA" />
+    <char cp="0D36" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER SHA" />
+    <char cp="0D37" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER SSA" />
+    <char cp="0D38" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER SA" />
+    <char cp="0D39" tag="Consonant sc:Mlym" ref="0 106" comment="MALAYALAM LETTER HA" />
+    <char cp="0D3E" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN AA" />
+    <char cp="0D3F" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN I">
+      <var cp="0BBF" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D40" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN II" />
+    <char cp="0D41" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN U" />
+    <char cp="0D42" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN UU" />
+    <char cp="0D43" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN VOCALIC R" />
+    <char cp="0D46" when="follows-C" tag="Matra R sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN E">
+      <var cp="0BC6" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D47" when="follows-C" tag="Matra R sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN EE">
+      <var cp="0BC7" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0D48" when="follows-C" tag="Matra R sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN AI" />
+    <char cp="0D4A" when="follows-C" tag="Matra R sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN O" />
+    <char cp="0D4B" when="follows-C" tag="Matra R sc:Mlym" ref="0 106" comment="MALAYALAM VOWEL SIGN OO" />
+    <char cp="0D4D" when="follows-C-or-0D41" tag="Halant sc:Mlym" ref="0 106" comment="MALAYALAM SIGN VIRAMA" />
+    <char cp="0D57" when="follows-C" tag="Matra sc:Mlym" ref="0 106" comment="MALAYALAM AU LENGTH MARK" />
+    <char cp="0D7A" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU NN" />
+    <char cp="0D7B" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU N">
+      <var cp="0D28 0D4D" when="followed-by-0D31" type="blocked" />
+      <var cp="0D7B 0D4D" when="followed-by-0D31" type="blocked" />
+    </char>
+    <char cp="0D7B 0D4D" when="follows-C-L-M-V-and-followed-by-03D1">
+      <var cp="0D28 0D4D" when="followed-by-0D31" type="blocked" />
+      <var cp="0D7B" when="followed-by-0D31" type="blocked" />
+    </char>
+    <char cp="0D7C" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU RR" />
+    <char cp="0D7D" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU L" />
+    <char cp="0D7E" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU LL" />
+    <char cp="0D7F" not-when="follows-B-X-or-H" tag="Chillu sc:Mlym" ref="9 106" comment="MALAYALAM LETTER CHILLU K" />
+    <char cp="1002" tag="sc:Mymr" ref="3" comment="Not part of repertoire">
+      <var cp="0D31" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="1002" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="101D" tag="sc:Mymr" ref="3" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0B20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="101D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Malayalam independent vowel" />
+    <class name="M" from-tag="Matra" comment="Any Malayalam vowel sign (matra)" />
+    <class name="H" from-tag="Halant" comment="The Malayalam Halant/Virama" />
+    <class name="B" from-tag="Anusvara" comment="The Malayalam Anusvara" />
+    <class name="X" from-tag="Visarga" comment="The Malayalam Visarga" />
+    <class name="L" from-tag="Chillu" comment="Any Malayalam chillu (consonant without any vowel sound)" />
+    <class name="R" from-tag="R" comment="Any Malayalam reordrant vowel sign" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C-or-0D41" comment="Section 7, WLE 1: Rule 1: H must be preceded by C or 0D41">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <char cp="0D41" comment="MALAYALAM VOWEL SIGN U" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 2: M must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-V-or-M" comment="Section 7, WLE 3: B must be preceded by C, V or M and WLE 4: X must be preceded by C, V or M">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="V" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-B-X-or-H" comment="Section 7, WLE 5: L cannot be preceded by B, X or H">
+      <look-behind>
+        <choice>
+          <class by-ref="B" />
+          <class by-ref="X" />
+          <class by-ref="H" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="begins-with-L" comment="Section 7, WLE 6: Label does not begin with L">
+      <start />
+      <class by-ref="L" />
+    </rule>
+    <rule name="follows-0D33" comment="Section 7, WLE 7. The character ള (0D33) cannot immediately follow ള (0D33), except as part of a defined sequence">
+      <look-behind>
+        <char cp="0D33" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-0D31" comment="Section 7, WLE 8. The character റ (0D31) cannot immediately follow റ (0D31), except as part of a defined sequence">
+      <look-behind>
+        <char cp="0D31" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-L-M-V-and-followed-by-03D1" comment="Section 7, WLE 9: Sequence 0D7B 0D4D must be preceded by C, L, M, V and must be followed by റ (0D31)">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="L" />
+          <class by-ref="M" />
+          <class by-ref="V" />
+        </choice>
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <char cp="0D31" />
+      </look-ahead>
+    </rule>
+    <rule name="reordrant-matra" comment="Reordrant matras, including sequence U+0D4D U+0D30">
+      <choice>
+        <class by-ref="R" />
+        <char cp="0D4D 0D30" />
+      </choice>
+    </rule>
+    <rule name="followed-by-R" comment="variant not defined if followed by reordrant matra">
+      <anchor />
+      <look-ahead>
+        <rule by-ref="reordrant-matra" />
+      </look-ahead>
+    </rule>
+    <rule name="followed-by-0D31" comment="Section 6.1, V1: A variant is defined when followed by 0D31">
+      <anchor />
+      <look-ahead>
+        <char cp="0D31" />
+      </look-ahead>
+    </rule>
+    <rule name="follows-0D33-0D4D-or-followed-by-0D4D-0D33-or-R" comment="Section 6.1, V2: variant not defined if preceded by 0D33+Halant or followed by Halant+0D33 or R">
+      <choice>
+        <rule>
+          <look-behind>
+            <char cp="0D33 0D4D" />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule>
+          <anchor />
+          <look-ahead>
+            <choice>
+              <char cp="0D4D 0D33" />
+              <rule by-ref="reordrant-matra" />
+            </choice>
+          </look-ahead>
+        </rule>
+      </choice>
+    </rule>
+    <rule name="follows-0D31-0D4D-or-followed-by-0D4D-0D31-or-R" comment="Section 6.1, V3: variant not defined if preceded by 0D31+Halant or followed by Halant+0D31 or R">
+      <choice>
+        <rule>
+          <look-behind>
+            <char cp="0D31 0D4D" />
+          </look-behind>
+          <anchor />
+        </rule>
+        <rule>
+          <anchor />
+          <look-ahead>
+            <choice>
+              <char cp="0D4D 0D31" />
+              <rule by-ref="reordrant-matra" />
+            </choice>
+          </look-ahead>
+        </rule>
+      </choice>
+    </rule>
+    <rule name="only-RRA" comment="Section 7, WLE 10: Labels consisting solely of the letter RRA are disallowed to limit cross-script interaction">
+      <start />
+      <char cp="0D31" count="1+" />
+      <end />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" match="begins-with-L" comment="Section 7, WLE 6: Label does not begin with L" />
+    <action disp="invalid" match="only-RRA" comment="Section 7, WLE 10: Label cannot contain only RRA" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

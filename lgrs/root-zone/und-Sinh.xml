@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Sinhala Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Sinh</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Sinhala Script</h1>
+    
+  <h2>Overview</h2>
+    <p>This file contains Label Generation Rules (LGR) for the Sinhala script for the Root Zone. 
+     For more details on this LGR and additional background on the script, see “Proposal for a 
+     Sinhala Script Root Zone Label Generation Rules-Set (LGR)” [Proposal-Sinhala]. 
+     This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+     The format of this file follows [RFC 7940].</p>
+
+  <h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Sinhala], the Sinhala LGR contains 72 single code points. 
+     The addition of 4 sequences used in the definition of variants brings the total repertoire entries to 76.
+     The repertoire covers the Sinhala language as written with the Sinhala script.</p>
+
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+    <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS or ZWJ.</p>
+
+    <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories,
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.</p>
+
+    <h2>Variants</h2>
+    <p>According to Section 6, “Variants”, in [Proposal-Sinhala], this LGR defines variants within Sinhala
+     which can cause confusion for even a careful observer. There are no cross-script variants, though 
+     some confusing cases are identified in [Proposal-Sinhala]. </p>
+
+    <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that differ only 
+    by these variants mutually exclusive: whichever label containing either of these variants is chosen earlier would be delegated
+    any other equivalent label should be blocked. There is no preference among these variants.</p>
+
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p><b>Context Rules for Variants:</b> for some of the variants defined in this LGR 
+     the sequences or code points making up source and target are constrained by explicit
+    context rules on the code points (or by implicit context rules defined for the adjacent code points). 
+     In such a case, any variants may require context rules that match the intersection
+    between the effective contexts for both source and target; otherwise, a sequence might be considered valid in some
+    variant label when it would not be valid in an equivalent context in an original label. Symmetry requires
+    the same context rule for both forward and reverse mappings.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+  <h2>Character Classes</h2>
+   <p>As most Brahmi-derived scripts, Sinhala is an alphasyllabary writing system and written from 
+    left to right. All the categories of Consonants, Vowels, Matras, Halant, Anusvara, Visarga and Sannjakas are discussed below. </p>
+
+    <p><b>Consonants:</b> There are 40 consonants in Sinhala alphabet and 38 of them are selected for inclusion. 
+    Its consonants imply inherent vowel a(අ) when they are used without dependent vowels. Absence of the 
+    inherent vowel is marked by adding hal kirima (remover of the inherent vowel) to the consonant; thus ක 
+    /ka/ but ක් /k/, and ව /va/ but ව් /v/. More details in Section 3.3.1, “The Consonants” in [Proposal-Sinhala].</p>
+
+    <p><b>Vowels and Matras:</b> There are separate symbols (dependent vowels) for all the vowels except the inherent 
+    vowel අ in Sinhala. Independent vowels are used at the beginning of a word and dependent vowels (matras) are used after 
+    consonants.  More details in Section 3.3.2, “The Vowels” in [Proposal-Sinhala]. </p>
+
+    <p><b>Halanta:</b>  The Halanta, which is also called halkirima or hallakuna, is encoded as U+0DCA ( &#x0DCA; ) SINHALA SIGN AL-LAKUNA.  
+    This sign is used to remove the 
+    inherent vowel of the consonants in Sinhala, and to join consonants and form conjunct 
+    characters. More details in Section 3.3.3, “Halanta: The Inherent Vowel Remover” in [Proposal-Sinhala]. </p>
+
+    <p><b>Anusvara:</b> U+0D82 ( ං ) SINHALA SIGN ANUSVARAYA, pronounced /ŋ/, represents all the 
+    nasals. It can be preceded by any sign except halanta (U+0DCA). More details 
+    in Section 3.3.4, “The Anusvara” in [Proposal-Sinhala]. </p>
+
+    <p><b>Visarga:</b> U+0D83 ( ඃ ) SINHALA SIGN VISARGAYA is a rarely used sign and pronounced as /h/. It can be
+    preceded by any sign except halanta (U+0DCA). More details in 
+    Section 3.3.5, “The Visarga” in [Proposal-Sinhala]. </p>
+
+    <p><b>Sannjakas:</b> There are five separate letters for prenasalized voiced stops called sannjakas in 
+    Sinhala. From among these, ඦ is not frequently used. Sannjakas cannot 
+    be followed by halanta. More details in Section 3.3.6, “Sannjakas” in [Proposal-Sinhala]. </p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+      <h3>Default Whole Label Evaluation Rules and Actions</h3>
+      <p>The LGR includes the set of required default WLE rules and actions applicable to 
+       the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+       default prohibition on leading combining marks is equivalent to ensuring that 
+       a label only starts with a consonant or vowel.</p> 
+    
+      <h3>Sinhala-specific Rules</h3>
+      <p>These rules have been formulated so that they can be adopted for  LGR specification.</p>
+      <p>The following symbols are used in the WLE rules: 
+      <br/>C  → Consonant
+      <br/>M  → Matra / Vowel Signs
+      <br/>V  → Vowel
+      <br/>B  → Anusvara (Bindu) 
+      <br/>X  → Visarga
+      <br/>H  → Halanta / Virama   
+      <br/>J  → Sannjaka
+      </p>
+      
+      <p>The rules are: </p>
+       <ul>
+       <li>1. H: must be preceded by C</li>
+       <li>2. M: must be preceded by C or J</li>
+       <li>3. X: must be preceded by either V, C, or M </li>
+       <li>4. B: must be preceded by either V, C, J or M</li>
+       </ul>
+
+    <p>The following context rules apply to code points in variant sets to ensure the variant transitivity.</p>
+    <ul>
+    <li>5. variants are undefined preceding a Halant or Matra</li>
+    <li>6. variants are undefined preceding an Anusvara, Visarga, Halant or Matra</li>
+    </ul>
+  
+   <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Sinhala] </p>
+  
+    <h2>Methodology and Contributors</h2>
+     <p>The Root Zone LGR for the Sinhala script was developed by the Sinhala Generation Panel in consultation with the Neo-Brahmi Generation Panel.
+      For methodology and contributors, see Sections 4 and 8 in [Proposal-Sinhala], as well as [RZ-LGR-5-Overview].</p>
+      
+    <h2>References</h2> 
+     <p>The following general references are cited in this document:</p>
+     <dl class="references">
+
+      <dt>[MSR-5]</dt>
+      <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+      https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf  </dd>
+
+      <dt>[Proposal-Sinhala]</dt>
+      <dd>Sinhala Generation Panel, “Proposal for a Sinhala Script Root Zone Label Generation Ruleset (LGR)”, 22 April 2019, https://www.icann.org/en/system/files/files/proposal-sinhala-lgr-22apr19-en.pdf</dd>
+
+      <dt>[RFC 7940]</dt>
+      <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+   
+       <dt>[RFC 8228]</dt>
+      <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+       https://www.rfc-editor.org/info/rfc8228</dd>
+      <dt>[RZ-LGR-5-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+      <dt>[RZ-LGR-5]</dt>
+      <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+       <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+      <dt>[Unicode 11.0]</dt>
+      <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+       https://www.unicode.org/versions/Unicode11.0.0/</dd>
+      </dl>
+      <p>For references consulted particularly in designing the repertoire for the Sinhala script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        Reference [3] refers to the Unicode Standard version in which the
+        corresponding code points were initially encoded. References [102] and above correspond to sources
+        given in [Proposal-Sinhala] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+]]></description>
+    <references>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.0</reference>
+      <reference id="102">Disanayaka, JB. 2006. Sinhala Akshara Vicharaya (Sinhala Graphology), Sumitha Publishers, Kalubovila. ISBN: 955-1146-44-1 </reference>
+      <reference id="201">Omniglot: The on-line encyclopedia of writing system and Languages, “Sinhala” https://www.omniglot.com/writing/sinhala.htm</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0D82" when="follows-V-C-J-or-M" tag="Anusvara sc:Sinh" ref="3 102 201" />
+    <char cp="0D83" when="follows-V-C-or-M" tag="sc:Sinh Visarga" ref="3 102 201" />
+    <char cp="0D85" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D86" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D87" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D88" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D89" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8A" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8B" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8C" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D8D" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0D9D 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0DC3 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D91" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D92" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5 0DCA" not-when="followed-by-B-X-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D93" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB5 0DD9" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D94" tag="sc:Sinh Vowel" ref="3 102 201">
+      <var cp="0DB9" type="blocked" />
+    </char>
+    <char cp="0D95" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D96" tag="sc:Sinh Vowel" ref="3 102 201" />
+    <char cp="0D9A" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0D9B" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DB6" type="blocked" />
+    </char>
+    <char cp="0D9C" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0D9D" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC3" type="blocked" />
+    </char>
+    <char cp="0D9D 0DD8" ref="3 102 201" comment="variant of IRUYANNA">
+      <var cp="0D8D" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0DC3 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0D9F" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DA0" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC0" type="blocked" />
+    </char>
+    <char cp="0DA1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA2" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA3" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA4" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA5" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA7" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA8" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DA9" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAA" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAB" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAC" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DAD" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAE" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DAF" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB0" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB3" tag="Sannjaka sc:Sinh" ref="3 102 201" />
+    <char cp="0DB4" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB5" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D91" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB5 0DCA" ref="3 102 201" comment="variant of  EEYANNA">
+      <var cp="0D92" not-when="followed-by-B-X-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB5 0DD9" ref="3 102 201" comment="variant of AIYANNA">
+      <var cp="0D93" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DB6" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D9B" type="blocked" />
+    </char>
+    <char cp="0DB7" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DC4" type="blocked" />
+    </char>
+    <char cp="0DB8" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DB9" tag="Sannjaka sc:Sinh" ref="3 102 201">
+      <var cp="0D94" type="blocked" />
+    </char>
+    <char cp="0DBA" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DBB" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DBD" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC0" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DA0" type="blocked" />
+    </char>
+    <char cp="0DC1" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC2" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC3" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0D9D" type="blocked" />
+    </char>
+    <char cp="0DC3 0DD8" ref="3 102 201" comment="variant of IRUYANNA">
+      <var cp="0D8D" not-when="followed-by-H-or-M" type="blocked" />
+      <var cp="0D9D 0DD8" not-when="followed-by-H-or-M" type="blocked" />
+    </char>
+    <char cp="0DC4" tag="Consonant sc:Sinh" ref="3 102 201">
+      <var cp="0DB7" type="blocked" />
+    </char>
+    <char cp="0DC5" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DC6" tag="Consonant sc:Sinh" ref="3 102 201" />
+    <char cp="0DCA" when="follows-C" tag="Halant sc:Sinh" ref="3 102 201" />
+    <char cp="0DCF" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD0" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD1" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD2" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD3" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD4" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD6" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD8" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DD9" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDA" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDB" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDC" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDD" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DDE" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+    <char cp="0DF2" when="follows-C-or-J" tag="Matra sc:Sinh" ref="3 102 201" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Sinhala consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Sinhala independent vowel" />
+    <class name="M" from-tag="Matra" comment="Any Sinhala vowel sign (matra)" />
+    <class name="J" from-tag="Sannjaka" comment="Any Sinhala Sannjaka" />
+    <class name="H" from-tag="Halant" comment="The Sinhala Al-Lakuna (Halant)" />
+    <class name="B" from-tag="Anusvara" comment="The Sinhala Anusvara" />
+    <class name="X" from-tag="Visarga" comment="The Sinhala Visarga" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 1: Halanta/Virama must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-or-J" comment="Section 7, WLE 2: Matra must be preceded by C or J">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="J" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-or-M" comment="Section 7, WLE 3: Visarga must be preceded by V, C or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-J-or-M" comment="Section 7, WLE 4: Anusvara (Bindu) must be preceded by V, C, J or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="J" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="followed-by-H-or-M" comment="variants are undefined preceding a Halant or Matra">
+      <anchor />
+      <look-ahead>
+        <choice>
+          <class by-ref="H" />
+          <class by-ref="M" />
+        </choice>
+      </look-ahead>
+    </rule>
+    <rule name="followed-by-B-X-H-or-M" comment="variants are undefined preceding an Anusvara, Visarga, Halant or Matra">
+      <anchor />
+      <look-ahead>
+        <choice>
+          <class by-ref="B" />
+          <class by-ref="X" />
+          <class by-ref="H" />
+          <class by-ref="M" />
+        </choice>
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

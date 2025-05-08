@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Khmer Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Khmr</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+        <h1>Root Zone Label Generation Rules for the Khmer Script</h1>
+        
+        <h2>Overview</h2>
+        <p>This file contains Label Generation Rules (LGR) for the Khmer script for the Root Zone. 
+          For more details on this LGR and additional background on the script see “Proposal for a Khmer Script Root Zone LGR” [Proposal-Khmer].
+          This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+          The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2>
+        <p>In addition to the 71 code points according to Section 5, “Repertoire”, in [Proposal-Khmer], two Khmer subscript
+          consonant sequences have been defined. The repertoire
+          only includes code points used by languages that are actively written in the Khmer script. The repertoire is
+          based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+ 
+      <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories, 
+      and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+      Comments identify the language using the code point.</p>
+          
+        <h2>Variants</h2>
+        <p>This LGR defines two Khmer consonants as variants of each other 
+          in their subscript form only. This is captured by a variant relation between the two subscript sequences, 
+          which are listed explicitly in the repertoire. See Section 6, “Variants” in [Proposal-Khmer],</p>
+          
+     <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that 
+    differ only by these variants mutually exclusive: whichever label containing either of 
+    these variants is chosen earlier would be delegated, while any other equivalent label should be blocked.</p>
+    
+  <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+          
+        <h2>Character Classes</h2>
+        <p><b>Consonants:</b> When more than one consonant occur together in the onset of a grapheme cluster, the additional consonants are written in subscript form, 
+          joined with the first consonant in the sequence. In Unicode, this is indicated by preceding each additional consonant with U+17D2 (្) KHMER SIGN COENG. 
+          Some consonants have been given the tag “base-only”; these do not take subscript form. Consonants can have light or strong pronunciation indicated by 
+          two shifter signs; additionally there are six signs for phonological modifications as discussed below. See Section 5.2, “Consonants” in [Proposal-Khmer].</p>
+        
+        <p><b>Independent vowels:</b> These occur independently and cannot combine with any of the marks including dependent vowels and signs. The use of a 
+          subscript form, while defined in Unicode, is not supported here. See Section 5.2, “Independent Vowels” in [Proposal-Khmer].</p>
+          
+        <p><b>Dependent vowels:</b> The 16 dependent vowels included in the Khmer LGR have been further classified into three subcategories namely 
+          dependent vowel 1,   dependent vowel 2 and dependent vowel 3, see below. Dependent vowels must follow a consonant, shifter or the Robat sign. 
+          They cannot occur independently. See Section 5.3, “Dependent Vowels” in [Proposal-Khmer].</p>
+        
+        <p><b>Shifters:</b> the character U+17C9 (៉) KHMER SIGN MUUSIKATOAN is used with a subset of <i>first series</i> consonants, 
+          code points from this subset have been given the tag “series-one”. The character U+17CA (៊) KHMER SIGN TRIISAP is used with subset of <i>second series</i> consonants 
+          and with U+1794 (ប) KHMER LETTER BA. Code points from this subset have been given the tag “series-two”. The two characters are collectively known as 
+          consonant shifters and have been given the tag “shifter”. See Section 5.5, “Shifters” in [Proposal-Khmer] and reference [210].</p>
+          
+        <p><b>Robat:</b> The character U+17CC (៌) KHMER SIGN ROBAT has been given the tag “robat”. It follows consonants but unlike other signs may be followed by a
+          dependent vowel. See Sections 5.3, “Dependent Vowels” and 5.4, “Signs” in [Proposal-Khmer].</p>
+          
+         <p><b>Signs (Bantoc):</b> The character 
+          U+17CB (់) KHMER SIGN BANTOC is used with a subset of consonants, that subset has been given the tag 
+          “series-three”, see Section 5.4, “Signs” in [Proposal-Khmer] and reference [205].</p>
+         <p><b>Signs (Yuukalepintu and Samyoksannya):</b> 
+         
+          The character U+17C8 (្) KHMER SIGN YUUKALEAPINTU is written after a consonant to indicate that it is to be followed by a short vowel and a glottal stop. 
+           The sign is used with all the consonants. The character U+17D0 (្) KHMER SIGN SAMYOKSANNYA is written above a consonant or a shifter to indicate that the 
+           syllable contains a particular short vowel. The sign is used with all the consonants or all the shifters. See Section 5.4, “Signs” in [Proposal-Khmer].</p>
+
+        <p><b>Signs (Nikahit and Reahmuk):</b> The character U+17C6 (ំ) KHMER SIGN NIKAHIT is used with consonants and some dependent vowels. 
+          These dependent vowels have been given a tag “dependent-vowel-1” (see Sections 5.3 and 5.4 in [Proposal-Khmer]). 
+          The character U+17C7 (ះ) KHMER SIGN REAHMUK is used with consonants and some dependent vowels. 
+          These dependent vowels have been given a tag “dependent-vowel-2” (see Sections 5.3 and 5.4 in [Proposal-Khmer]). </p>
+          
+           <p><b>Signs (Toandakhiat):</b> The sign ្ KHMER SIGN TOANDAKHIAT (U+17CD) is written over a final consonant to indicate that it is unpronounced. 
+            It is used with all consonants or Khmer vowel SIGN I (U+17B7). The latter has been given a tag “dependent-vowel-3”. See Section 5.4, “Signs” in [Proposal-Khmer].</p>
+          
+        <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+        
+        <h3>Default Whole Label Evaluation Rules and Actions</h3> 
+        <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone 
+          and defined in [MSR-5]. They are marked with &#x235F;. The default 
+          prohibition on leading combining marks is equivalent to ensuring that a label only 
+          starts with a consonant or independent-vowel.</p>
+          
+        <h3>Khmer-specific Rules and Action</h3>
+        <p>Rules provided in the LGR as described in Section 7 of [Proposal-Khmer] constrain possible labels 
+          so that they reasonably conform to Khmer syllable structure. These constraints are presented as context 
+          rules on the affected code points, except for the whole-label rule and associated
+           action that enforce the limit on the number of consecutive subscripted consonants. </p>
+          
+        <p>The rules are: </p>
+        <ul>
+          <li><b>Subscript-consonant</b> &mdash; A rule that specifies allowable consonant sequence. See Section 7.2 in [Proposal-Khmer]</li>
+          <li><b>Subscript-consonant-limit</b> &mdash; A rule that limits the occurrence of subscript-consonant to two. In case of three, the associate action gives the label the disposition invalid.  See Section 7.3 in [Proposal-Khmer]</li>
+          <li><b>Coeng-context</b> &mdash; A context rule for 17D2 that requires a consonant before it and a consonant other than base-only after it. See Section 7.4 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant-robat-shifter</b> &mdash;  A context rule for those code points that must follow a consonant, robat or shifter. See Section 7.5 in [Proposal-Khmer]</li>
+          <li><b>Follows-series-two</b> &mdash;  A context rule for those code points that must follow series-two consonants. See Section 7.6 in [Proposal-Khmer]</li>
+          <li><b>Follows-series-one</b> &mdash; A context rule for those code points that must follow series-one consonants. See Section 7.7 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant</b> &mdash; A context rule for those code points that must always follow a consonant. See Section 7.8 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant-shifter</b> A context rule for those code points that must always follow a consonant or shifter. See Section 7.9 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant-depvowel-1-shifter</b> &mdash; A context rule for those code points that must follow consonant, shifter or dependent-vowel-1. See Section 7.10 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant-depvowel-2-shifter</b> &mdash; A context rule for those code points that must follow consonant, shifter or dependent-vowel-2. See Section 7.11 in [Proposal-Khmer]</li>
+          <li><b>Follows-series-three</b> &mdash; A context rule for those code points that must follow series-three consonants. See Section 7.12 in [Proposal-Khmer]</li>
+          <li><b>Follows-consonant-or-vowel-i</b> &mdash; A context rule for those code points that must follow a consonant or 17B7 KHMER VOWEL SIGN I. See Section 7.13 in [Proposal-Khmer]</li>
+        </ul>
+
+        <h2>Methodology and Contributors</h2>
+        <p>The Root Zone LGR for the Khmer script was developed by the Khmer Generation Panel. For methodology and contributors, see Sections 4 and 8 in [Proposal-Khmer], as well as [RZ-LGR-5-Overview].</p>
+
+        <h2>References</h2> 
+        <p>The following general references are cited in this document:</p>
+        <dl class="references">
+        <dt>[MSR-5]</dt>
+        <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021
+        https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf        </dd>
+
+        <dt>[Proposal-Khmer]</dt>
+        <dd>Khmer Generation Panel, “Proposal for Khmer Script Root Zone LGR”, 15 August 2016, 
+         https://www.icann.org/en/system/files/files/proposal-khmer-lgr-15aug16-en.pdf</dd> 
+
+        <dt>[RFC 7940]</dt>
+        <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+
+       <dt>[RFC 8228]</dt>
+       <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+        https://www.rfc-editor.org/info/rfc8228</dd>
+
+        <dt>[RZ-LGR-5-Overview]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+       <dt>[RZ-LGR-5]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+       <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+        <dt>[Unicode 11.0]</dt>
+        <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+        https://www.unicode.org/versions/Unicode11.0.0/</dd>
+        </dl>
+        <p>For references consulted particularly in designing the repertoire for the Khmer script for the Root Zone 
+         please see details in the <a href="#table_of_references">Table of References</a> below. 
+         Reference [3] refers to the Unicode Standard version
+         in which the corresponding code points were initially encoded. 
+         References [100], [203], [204], [205], [206], 
+         [207], [208], [209] &amp; [210] correspond to sources justifying the inclusion of or classification for the corresponding 
+         code points. Entries in the table may have multiple source reference values.</p> 
+]]></description>
+    <references>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.1</reference>
+      <reference id="100" comment="Subsection, Subscript Consonant Signs, pages 616-618">The Unicode Consortium. The Unicode Standard, Version 8.0.0, (Mountain View, CA: The Unicode Consortium, 2015. ISBN 978-1-936213-10-8), Chapter 16: Southeast Asia, Section 16.4: Khmer, https://www.unicode.org/versions/Unicode8.0.0/ch16.pdf</reference>
+      <reference id="203" comment="Any code point cited is for consonant characters">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 1</reference>
+      <reference id="204" comment="Any code point cited is for vowel signs">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 2</reference>
+      <reference id="205" comment="BANTOC sign and its context">Dr. Prum Mol (Khmer Linguist), Grammar of Modern Khmer Language, Linguist of National Institute of Language, Royal Academy of Cambodia, 2006, page 37 Bantoc sign section starts towards the bottom of the page, page 38 list the context of the Bantoc sign</reference>
+      <reference id="206" comment="Any code point cited is for independent vowel characters">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 6</reference>
+      <reference id="207" comment="Any code point cited is for diacritics">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 7</reference>
+      <reference id="208" comment="Any code point cited is for diacritics">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 8</reference>
+      <reference id="209" comment="Any code point cited is for diacritics">PRIMARY SCHOOL GRADE 1, MOEYS, ISBN 9-789-995-001-674, Publication 2015, Figure 9</reference>
+      <reference id="210" comment="Sets of code points used with certain signs">Franklin E. Huffman, Cambodian System of Writing and Beginning Reader, Yale University, 1970, reprinted 1987</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="1780" tag="consonant sc:Khmr series-three" ref="3 203 205" comment="Khmer" />
+    <char cp="1781" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1782" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1783" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1784" tag="consonant sc:Khmr series-three series-two" ref="3 203 205 210" comment="Khmer" />
+    <char cp="1785" tag="consonant sc:Khmr series-three" ref="3 203 205" comment="Khmer" />
+    <char cp="1786" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1787" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1788" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1789" tag="consonant sc:Khmr series-three series-two" ref="3 203 205 210" comment="Khmer" />
+    <char cp="178A" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="178B" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="178C" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="178D" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="178E" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="178F" tag="consonant sc:Khmr series-three" ref="3 203 205" comment="Khmer" />
+    <char cp="1790" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1791" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1792" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1793" tag="consonant sc:Khmr series-three" ref="3 203 205" comment="Khmer" />
+    <char cp="1794" tag="consonant sc:Khmr series-one series-three series-two" ref="3 203 205 210" comment="Khmer" />
+    <char cp="1795" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1796" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1797" tag="consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="1798" tag="consonant sc:Khmr series-two" ref="3 203 210" comment="Khmer" />
+    <char cp="1799" tag="consonant sc:Khmr series-two" ref="3 203 210" comment="Khmer" />
+    <char cp="179A" tag="consonant sc:Khmr series-two" ref="3 203 210" comment="Khmer" />
+    <char cp="179B" tag="consonant sc:Khmr series-three" ref="3 203 205" comment="Khmer" />
+    <char cp="179C" tag="consonant sc:Khmr series-two" ref="3 203 210" comment="Khmer" />
+    <char cp="179F" tag="consonant sc:Khmr series-one series-three" ref="3 203 205 210" comment="Khmer" />
+    <char cp="17A0" tag="consonant sc:Khmr series-one" ref="3 203 210" comment="Khmer" />
+    <char cp="17A1" tag="base-only consonant sc:Khmr" ref="3 203" comment="Khmer" />
+    <char cp="17A2" tag="consonant sc:Khmr series-one" ref="3 203 210" comment="Khmer" />
+    <char cp="17A5" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17A6" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17A7" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AA" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AB" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AC" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AD" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AE" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17AF" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17B0" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17B1" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17B3" tag="independent-vowel sc:Khmr" ref="3 206" comment="Khmer" />
+    <char cp="17B6" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-1 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17B7" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-2 dependent-vowel-3 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17B8" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17B9" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-2 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BA" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BB" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-1 dependent-vowel-2 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BC" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BD" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BE" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17BF" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C0" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C1" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-2 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C2" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C3" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C4" when="follows-consonant-robat-shifter" tag="dependent-vowel dependent-vowel-2 sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C5" when="follows-consonant-robat-shifter" tag="dependent-vowel sc:Khmr" ref="3 204" comment="Khmer" />
+    <char cp="17C6" when="follows-consonant-depvowel-1-shifter" tag="sc:Khmr sign" ref="3 204" comment="Khmer" />
+    <char cp="17C7" when="follows-consonant-depvowel-2-shifter" tag="sc:Khmr sign" ref="3 208" comment="Khmer" />
+    <char cp="17C8" when="follows-consonant" tag="sc:Khmr sign" ref="3 207 208 209" comment="Khmer" />
+    <char cp="17C9" when="follows-series-two" tag="sc:Khmr shifter" ref="3 207 208 209 210" comment="Khmer" />
+    <char cp="17CA" when="follows-series-one" tag="sc:Khmr shifter" ref="3 207 208 209 210" comment="Khmer" />
+    <char cp="17CB" when="follows-series-three" tag="sc:Khmr sign" ref="3 205 207 208 209" comment="Khmer" />
+    <char cp="17CC" when="follows-consonant" tag="robat sc:Khmr" ref="3 207 208 209" comment="Khmer" />
+    <char cp="17CD" when="follows-consonant-or-vowel-i" tag="sc:Khmr sign" ref="3 207 208 209" comment="Khmer" />
+    <char cp="17D0" when="follows-consonant-shifter" tag="sc:Khmr sign" ref="3 207 208 209" comment="Khmer" />
+    <char cp="17D2" when="coeng-context" tag="coeng sc:Khmr" ref="3 100" comment="Khmer" />
+    <char cp="17D2 178A" when="follows-consonant" ref="3" comment="KHMER CONSONANT SIGN COENG DA; Khmer">
+      <var cp="17D2 178F" type="blocked" comment="Khmer subscript form homoglyph" />
+    </char>
+    <char cp="17D2 178F" when="follows-consonant" ref="3" comment="KHMER CONSONANT SIGN COENG TA; Khmer">
+      <var cp="17D2 178A" type="blocked" comment="Khmer subscript form homoglyph" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="consonant" from-tag="consonant" comment="Any Khmer consonant" />
+    <difference name="consonant-but-not-base-only" comment="Any Khmer consonant that is not base-only">
+      <class by-ref="consonant" />
+      <class from-tag="base-only" />
+    </difference>
+    <class name="dependent-vowel-1" from-tag="dependent-vowel-1" comment="Dependent Khmer vowels used with NIKAHIT" />
+    <class name="dependent-vowel-2" from-tag="dependent-vowel-2" comment="Dependent Khmer vowels used with REAHMUK" />
+    <class name="dependent-vowel-3" from-tag="dependent-vowel-3" comment="Dependent Khmer vowel used with TOANDAKHIAT" />
+    <class name="robat" from-tag="robat" comment="Khmer ROBAT" />
+    <class name="series-one" from-tag="series-one" comment="Khmer consonants used with MUUSIKATOAN" />
+    <class name="series-three" from-tag="series-three" comment="Khmer consonants used with BANTOC" />
+    <class name="series-two" from-tag="series-two" comment="Khmer consonants used with TRIISAP" />
+    <class name="shifter" from-tag="shifter" comment="Any Khmer shifter (MUUSIKATOAN or TRIISAP)" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="subscript-consonant" comment="WLE Rule 2: allowable subscript consonant sequence">
+      <char cp="17D2" />
+      <class by-ref="consonant-but-not-base-only" />
+    </rule>
+    <rule name="subscript-consonant-limit" comment="WLE Rule 3: more than two subscript consonants">
+      <rule by-ref="subscript-consonant" count="3" />
+    </rule>
+    <rule name="coeng-context" comment="WLE Rule 4: checks for 17D2 and its surrounding code points">
+      <look-behind>
+        <class by-ref="consonant" />
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <class by-ref="consonant-but-not-base-only" />
+      </look-ahead>
+    </rule>
+    <rule name="follows-consonant-robat-shifter" comment="WLE Rule 5: makes sure that dependent vowel follows a consonant or a shifter or a robat">
+      <look-behind>
+        <choice>
+          <class by-ref="shifter" />
+          <class by-ref="consonant" />
+          <class by-ref="robat" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-series-two" comment="WLE Rule 6: checks sequence for shifter 17C9 MUUSIKATOAN">
+      <look-behind>
+        <class by-ref="series-two" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-series-one" comment="WLE Rule 7: checks sequence for shifter 17CA TRIISAP">
+      <look-behind>
+        <class by-ref="series-one" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant" comment="WLE Rule 8: checks if sign code point or subscript consonant follows a consonant">
+      <look-behind>
+        <class by-ref="consonant" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-shifter" comment="WLE Rule 9: checks if 17D0 KHMER SIGN SAMYOKSANNYA follows a consonant or a shifter">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="shifter" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-depvowel-1-shifter" comment="WLE Rule 10: checks if 17C6 KHMER SIGN NIKAHIT follows a consonant or a dependent vowel-1 or a shifter">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="dependent-vowel-1" />
+          <class by-ref="shifter" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-depvowel-2-shifter" comment="WLE Rule 11: checks if 17C7 KHMER SIGN REAHMUK follows a consonant or a dependent vowel-2 or a shifter">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="dependent-vowel-2" />
+          <class by-ref="shifter" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-series-three" comment="WLE Rule 12: checks if 17CB KHMER SIGN BANTOC code point follows a series-three consonant">
+      <look-behind>
+        <class by-ref="series-three" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-or-vowel-i" comment="WLE Rule 13: checks if 17CD KHMER SIGN TOANDAKHIAT follows a consonant or 17B7 KHMER VOWEL SIGN I (Dependent-vowel-3)">
+      <look-behind>
+        <class by-ref="consonant" />
+        <class by-ref="dependent-vowel-3" count="0:1" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="invalid" match="subscript-consonant-limit" comment="any label with more than two subscript consonants in a row is invalid" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

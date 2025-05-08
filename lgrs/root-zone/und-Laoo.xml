@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Lao Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Laoo</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+        <h1>Root Zone Label Generation Rules for the Lao Script</h1>
+    
+        <h2>Overview</h2>
+        <p>This file contains Label Generation Rules (LGR) for the Lao script for the Root Zone. 
+         For more details on this LGR and additional background on the script, see “Proposal for a Lao Script Root Zone LGR” [Proposal-Lao].
+         This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+         The format of this file follows [RFC 7940].</p>
+
+       <h2>Repertoire</h2>
+        <p>In addition to the 51 code points according to Section 5 “Repertoire” in [Proposal-Lao],
+          the sequence 0EB2 0EB0 has been defined to facilitate implementation 
+          of WLE rule <b>follows-vafter-context</b> as a context rule. The repertoire
+          only includes code points used by languages that are actively written in the Khmer script. The repertoire is
+          based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+         <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+         
+        <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories, 
+        and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+        Comments identify the language using the code point.</p>
+        
+        <h2>Variants</h2>
+        <p>According to Section 6, “Variants” in [Proposal-Lao], this LGR defines no variants.</p>
+        
+        <h2>Character Classes</h2>
+        <p><b>Consonants:</b> In regular syllables, consonants occur in limited combinations. However, arbitrary combinations are used for acronyms. 
+         The LGR therefore considers the restriction on syllabic combinations a matter of spelling and does not enforce them. 
+        Consonants may be followed by a semi-consonant mark. Some consonants have been given the tag “Cf”, which indicates final consonants. 
+        See Section 5, “Consonants” in [Proposal-Lao].</p>
+        
+         <p><b>Vowels:</b> Vowels are divided into vowel-above, vowel-before, vowel-below and vowel-after so as to enforce some of the syllable structure using context rules.
+        However, many details have been considered spelling issues and, for simplification, are not modeled in this LGR. See Section 5 in [Proposal-Lao].</p>
+         <p>Semi-consonant: The character U+0EBC LAO SEMIVOWEL SIGN LO follows consonants (see Section 5 in [Proposal-Lao]).</p>
+        <p>Tone-mark: Any of four tone marks can follow a consonant or vowel-above or vowel-below (see Section 5 in [Proposal-Lao]).</p>
+        <p><b>Signs:</b> The character U+0ECC LAO CANCELLATION MARK follows a final consonant (Cf). The character U+0EC6 (ໆ)  LAO KO LA is a repetition mark that can only occur up to 3 times at the end of the label (See Section 5 in [Proposal-Lao]).</p>
+
+        <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+        
+        <h3>Default Whole Label Evaluation Rules and Actions</h3>
+        <p>The LGR includes the set of required default WLE rules and actions applicable 
+          to the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+          default prohibition on leading combining marks is equivalent to ensuring that 
+          a label only starts with a consonant or vowel-before.</p> 
+        
+        <h3>Lao-specific Rules</h3>
+        <p>Rules provided in the LGR as described in Section 7 of [Proposal-Lao] 
+          reasonably restrict labels so that they conform to Lao syllable structure. 
+          These constraints are presented exclusively as context rules. </p>
+        <p>The rules are: </p>
+        <ul>
+          <li><b>follows-consonant</b> &mdash; A context rule for semi-consonant. 
+            See Section 7 in [Proposal-Lao]. (WLE Rule 1)</li>
+          <li><b>precedes-consonant</b> &mdash; A context rule for vowel-before. 
+            See Section 7 in [Proposal-Lao]. (WLE Rule 2)</li>
+          <li><b>follows-main-consonant</b> &mdash; A context rule for vowel-below, 
+            and vowel-above. See Section 7 in [Proposal-Lao]. (WLE Rule 3)</li>
+          <li><b>follows-C-tonemark-vabove</b> &mdash; A context rule for vowel-after. 
+            See Section 7 in [Proposal-Lao]. (WLE Rule 4)</li>
+          <li><b>follows-vbefore-consonant-cluster</b> &mdash; A context rule for a 
+           vowel-after sequence. It incorporates consonant-cluster. 
+           See Section 7 in [Proposal-Lao]. (WLE Rule 5)</li>
+          <li><b>follows-C-vabove-vbelow</b> &mdash; A context rule for tone mark. 
+           See Section 7 in [Proposal-Lao]. (WLE Rule 6)</li>
+          <li><b>follows-Cf</b> &mdash; A context rule for U+0ECC (໌ ) LAO CANCELLATION MARK. 
+           See Section 7 in [Proposal-Lao]. (WLE Rule 7)</li>
+          <li><b>repetition-mark-limit</b> &mdash; A rule that limits the occurrence 
+            of U+0EC6 ( ໆ ) LAO KO LA at the label end. See Section 7 in [Proposal-Lao]. 
+            (WLE Rule 8)</li>
+        </ul>
+        
+        <p>No context rules apply to “consonant” code points. For discussion, see 
+          Section 5.1, “Consonants” in [Proposal-Lao].</p>
+
+         <h2>Methodology and Contributors</h2>
+        <p>The Root Zone LGR for the Lao script was developed by the Lao Generation Panel. For methodology and contributors, see Sections 4 and 8 in [Proposal-Lao], as well as [RZ-LGR-5-Overview].</p>
+
+        <h2>References</h2>
+        <p>The following general references are cited in this document:</p>
+        <dl class="references">
+        <dt>[MSR-5]</dt>
+        <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+         https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+        <dt>[Proposal-Lao]</dt>
+        <dd>Lao Generation Panel, “Proposal for Lao Script Root Zone LGR”, Version 3.1,
+         https://www.icann.org/en/system/files/files/proposal-lao-lgr-31jan17-en.pdf</dd> 
+        <dt>[RFC 7940]</dt>
+         <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+        <dt>[RZ-LGR-5-Overview]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+         <dt>[RZ-LGR-5]</dt>
+         <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+         <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+        <dt>[Unicode 11.0]</dt>
+        <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, 
+          CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+          https://www.unicode.org/versions/Unicode11.0.0/</dd>
+        </dl>
+         <p>For references consulted particularly in designing the repertoire for the Lao script for the Root Zone 
+          please see details in the <a href="#table_of_references">Table of References</a> below. 
+          Reference [0] refers to the Unicode Standard version
+          in which corresponding code points were initially encoded. References 
+          [201], [202], [203], [204], 205], [206], &amp; [207] correspond to sources given in [Proposal-Lao] justifying the 
+          inclusion of or classification for the corresponding 
+          code points. Entries in the table may have
+          multiple source reference values.</p>]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="201">Lao grammar book published by the Ministry of Education in 1967, 
+        see Appendix B, Figure 1 in [Proposal-Lao] </reference>
+      <reference id="202">Lao grammar book published by the Ministry of Education in 1967, 
+        see Appendix B, Figure 2 in [Proposal-Lao] </reference>
+      <reference id="203">Lao grammar book published by the Ministry of Education in 1967, 
+        see Appendix B, Figure 3 in [Proposal-Lao] </reference>
+      <reference id="204">Lao grammar book published by the Ministry of Education in 2000, 
+        see Appendix B, Figure 4 in [Proposal-Lao] </reference>
+      <reference id="205">Lao grammar book published by the Ministry of Education in 2000, 
+        see Appendix B, Figure 5 in [Proposal-Lao] </reference>
+      <reference id="206">Lao grammar book published by the Ministry of Education in 2000, 
+        see Appendix B, Figure 6 in [Proposal-Lao] </reference>
+      <reference id="207">Lao grammar 1935, see Appendix B, Figure 7 in [Proposal-Lao] </reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0E81" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E82" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E84" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E87" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E88" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E8A" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E8D" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E94" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E95" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E96" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E97" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E99" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E9A" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E9B" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E9C" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E9D" tag="consonant sc:Laoo" ref="0 201 204" comment="= lao letter fo sung; Lao" />
+    <char cp="0E9E" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0E9F" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="= lao letter fo tam; Lao" />
+    <char cp="0EA1" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0EA2" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0EA3" tag="Cf consonant sc:Laoo" ref="0 204" comment="= lao letter lo rada; Lao" />
+    <char cp="0EA5" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="= lao letter lo ling; Lao" />
+    <char cp="0EA7" tag="Cf consonant sc:Laoo" ref="0 201 204 205" comment="Lao" />
+    <char cp="0EAA" tag="Cf consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0EAB" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0EAD" tag="consonant sc:Laoo" ref="0 201 204 205" comment="Lao" />
+    <char cp="0EAE" tag="consonant sc:Laoo" ref="0 201 204" comment="Lao" />
+    <char cp="0EB0" when="follows-C-tonemark-vabove" tag="sc:Laoo vowel-after" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB1" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB2" when="follows-C-tonemark-vabove" tag="sc:Laoo vowel-after" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB2 0EB0" when="follows-vbefore-consonant-cluster" ref="205" comment="Lao" />
+    <char cp="0EB4" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB5" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB6" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB7" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB8" when="follows-main-consonant" tag="sc:Laoo vowel-below" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EB9" when="follows-main-consonant" tag="sc:Laoo vowel-below" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EBB" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 205" comment="Lao" />
+    <char cp="0EBC" when="follows-consonant" tag="sc:Laoo semi-consonant" ref="0 201 205 206" comment="= lao semiconsonant lo; Lao" />
+    <char cp="0EBD" when="follows-C-tonemark-vabove" tag="sc:Laoo vowel-after" ref="0 201 205" comment="= lao semivowel ia; Lao" />
+    <char cp="0EC0" when="precedes-consonant" tag="sc:Laoo vowel-before" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EC1" when="precedes-consonant" tag="sc:Laoo vowel-before" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EC2" when="precedes-consonant" tag="sc:Laoo vowel-before" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EC3" when="precedes-consonant" tag="sc:Laoo vowel-before" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EC4" when="precedes-consonant" tag="sc:Laoo vowel-before" ref="0 201 205 206" comment="Lao" />
+    <char cp="0EC6" when="repetition-mark-limit" tag="sc:Laoo sign" ref="0 203" comment="= lao may sam; Lao" />
+    <char cp="0EC8" when="follows-C-vabove-vbelow" tag="sc:Laoo tone-mark" ref="0 202" comment="Lao" />
+    <char cp="0EC9" when="follows-C-vabove-vbelow" tag="sc:Laoo tone-mark" ref="0 202" comment="Lao" />
+    <char cp="0ECA" when="follows-C-vabove-vbelow" tag="sc:Laoo tone-mark" ref="0 202" comment="Lao" />
+    <char cp="0ECB" when="follows-C-vabove-vbelow" tag="sc:Laoo tone-mark" ref="0 202" comment="= lao tone mai jattawa; Lao" />
+    <char cp="0ECC" when="follows-Cf" tag="sc:Laoo sign" ref="0 207" comment="= lao mark mai ka lan; Lao" />
+    <char cp="0ECD" when="follows-main-consonant" tag="sc:Laoo vowel-above" ref="0 201 205 206" comment="= lao vowel sign or; Lao" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="Cf" from-tag="Cf" comment="Any Lao final consonant" />
+    <class name="consonant" from-tag="consonant" comment="Any Lao consonant" />
+    <class name="semi-consonant" from-tag="semi-consonant" comment="Lao semi-consonant LO" />
+    <class name="tone-mark" from-tag="tone-mark" comment="Any Lao one mark" />
+    <class name="vowel-above" from-tag="vowel-above" comment="Any Lao vowel above" />
+    <class name="vowel-below" from-tag="vowel-below" comment="Any Lao vowel below" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-consonant" comment="WLE Rule 1: A semi-consonant must follow a consonant">
+      <look-behind>
+        <class by-ref="consonant" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="precedes-consonant" comment="WLE Rule 2: A vowel-before precedes a main consonant cluster">
+      <anchor />
+      <look-ahead>
+        <class by-ref="consonant" />
+      </look-ahead>
+    </rule>
+    <rule name="follows-main-consonant" comment="WLE Rule 3: A vowel-above, and vowel-below follow a main consonant C">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="semi-consonant" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-tonemark-vabove" comment="WLE Rule 4: A vowel-after follows a main consonant, tone-mark or vowel-above">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="semi-consonant" />
+          <class by-ref="tone-mark" />
+          <class by-ref="vowel-above" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="consonant-cluster" comment="Defining consonant cluster for WLE Rule 5">
+      <class by-ref="consonant" count="1:2" />
+      <class by-ref="semi-consonant" count="0:1" />
+    </rule>
+    <rule name="follows-vbefore-consonant-cluster" comment="WLE Rule 5: The sequence U+0EB2 U+0EB0 follows a vowel before, and a consonant cluster">
+      <look-behind>
+        <char cp="0EC0" />
+        <rule by-ref="consonant-cluster" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-vabove-vbelow" comment="WLE Rule 6: A tone-mark follows a main consonant, vowel-above or vowel-below">
+      <look-behind>
+        <choice>
+          <class by-ref="consonant" />
+          <class by-ref="semi-consonant" />
+          <class by-ref="vowel-above" />
+          <class by-ref="vowel-below" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-Cf" comment="WLE Rule 7: The sign U+0ECC can only occur after final consonants">
+      <look-behind>
+        <class by-ref="Cf" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="repetition-mark-limit" comment="WLE Rule 8: The sign U+0EC6 can only occur 0 to 3 times at the end of the label">
+      <anchor />
+      <look-ahead>
+        <char cp="0EC6" count="0:2" />
+        <end />
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

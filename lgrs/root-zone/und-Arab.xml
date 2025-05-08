@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Arabic Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Arab</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+      <h1>Root Zone Label Generation Rules for the Arabic Script</h1>
+       
+      <h2>Overview</h2>
+      <p>This file contains a set of Label Generation Rules (LGR) for Arabic for the Root Zone. 
+       For more details on this LGR and additional background on the script, see
+       TF-AIDN, “Proposal for Arabic Script Root Zone LGR”, Version 3.4, 18 November 2015 [Proposal-Arabic].
+       This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+       The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2> 
+      <p>The repertoire is described in Section 3.2 of [Proposal-Arabic] and 
+      only includes the 128 code points used by languages that are actively written in the Arabic script. It 
+      excludes code points for which TF-AIDN was unable to find sufficient evidence of use (see Appendix F in [Proposal-Arabic]). The repertoire is
+      based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+      
+      <p>This LGR does not include combining marks or code point sequences. All combining marks have been 
+      excluded for these reasons:</p>
+      <ul>
+        <li>First, they can significantly overproduce and would require additional rules to contain them effectively, 
+      complicating the design.</li>
+        <li>Second, even where they are required for some languages, they are optional for others.</li>
+        <li>Third, this also circumvents the issue regarding duplication between some precomposed code points and combining sequences raised by [IAB].</li>
+      </ul>  
+       
+      <p>For further details, see Section 3.2, “Code point repertoire included”, in [Proposal-Arabic].</p>
+      
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+      
+      <p>Each code point is tagged with the script or scripts with which the code point is used, 
+      and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+      Comments identify the principal languages or orthographies using the code point. Languages are given with their [EGIDS] level;
+      use of standard Arabic code points by other languages is not marked.</p>
+
+      <h2>Variants</h2>
+      <p>This LGR includes “blocked” and “allocatable” variants, assigned according to Section 4, 
+      “Final recommendation of variants for Top Level Domains (TLDs)” in [Proposal-Arabic]. 
+      These recommendations balance the desire to minimize the number of possible allocatable variants with the need to keep the
+      definition of variants simple. See also the comments given in the listing.</p> 
+
+       <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+      <h2>Character Classes</h2>
+      <p>This LGR does not define named character classes.</p>
+
+      <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+      <h3>Default Whole Label Evaluation Rules and Actions</h3>
+      <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone and defined in [MSR-5]. They are marked with &#x235F;.</p> 
+      <h3>Arabic-specific Rules and Actions</h3>
+      <p>This LGR includes WLE rules and actions specific to the Arabic script. See Section 5, “Whole Label Evaluation (WLE) rules”, in [Proposal-Arabic]. 
+      As specified, the rules and actions serve to prevent the mixing of two variants of the same code point within the same label. This reduces overproduction
+      of variant labels. The rules are listed here with the numbers given in Table 17 in [Proposal-Arabic]. See also the comments given for each rule or action.</p> 
+      <ul>
+        <li><b>no-mix-kaf-keheh</b> &mdash; WLE Rule 1: do not mix Arabic letters KAF and KEHEH in the same label</li>
+        <li><b>no-mix-kaf-swash</b> &mdash; WLE Rule 2: do not mix Arabic letters KAF and SWASH KAF in the same label</li>
+        <li><b>no-mix-alef-maksura-farsi-yeh</b> &mdash; WLE Rule 3: do not mix Arabic letters ALEF MAKSURA and FARSI YEH in the same label</li>
+        <li><b>no-mix-heh-goal</b> &mdash; WLE Rule 4: do not mix Arabic letters HEH and HEH GOAL in the same label</li>
+        <li><b>no-mix-heh-goal-ae</b> &mdash; WLE Rule 5: do not mix Arabic letters HEH GOAL and AE in the same label</li>
+        <li><b>no-mix-heh-ae</b> &mdash; WLE Rule 6: do not mix Arabic letters HEH and AE in the same label</li>
+        <li><b>no-mix-heh-doachashmee</b> &mdash; WLE Rule 7: do not mix Arabic letters HEH and HEH DOACHASHMEE in the same label</li>
+        <li><b>no-mix-teh-marbuta-goal</b> &mdash; WLE Rule 8: do not mix Arabic letters TEH MARBUTA and TEH MARBUTA GOAL in the same label</li>
+        <li><b>no-mix-noon-with-three-dots-above-yeh-with-three-dots-below</b> &mdash; WLE Rule 9: do not mix Arabic letters NOON WITH THREE DOTS ABOVE and YEH WITH THREE DOTS BELOW in the same label</li>
+        <li><b>no-mix-peh-noon-with-three-dots-above</b> &mdash; WLE Rule 10: do not mix Arabic letters PEH and NOON WITH THREE DOTS ABOVE in the same label</li>
+        <li><b>no-mix-feh-with-dot-moved-below</b> &mdash; WLE Rule 11:do not mix Arabic letters FEH and FEH WITH DOT MOVED BELOW in the same label</li>
+        <li><b>no-mix-qaf-with-dot-above</b> &mdash; WLE Rule 12: do not mix Arabic letters QAF and QAF WITH DOT ABOVE in the same label</li>
+        <li><b>no-mix-feh-qaf-with-dot-above</b> &mdash; WLE Rule 13: do not mix Arabic letters FEH and QAF WITH DOT ABOVE in the same label</li>
+        <li><b>no-mix-kaf-with-ring-gaf</b> &mdash; WLE Rule 14: do not mix Arabic letters KAF WITH RING and GAF in the same label</li>
+        <li><b>no-mix-kaf-with-ring-keheh-with-three-dots-above</b> &mdash; WLE Rule 15: do not mix Arabic letters KAF WITH RING and KEHEH WITH THREE DOTS ABOVE</li>
+        <li><b>no-mix-gaf-keheh-with-three-dots-above</b> &mdash; WLE Rule 16: do not mix Arabic letters GAF and KEHEH WITH THREE DOTS ABOVE in the same label</li>
+      </ul>
+
+      <h2>Methodology and Contributors</h2>
+      <p>The Root Zone LGR for the Arabic script was developed by the Task Force for Arabic Script IDNs [TF-AIDN].
+      For more information and for methodology and contributors, see [Proposal-Arabic], as well as [RZ-LGR-5-Overview].</p> 
+      
+      <h2>References</h2> 
+      <p>The following general references are cited in this document:</p>
+      <dl class="references">
+        <dt>[EGIDS]</dt>
+        <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+         documented in [SIL-Ethnologue] and summarized here:
+         https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+        <dt>[IAB]</dt>
+        <dd>Internet Architecture Board (IAB), “IAB Statement on Identifiers and Unicode 7.0.0”
+         https://www.iab.org/documents/correspondence-reports-documents/2015-2/iab-statement-on-identifiers-and-unicode-7-0-0/</dd>
+        <dt>[MSR-5]</dt>
+        <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+        https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf         </dd>
+        <dt>[Proposal-Arabic]</dt>
+        <dd>TF-AIDN, “Proposal for Arabic Script Root Zone LGR”, Version 3.4, 18 November 2015 https://www.icann.org/en/system/files/files/arabic-lgr-proposal-18nov15-en.pdf</dd>  
+        <dt>[RFC 6365]</dt> 
+        <dd>Hoffman, P. and J. Klensin, “Terminology Used in Internationalization in the IETF”, BCP 166, RFC 6365, DOI 10.17487/RFC6365, September 2011, https://www.rfc-editor.org/info/rfc6365</dd>
+        <dt>[RFC 7940]</dt>
+        <dd> Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+        <dt>[RFC 8228]</dt>
+        <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+        https://www.rfc-editor.org/info/rfc8228</dd>
+        <dt>[RZ-LGR-5-Overview]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+        <dt>[RZ-LGR-5]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+         <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+        <dt>[Unicode 11.0]</dt>
+        <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+         https://www.unicode.org/versions/Unicode11.0.0/</dd>
+        <dt>[TF-AIDN]</dt>
+        <dd>Blog, “Task Force for Arabic Script IDNs” https://www.icann.org/news/blog/what-is-the-task-force-on-arabic-script-idns-tf-aidn-up-to</dd>
+      </dl>
+      <p>For references consulted particularly in designing the repertoire for the Arabic script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        References [0] to [12] refer to the Unicode Standard versions in which the
+        corresponding code points were initially encoded. References [100] and above correspond to sources
+        given in [Proposal-Arabic] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.0</reference>
+      <reference id="7" comment="Any code point originally encoded in Unicode 4.1">The Unicode Standard 4.1</reference>
+      <reference id="9" comment="Any code point originally encoded in Unicode 5.1">The Unicode Standard 5.1</reference>
+      <reference id="11" comment="Any code point originally encoded in Unicode 6.0">The Unicode Standard 6.0</reference>
+      <reference id="12" comment="Any code point originally encoded in Unicode 6.1">The Unicode Standard 6.1</reference>
+      <reference id="100">El-Sherbiny, A., Farah, M., Oueichek, I., and A. Al-Zoman, 
+      “Linguistic Guidelines for the Use of the Arabic Language in Internet Domains”, RFC 5564, February 2010 https://www.rfc-editor.org/info/rfc5564</reference>
+      <reference id="101">Omniglot, “Hausa” https://omniglot.com/writing/hausa.htm</reference>
+      <reference id="102">Omniglot, “Kashmiri” https://omniglot.com/writing/kashmiri.htm</reference>
+      <reference id="103">Omniglot, “Kazakh” https://omniglot.com/writing/kazakh.htm</reference>
+      <reference id="104">Omniglot, “Khowar” https://omniglot.com/writing/khowar.htm</reference>
+      <reference id="105">Omniglot, “Kirghiz” https://omniglot.com/writing/kirghiz.htm</reference>
+      <reference id="106">Omniglot, “Kurdish” https://omniglot.com/writing/kurdish.htm</reference>
+      <reference id="107">Omniglot, “Malay” https://omniglot.com/writing/malay.htm</reference>
+      <reference id="108">Omniglot, “Pashto” https://omniglot.com/writing/pashto.htm</reference>
+      <reference id="109">Omniglot, “Persian(Farsi)” https://omniglot.com/writing/persian.htm</reference>
+      <reference id="110">Omniglot, “Saraiki” https://omniglot.com/writing/saraiki.htm</reference>
+      <reference id="111">Omniglot, “Sindhi” https://omniglot.com/writing/sindhi.htm</reference>
+      <reference id="112">Omniglot, “Urdu” https://omniglot.com/writing/urdu.htm</reference>
+      <reference id="113">Omniglot, “Wolof” https://omniglot.com/writing/wolof.htm</reference>
+      <reference id="114">Omniglot, “Uyghur https://omniglot.com/writing/uyghur.htm</reference>
+      <reference id="115">Unicode, Kashmiri, Yeh https://www.unicode.org/L2/L2009/09215-kashmiri.pdf</reference>
+      <reference id="116">Unicode, Chad ANT, pp. 19-20 https://www.unicode.org/L2/L2010/10288r-arabic-proposal.pdf</reference>
+      <reference id="117">Unicode, DPLN, p.21 https://www.unicode.org/L2/L2010/10288r-arabic-proposal.pdf</reference>
+      <reference id="118">Unicode, Jawi and Moroccan Arabic GAF, https://www.unicode.org/L2/L2003/03176-gafs.pdf</reference>
+      <reference id="119">Unicode, Chadian, p.5 https://www.unicode.org/L2/L2010/10288r-arabic-proposal.pdf</reference>
+      <reference id="120">Wolof, Paul Timothy https://paul-timothy.net/pages/ajamisenegal/primers/je_sais_le_wolofal_harmattan_20-oct-2015_a4.pdf</reference>
+      <reference id="121">Hausa, pp. 261-289 Warren-Rothlin, Andy (2014): West African scripts and Arabic-script orthographies in socio-political context. Meikal Mumin, Kees (C.) H. Versteegh (Eds.): The Arabic script in Africa. Studies in the use of a writing system. Leiden, Boston: Brill (Studies in Semitic Languages and Linguistics, 71) </reference>
+      <reference id="122">Mandika, Bamana, pp. 225-260 Vydrin, Valentin Feodos’evich; Dumestre, Gérard (2014): Manding Ajami samples. In Meikal Mumin, Kees (C.) H. Versteegh (Eds.): The Arabic script in Africa. Studies in the use of a writing system. Leiden, Boston: Brill (Studies in Semitic Languages and Linguistics, 71) </reference>
+      <reference id="123">Ethiopian, Wetter, Andreas (2006): Arabic in Ethiopia. In Kees (C.) H. Versteegh (Ed.): Encyclopedia of Arabic Language and Linguistics. Volume I. A-Ed, vol. 2. With assistance of Mushira Eid, Alaa Elgibali, Manfred Woidich, Andrzej Zaborski. Leiden: E. J. Brill, pp. 51-56. </reference>
+      <reference id="124">Western Arabic, Qaf with three dots above, city of Gabes, Tunisia </reference>
+      <reference id="125">Urdu, Heh goal with hamza above, Section 3 in https://www.columbia.edu/~mk2580/urdu_section/handouts/izafat.pdf</reference>
+      <reference id="126">Urdu, Teh marbuta goal, Code point UZT 76 of Urdu Zabta Takhti 1.01, the official code page standard for Govt. of Pakistan, approved in 2001; see https://cle.org.pk/Publication/papers/2001/uzt1.01.pdf</reference>
+      <reference id="127">Kurdish-Sorani, p.7 in https://www.fas.harvard.edu/~iranian/Sorani/sorani_1_grammar.pdf</reference>
+      <reference id="128">Wolof, Beh with dot below and three dots above, “Wolofal Orthography” by Galen Currah, revised 20 May 2011 </reference>
+      <reference id="129">Malay, Jawi Keyboard standard by Department of Standards Malaysia https://en.wikipedia.org/wiki/Jawi_keyboard (Accessed on 13 November 2015)</reference>
+      <reference id="130">Ajami usage, “Language planning in West Africa - who writes the script?” by Friederike Lüpke; https://www.elpublishing.org/docs/1/02/ldd02_08.pdf</reference>
+      <reference id="131">Scott Clark, “Alphabet and Orthography Statement For Fulfulde [FUB] Ajamiya”, SIL, Yaoundé, Cameroon, 2007, https://www.sil.org/system/files/reapdata/11/59/46/115946668959791144133440092187534320035/AlphabetandOrthographyStatementforFulfuldeFUBAjamiyafortheinternet.pdf (Accessed on June 17 2019)</reference>
+      <reference id="132">Hausa, Newspapers and books published in Hausa using Arabic script, https://aflang.humanities.ucla.edu/language-materials/chadic-languages/hausa/hausa-online-grammar/pronunciation-writing/hausa-writing/</reference>
+      <reference id="133">Kyrgyz, https://www.ethnologue.com/language/kir</reference>
+      <reference id="134">Kyrgyz, https://www.ethnologue.com/country/CN/languages</reference>
+      <reference id="135">Urdu, https://www.bbc.com/urdu</reference>
+      <reference id="136">Wikipedia: “Kyrgyz alphabets”, https://en.wikipedia.org/wiki/Kazakh_alphabets (accessed on 13 November 2015)</reference>
+      <reference id="137">Malay, Information technology - Jawi Coded Character Set for Information Interchange MS 2443:2012, Department of Standards, Malaysia.  https://www.jsm.gov.my</reference>
+      <reference id="138">Pashto Academy Peshawar University </reference>
+      <reference id="140">Kurdish, https://kurdpress.com/</reference>
+      <reference id="141" comment="Combining Hamza not recommended for use by IAB statement and combining marks not included by TF-AIDN;     So combined form needs to be included">Internet Architecture Board (IAB), “IAB Statement on Identifiers and Unicode 7.0.0”
+	   https://www.iab.org/documents/correspondence-reports-documents/2015-2/iab-statement-on-identifiers-and-unicode-7-0-0/</reference>
+      <reference id="142">An introduction to Latin-Script Uyghur: by Waris Abdukerim Janbaz ,State Library of Victoria, 2006, https://docplayer.net/42224797-An-introduction-to-latin-script-uyghur.html</reference>
+      <reference id="143">Torwali online and printed dictionaries </reference>
+      <reference id="144">Wikipedia: “Jawi keyboard” https://en.wikipedia.org/wiki/Jawi_keyboard (Accessed on 13 November 2015)</reference>
+      <reference id="145">Wikipedia: “Saraiki alphabet” https://en.wikipedia.org/wiki/Saraiki_alphabet (Accessed on 13 November 2015)</reference>
+      <reference id="146">ANT (Alphabet National du Tchad) is the national standard for Chad/Tchad; See Figures in L2/10-288R (used for “tr” sound as given in the table in Section 6.1.2): https://www.unicode.org/L2/L2010/10288r-arabic-proposal.pdf and Appendix B</reference>
+      <reference id="147">Wolof, https://www.openbookpublishers.com/htmlreader/978-1-78374-062-8/11.Ngom.xhtml</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0620" tag="sc:Arab" ref="11 115" comment="Kashmiri (4)" />
+    <char cp="0621" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0622" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0623" type="blocked" />
+      <var cp="0625" type="blocked" />
+      <var cp="0627" type="allocatable" comment="U+0622 ALEF WITH MADDA ABOVE is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" />
+    </char>
+    <char cp="0623" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0622" type="blocked" />
+      <var cp="0625" type="blocked" />
+      <var cp="0627" type="allocatable" comment="U+0623 ALEF WITH HAMZA ABOVE is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" />
+    </char>
+    <char cp="0624" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0648" type="allocatable" comment="U+0624 WAV WITH HAMZA ABOVE is simplified to U+0648 WAV in the Arabic language" />
+    </char>
+    <char cp="0625" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0622" type="blocked" />
+      <var cp="0623" type="blocked" />
+      <var cp="0627" type="allocatable" comment="U+0625 ALEF WITH HAMZA BELOW is simplified to U+0627 ALEF in the Arabic language" />
+      <var cp="0672" type="blocked" />
+    </char>
+    <char cp="0626" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="blocked" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="0627" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0622" type="blocked" />
+      <var cp="0623" type="blocked" />
+      <var cp="0625" type="blocked" />
+      <var cp="0672" type="blocked" />
+    </char>
+    <char cp="0628" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0629" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0647" type="allocatable" comment="In the Arabic language, U+0647 HEH may be substituted for U+0629 TEH MARBUTA. [RFC 6365]" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="allocatable" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user. Labels in the Arabic language using U+0629 TEH MARBUTA in the final and isolated positions will be typed in other languages using U+06C3 TEH MARBUTA GOAL (Urdu, etc.) which is identical in isolated and has a variant glyph or identical glyph form in final position" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="062A" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="067A" type="blocked" />
+    </char>
+    <char cp="062B" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="067D" type="blocked" />
+    </char>
+    <char cp="062C" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="062D" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="062E" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="062F" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0630" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0631" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0632" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0633" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0634" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0635" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0636" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0637" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0638" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0639" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="063A" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0641" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0642" type="blocked" />
+      <var cp="06A2" type="allocatable" comment="Used interchangeably in Africa for languages using Western (African) orthography" />
+      <var cp="06A7" type="blocked" />
+    </char>
+    <char cp="0642" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0641" type="blocked" />
+      <var cp="06A2" type="blocked" />
+      <var cp="06A7" type="allocatable" comment="Used interchangeably in Africa for languages using Western (African) orthography" />
+    </char>
+    <char cp="0643" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="06A9" type="allocatable" comment="The two have identical shapes in initial and medial positions and are used by different language communities to refer to the same letter" />
+      <var cp="06AA" type="allocatable" comment="The two have similar (interchangeable) shapes in initial and medial positions and are used by different language communities to refer to the same letter" />
+    </char>
+    <char cp="0644" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0645" tag="sc:Arab" ref="0 100" comment="Arabic (1)" />
+    <char cp="0646" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="06BA" type="allocatable" comment="Used interchangeably in Africa for languages using Western (African) orthography" />
+    </char>
+    <char cp="0647" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0629" type="blocked" />
+      <var cp="06BE" type="blocked" comment="Labels in the Arabic language using U+0647 HEH in the initial and medial positions will be visually similar in Urdu language to U+06BE LETTER HEH DOACHASHMEE" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="allocatable" comment="Labels in the Arabic language using U+0647 HEH in the final and isolated positions will be typed in other languages using U+06C1 HEH GOAL (Urdu, Pashto, Saraiki, etc.) which is identical in isolated and has a variant glyph or identical glyph form in final position" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="blocked" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="0648" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0624" type="blocked" />
+    </char>
+    <char cp="0649" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="blocked" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="064A" tag="sc:Arab" ref="0 100" comment="Arabic (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="allocatable" comment="The two are visually identical and the same label could be typed using one or the other based on the set language settings and keyboard layout of a user" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="0672" tag="sc:Arab" ref="0 102" comment="Kashmiri (4)">
+      <var cp="0622" type="blocked" />
+      <var cp="0623" type="blocked" />
+      <var cp="0625" type="blocked" />
+      <var cp="0627" type="allocatable" comment="U+0672 ALEF WITH WAVY HAMZA ABOVE is simplified to U+0627 ALEF in the Kashmiri language" />
+    </char>
+    <char cp="0679" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="06BB" type="blocked" />
+    </char>
+    <char cp="067A" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="062A" type="blocked" />
+    </char>
+    <char cp="067B" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="06CC" type="blocked" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="067C" tag="sc:Arab" ref="0 108" comment="Pashto (1)" />
+    <char cp="067D" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="062B" type="blocked" />
+    </char>
+    <char cp="067E" tag="sc:Arab" ref="0 109" comment="Persian (1)">
+      <var cp="06BD" type="blocked" />
+      <var cp="06D1" type="blocked" />
+      <var cp="0752" type="blocked" />
+    </char>
+    <char cp="067F" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="0680" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="0681" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="0683" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="0684" type="blocked" />
+    </char>
+    <char cp="0684" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="0683" type="blocked" />
+    </char>
+    <char cp="0685" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="0686" tag="sc:Arab" ref="0 109" comment="Persian (1)" />
+    <char cp="0687" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="0688" tag="sc:Arab" ref="0 112" comment="Urdu (1)" />
+    <char cp="0689" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="068A" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="068B" tag="sc:Arab" ref="0 110" comment="Saraiki (4)" />
+    <char cp="068C" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="068D" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="068E" tag="sc:Arab" ref="0 137" comment="Malay (1)">
+      <var cp="068F" type="blocked" />
+    </char>
+    <char cp="068F" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="068E" type="blocked" />
+    </char>
+    <char cp="0691" tag="sc:Arab" ref="0 112" comment="Urdu (1)" />
+    <char cp="0693" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="0695" tag="sc:Arab" ref="0 106 140" comment="Kurdish (1)" />
+    <char cp="0696" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="0697" tag="sc:Arab" ref="0 119 146" comment="ANT" />
+    <char cp="0698" tag="sc:Arab" ref="0 112" comment="Urdu (1)" />
+    <char cp="0699" tag="sc:Arab" ref="0 111 143" comment="Sindhi (2), Torwali (6b)" />
+    <char cp="069A" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="069F" tag="sc:Arab" ref="0 121 123 130" comment="Hausa (2), Ajami" />
+    <char cp="06A0" tag="sc:Arab" ref="0 107 129 144" comment="Malay (1)" />
+    <char cp="06A2" tag="sc:Arab" ref="0 101 130 131 132" comment="Ajami, Fulfulde (3), Hausa (2)">
+      <var cp="0641" type="allocatable" />
+      <var cp="0642" type="blocked" />
+      <var cp="06A7" type="blocked" />
+    </char>
+    <char cp="06A4" tag="sc:Arab" ref="0 106 107 127 140" comment="Malay (1), Kurdish (1)">
+      <var cp="06A8" type="blocked" />
+    </char>
+    <char cp="06A6" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="06A7" tag="sc:Arab" ref="0 101 130 131 132" comment="Ajami, Fulfulde (3), Hausa (2)">
+      <var cp="0641" type="blocked" />
+      <var cp="0642" type="allocatable" />
+      <var cp="06A2" type="blocked" />
+    </char>
+    <char cp="06A8" tag="sc:Arab" ref="0 124" comment="Western Arabic">
+      <var cp="06A4" type="blocked" />
+    </char>
+    <char cp="06A9" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0643" type="allocatable" />
+      <var cp="06AA" type="allocatable" comment="The two have similar (interchangeable) shapes in initial and medial positions and are used by different language communities to refer to the same letter" />
+    </char>
+    <char cp="06AA" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="0643" type="allocatable" />
+      <var cp="06A9" type="allocatable" />
+    </char>
+    <char cp="06AB" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)">
+      <var cp="06AD" type="blocked" />
+      <var cp="06AF" type="blocked" comment="U+06AB KAF WITH RING interchangeably used in Pashto with U+06AF GAF" />
+      <var cp="0763" type="blocked" />
+    </char>
+    <char cp="06AD" tag="sc:Arab" ref="0 105 114 133 134" comment="Kirghiz (1), Uyghur (2)">
+      <var cp="06AB" type="blocked" />
+      <var cp="06AF" type="blocked" />
+      <var cp="0763" type="blocked" />
+    </char>
+    <char cp="06AE" tag="sc:Arab" ref="0 116" comment="ANT" />
+    <char cp="06AF" tag="sc:Arab" ref="0 109" comment="Persian (1)">
+      <var cp="06AB" type="blocked" />
+      <var cp="06AD" type="blocked" />
+      <var cp="0763" type="blocked" comment="Iraqi Arabic uses U+06AF GAF, whereas Moroccan Arabic uses U+0763 KEHEH WITH THREE DOTS ABOVE" />
+    </char>
+    <char cp="06B0" tag="sc:Arab" ref="0 110" comment="Saraiki (4)" />
+    <char cp="06B1" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="06B3" tag="sc:Arab" ref="0 111" comment="Sindhi (2)" />
+    <char cp="06B5" tag="sc:Arab" ref="0 106 140" comment="Kurdish (1)" />
+    <char cp="06BA" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0646" type="allocatable" />
+    </char>
+    <char cp="06BB" tag="sc:Arab" ref="0 111" comment="Sindhi (2)">
+      <var cp="0679" type="blocked" />
+    </char>
+    <char cp="06BC" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)" />
+    <char cp="06BD" tag="sc:Arab" ref="0 107" comment="Malay (1)">
+      <var cp="067E" type="blocked" />
+      <var cp="06D1" type="blocked" />
+      <var cp="0752" type="blocked" />
+    </char>
+    <char cp="06BE" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0629" type="blocked" />
+      <var cp="0647" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="blocked" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="06C0" tag="sc:Arab" ref="0 116 140" comment="ANT, Kurdish (1)">
+      <var cp="0629" type="blocked" />
+      <var cp="0647" type="blocked" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C1" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="blocked" />
+      <var cp="06D5" type="allocatable" comment="U+06C0 HEH WITH YEH ABOVE is simplified to U+06D5 ARABIC LETTER AE in some languages (Kurdish)" />
+    </char>
+    <char cp="06C1" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0629" type="blocked" />
+      <var cp="0647" type="allocatable" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="blocked" comment="This is not allocatable in either direction because, unlike the allocatable relationship between U+0647 HEH and U+0629 TEH MARBUTA due to variation in the Arabic language, Urdu and other languages using U+06C1 HEH GOAL do not exhibit such variation with  U+06C3 TEH MARBUTA GOAL" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="06C2" tag="sc:Arab" ref="0 125 135 141" comment="Urdu (1)">
+      <var cp="0629" type="blocked" />
+      <var cp="0647" type="blocked" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="allocatable" comment="U+06C2 HEH GOAL WITH HAMZA ABOVE is simplified to U+06C1 HEH GOAL in Urdu" />
+      <var cp="06C3" type="blocked" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="06C3" tag="sc:Arab" ref="0 126" comment="Urdu (1)">
+      <var cp="0629" type="allocatable" />
+      <var cp="0647" type="blocked" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06D5" type="blocked" />
+    </char>
+    <char cp="06C4" tag="sc:Arab" ref="0 102" comment="Kashmiri (4)" />
+    <char cp="06C6" tag="sc:Arab" ref="0 102 140 142" comment="Kashmiri (4), Kurdish (1), Uyghur (2)" />
+    <char cp="06CB" tag="sc:Arab" ref="0 103 114 136" comment="Kazakh (1), Kirghiz (1), Uyghur (2)" />
+    <char cp="06CC" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="allocatable" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="06CD" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="blocked" />
+      <var cp="06D0" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="06CE" tag="sc:Arab" ref="0 127 140" comment="Kurdish (1)" />
+    <char cp="06CF" tag="sc:Arab" ref="3 107" comment="Malay (1)" />
+    <char cp="06D0" tag="sc:Arab" ref="0 108 138" comment="Pashto (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="blocked" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D2" type="blocked" />
+    </char>
+    <char cp="06D1" tag="sc:Arab" ref="0 122" comment="Bamana (4), Mandika (5)">
+      <var cp="067E" type="blocked" />
+      <var cp="06BD" type="blocked" />
+      <var cp="0752" type="blocked" />
+    </char>
+    <char cp="06D2" tag="sc:Arab" ref="0 112" comment="Urdu (1)">
+      <var cp="0626" type="blocked" />
+      <var cp="0649" type="blocked" />
+      <var cp="064A" type="blocked" />
+      <var cp="067B" type="blocked" />
+      <var cp="06CC" type="blocked" />
+      <var cp="06CD" type="blocked" />
+      <var cp="06D0" type="blocked" />
+    </char>
+    <char cp="06D5" tag="sc:Arab" ref="0 106 114 140" comment="Kurdish (1), Uyghur (2)">
+      <var cp="0629" type="blocked" />
+      <var cp="0647" type="blocked" />
+      <var cp="06BE" type="blocked" />
+      <var cp="06C0" type="blocked" />
+      <var cp="06C1" type="blocked" />
+      <var cp="06C2" type="blocked" />
+      <var cp="06C3" type="blocked" />
+    </char>
+    <char cp="0751" tag="sc:Arab" ref="7 121 128 130 147" comment="Hausa (2), Wolof (3)" />
+    <char cp="0752" tag="sc:Arab" ref="7 113 130" comment="Ajami, Wolof (3)">
+      <var cp="067E" type="blocked" />
+      <var cp="06BD" type="blocked" />
+      <var cp="06D1" type="blocked" />
+    </char>
+    <char cp="0756" tag="sc:Arab" ref="7 113 120 130" comment="Ajami, Wolof (3)" />
+    <char cp="0760" tag="sc:Arab" ref="7 121 130" comment="Ajami, Hausa (2)" />
+    <char cp="0762" tag="sc:Arab" ref="7 118 129" comment="Malay (1)" />
+    <char cp="0763" tag="sc:Arab" ref="7 118" comment="Moroccan (3)">
+      <var cp="06AB" type="blocked" />
+      <var cp="06AD" type="blocked" />
+      <var cp="06AF" type="blocked" />
+    </char>
+    <char cp="0766" tag="sc:Arab" ref="7 116 121" comment="ANT" />
+    <char cp="0767" tag="sc:Arab" ref="7 113 120" comment="Wolof (3)">
+      <var cp="08A9" type="blocked" />
+    </char>
+    <char cp="0768" tag="sc:Arab" ref="7 145" comment="Saraiki (4)" />
+    <char cp="076A" tag="sc:Arab" ref="7 113 116 120" comment="ANT, Wolof (3)" />
+    <char cp="076E" tag="sc:Arab" ref="9 104" comment="Khowar (3)" />
+    <char cp="076F" tag="sc:Arab" ref="9 104" comment="Khowar (3)" />
+    <char cp="0770" tag="sc:Arab" ref="9 104" comment="Khowar (3)" />
+    <char cp="0771" tag="sc:Arab" ref="9 104" comment="Khowar (3)" />
+    <char cp="08A0" tag="sc:Arab" ref="12 117" comment="DPLN" />
+    <char cp="08A2" tag="sc:Arab" ref="12 117" comment="DPLN" />
+    <char cp="08A3" tag="sc:Arab" ref="12 113 117" comment="DPLN, Wolof (3)" />
+    <char cp="08A4" tag="sc:Arab" ref="12 116" comment="ANT" />
+    <char cp="08A5" tag="sc:Arab" ref="12 116" comment="ANT" />
+    <char cp="08A6" tag="sc:Arab" ref="12 116" comment="ANT" />
+    <char cp="08A7" tag="sc:Arab" ref="12 116" comment="ANT" />
+    <char cp="08A8" tag="sc:Arab" ref="12 121" comment="Hausa (2)" />
+    <char cp="08A9" tag="sc:Arab" ref="12 121" comment="Hausa (2)">
+      <var cp="0767" type="blocked" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="no-mix-kaf-keheh" ref="100" comment="WLE Rule 1: do not mix Arabic letters KAF and KEHEH in the same label">
+      <choice>
+        <rule>
+          <char cp="0643" />
+          <any count="0+" />
+          <char cp="06A9" />
+        </rule>
+        <rule>
+          <char cp="06A9" />
+          <any count="0+" />
+          <char cp="0643" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-kaf-swash" ref="100" comment="WLE Rule 2: do not mix Arabic letters KAF and SWASH KAF in the same label">
+      <choice>
+        <rule>
+          <char cp="0643" />
+          <any count="0+" />
+          <char cp="06AA" />
+        </rule>
+        <rule>
+          <char cp="06AA" />
+          <any count="0+" />
+          <char cp="0643" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-alef-maksura-farsi-yeh" ref="100" comment="WLE Rule 3: do not mix Arabic letters ALEF MAKSURA and FARSI YEH in the same label">
+      <choice>
+        <rule>
+          <char cp="0649" />
+          <any count="0+" />
+          <char cp="06CC" />
+        </rule>
+        <rule>
+          <char cp="06CC" />
+          <any count="0+" />
+          <char cp="0649" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-heh-goal" ref="100" comment="WLE Rule 4: do not mix Arabic letters HEH and HEH GOAL in the same label">
+      <choice>
+        <rule>
+          <char cp="0647" />
+          <any count="0+" />
+          <char cp="06C1" />
+        </rule>
+        <rule>
+          <char cp="06C1" />
+          <any count="0+" />
+          <char cp="0647" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-heh-goal-ae" ref="100" comment="WLE Rule 5: do not mix Arabic letters HEH GOAL and AE in the same label">
+      <choice>
+        <rule>
+          <char cp="06C1" />
+          <any count="0+" />
+          <char cp="06D5" />
+        </rule>
+        <rule>
+          <char cp="06D5" />
+          <any count="0+" />
+          <char cp="06C1" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-heh-ae" ref="100" comment="WLE Rule 6: do not mix Arabic letters HEH and AE in the same label">
+      <choice>
+        <rule>
+          <char cp="0647" />
+          <any count="0+" />
+          <char cp="06D5" />
+        </rule>
+        <rule>
+          <char cp="06D5" />
+          <any count="0+" />
+          <char cp="0647" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-heh-doachashmee" ref="100" comment="WLE Rule 7: do not mix Arabic letters HEH and HEH DOACHASHMEE in the same label">
+      <choice>
+        <rule>
+          <char cp="0647" />
+          <any count="0+" />
+          <char cp="06BE" />
+        </rule>
+        <rule>
+          <char cp="06BE" />
+          <any count="0+" />
+          <char cp="0647" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-teh-marbuta-goal" ref="100" comment="WLE Rule 8: do not mix Arabic letters TEH MARBUTA and TEH MARBUTA GOAL in the same label">
+      <choice>
+        <rule>
+          <char cp="0629" />
+          <any count="0+" />
+          <char cp="06C3" />
+        </rule>
+        <rule>
+          <char cp="06C3" />
+          <any count="0+" />
+          <char cp="0629" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-noon-with-three-dots-above-yeh-with-three-dots-below" ref="100" comment="WLE Rule 9: do not mix Arabic letters NOON WITH THREE DOTS ABOVE and YEH WITH THREE DOTS BELOW in the same label">
+      <choice>
+        <rule>
+          <char cp="06BD" />
+          <any count="0+" />
+          <char cp="06D1" />
+        </rule>
+        <rule>
+          <char cp="06D1" />
+          <any count="0+" />
+          <char cp="06BD" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-peh-noon-with-three-dots-above" ref="100" comment="WLE Rule 10: do not mix Arabic letters PEH and NOON WITH THREE DOTS ABOVE in the same label">
+      <choice>
+        <rule>
+          <char cp="067E" />
+          <any count="0+" />
+          <char cp="06BD" />
+        </rule>
+        <rule>
+          <char cp="06BD" />
+          <any count="0+" />
+          <char cp="067E" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-feh-with-dot-moved-below" ref="100" comment="WLE  11:do not mix Arabic letters FEH and FEH WITH DOT MOVED BELOW in the same label">
+      <choice>
+        <rule>
+          <char cp="0641" />
+          <any count="0+" />
+          <char cp="06A2" />
+        </rule>
+        <rule>
+          <char cp="06A2" />
+          <any count="0+" />
+          <char cp="0641" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-qaf-with-dot-above" ref="100" comment="WLE Rule 12: do not mix Arabic letters QAF and QAF WITH DOT ABOVE in the same label">
+      <choice>
+        <rule>
+          <char cp="0642" />
+          <any count="0+" />
+          <char cp="06A7" />
+        </rule>
+        <rule>
+          <char cp="06A7" />
+          <any count="0+" />
+          <char cp="0642" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-feh-qaf-with-dot-above" ref="100" comment="WLE Rule 13: do not mix Arabic letters FEH and QAF WITH DOT ABOVE in the same label">
+      <choice>
+        <rule>
+          <char cp="0641" />
+          <any count="0+" />
+          <char cp="06A7" />
+        </rule>
+        <rule>
+          <char cp="06A7" />
+          <any count="0+" />
+          <char cp="0641" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-kaf-with-ring-gaf" ref="100" comment="WLE Rule 14: do not mix Arabic letters KAF WITH RING and GAF in the same label">
+      <choice>
+        <rule>
+          <char cp="06AB" />
+          <any count="0+" />
+          <char cp="06AF" />
+        </rule>
+        <rule>
+          <char cp="06AF" />
+          <any count="0+" />
+          <char cp="06AB" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-kaf-with-ring-keheh-with-three-dots-above" ref="100" comment="WLE Rule 15: do not mix Arabic letters KAF WITH RING and KEHEH WITH THREE DOTS ABOVE">
+      <choice>
+        <rule>
+          <char cp="06AB" />
+          <any count="0+" />
+          <char cp="0763" />
+        </rule>
+        <rule>
+          <char cp="0763" />
+          <any count="0+" />
+          <char cp="06AB" />
+        </rule>
+      </choice>
+    </rule>
+    <rule name="no-mix-gaf-keheh-with-three-dots-above" ref="100" comment="WLE Rule 16: do not mix Arabic letters GAF and KEHEH WITH THREE DOTS ABOVE in the same label">
+      <choice>
+        <rule>
+          <char cp="06AF" />
+          <any count="0+" />
+          <char cp="0763" />
+        </rule>
+        <rule>
+          <char cp="0763" />
+          <any count="0+" />
+          <char cp="06AF" />
+        </rule>
+      </choice>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="invalid" match="no-mix-kaf-keheh" comment="do not mix Arabic letters KAF and KEHEH in the same label" />
+    <action disp="invalid" match="no-mix-kaf-swash" comment="do not mix Arabic letters KAF and SWASH KAF in the same label" />
+    <action disp="invalid" match="no-mix-alef-maksura-farsi-yeh" comment="do not mix Arabic letters ALEF MAKSURA and FARSI YEH in the same label" />
+    <action disp="invalid" match="no-mix-heh-goal" comment="do not mix Arabic letters HEH and HEH GOAL in the same label" />
+    <action disp="invalid" match="no-mix-heh-goal-ae" comment="do not mix Arabic letters HEH GOAL and AE in the same label" />
+    <action disp="invalid" match="no-mix-heh-ae" comment="do not mix Arabic letters HEH and AE in the same label" />
+    <action disp="invalid" match="no-mix-heh-doachashmee" comment="do not mix Arabic letters HEH and HEH DOACHASHMEE in the same label" />
+    <action disp="invalid" match="no-mix-teh-marbuta-goal" comment="do not mix Arabic letters TEH MARBUTA and FEH WITH DOT MOVED BELOW in the same label" />
+    <action disp="invalid" match="no-mix-noon-with-three-dots-above-yeh-with-three-dots-below" comment="do not mix Arabic letters NOON WITH THREE DOTS ABOVE and YEH WITH THREE DOTS BELOW in the same label" />
+    <action disp="invalid" match="no-mix-peh-noon-with-three-dots-above" comment="do not mix Arabic letters PEH and NOON WITH THREE DOTS ABOVE in the same label" />
+    <action disp="invalid" match="no-mix-feh-with-dot-moved-below" comment="do not mix Arabic letters FEH and FEH WITH DOT MOVED BELOW in the same label" />
+    <action disp="invalid" match="no-mix-qaf-with-dot-above" comment="do not mix Arabic letters QAF and QAF WITH DOT ABOVE in the same label" />
+    <action disp="invalid" match="no-mix-feh-qaf-with-dot-above" comment="do not mix Arabic letters FEH and QAF WITH DOT ABOVE in the same label" />
+    <action disp="invalid" match="no-mix-kaf-with-ring-gaf" comment="do not mix Arabic letters KAF WITH RING and GAF in the same label" />
+    <action disp="invalid" match="no-mix-kaf-with-ring-keheh-with-three-dots-above" comment="do not mix Arabic letters KAF WITH RING and KEHEH WITH THREE DOTS ABOVE" />
+    <action disp="invalid" match="no-mix-gaf-keheh-with-three-dots-above" comment="do not mix Arabic letters GAF and KEHEH WITH THREE DOTS ABOVE in the same label" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

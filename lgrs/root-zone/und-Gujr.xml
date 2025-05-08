@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Gujarati Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Gujr</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Gujarati Script</h1>
+    
+    <h2>Overview</h2>
+    <p>This file contains Label Generation Rules (LGR) for the Gujarati script for the Root Zone.
+    For more details on this LGR and additional background on the script, see “Proposal for a
+    Gujarati Script Label Generation Ruleset for the Root Zone” [Proposal-Gujarati]. 
+    This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+    The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Gujarati], the Gujarati LGR contains 65 single code points. 
+    This repertoire covers multiple languages written using the Gujarati script and ranging from 1 to 4 on the [EGIDS] scale.</p>
+
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+    <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+    
+    <p>Each code point is tagged with the script or scripts with which the code points is used, one or more other character categories,
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.</p>
+
+    <h2>Variants</h2>
+    <p>According to Section 6, “Variants”, in [Proposal-Gujarati], there are no characters or character sequences 
+    in the Gujarati repertoire that look exactly alike. Hence no variants have been defined.</p>
+
+    <p>However, Gujarati has some cases of confusingly similar combinations which have been listed 
+    in Appendix A in [Proposal-Gujarati].</p>
+    
+    <h2>Character Classes</h2>
+    <p>Gujarati is an alphasyllabary and the heart of the writing system is 
+    the Akshar. This is the unit which is instinctively recognized by users of the script.
+    The writing system of Gujarati could be summed up as composed of Consonants, 
+    the Implicit Vowel Killer: Halant, Vowels, Anusvara, Candrabindu, Nukta, Visarga
+    and Avagraha.</p>
+    
+    <p><b>Consonants:</b> Gujarati consonants contain an implicit vowel schwa /ə/. The 
+     traditional classification categorizes them according to their phonetic 
+    properties. There are 5 Varga groups (classes) and one non-Varga group. Each varga, 
+    which corresponds to a particular stop, contains five consonants classified as per their properties. 
+    The first four consonants are classified on the basis of Voicing and Aspiration and the 
+    last is the corresponding nasal. More details in Section 3.4.1, “The Consonants” of the 
+    [Proposal-Gujarati].</p>
+    
+    <p><b>Halant:</b> All consonants contain the implicit vowel (schwa). A special
+    sign is needed to denote that this implicit vowel is stripped off. This is known as the 
+    Halant (્). The Halant thus joins two consonants and creates conjuncts, which 
+    generally combine 2 to 4 consonants. In rare cases the Halant can join up to 5 consonants. 
+    More details in Section 3.4.2, “The Implicit Vowel Killer: Halant” in [Proposal-Gujarati].</p>
+
+    <p><b>Vowels and Matras:</b> Separate symbols exist for all Vowels, which are either pronounced independently 
+    at the beginning or attached to a consonant. To indicate the latter (other than the implicit one), 
+    a Vowel modifier (matra) is attached to the consonant. Since the consonant has a built-in schwa, 
+    there are equivalent Matras for all vowels excepting the અ (U+0A85).  More details in Section 
+    3.4.3, “Vowels” in [Proposal-Gujarati].</p>
+
+    <p><b>Anusvara:</b> In Gujarati, the Anusvara has a dual function. On the one hand, it acts as 
+    homorganic nasal, that is, it replaces a conjunct group of a Nasal Consonant+Halant+Consonant 
+    belonging to that particular varga. On the other hand, before a non-varga consonant the 
+    anusvara represents a nasal sound. Gujarati and its dialects prefer the anusvara to the 
+    corresponding half-nasal. More details in Section 3.4.4, “The Anusvara” in [Proposal-Gujarati].</p>
+
+    <p><b>Nukta:</b> Traditionally Gujarati does not admit the Nukta. Gujarati grammarians 
+    in their inventory of the Gujarati alphabet do not admit this diacritic. However, 
+    the Nukta is used to represent content where Perso-Arabic characters have to be 
+    transliterated. It follows specific consonants listed in set C1.
+     More details in Section 3.4.6, “Nukta” in [Proposal-Gujarati].</p>
+
+    <p><b>Visarga and Avagraha:</b> The Visarga is frequently used in Sanskrit and represents 
+    a sound very close to /h/, as in દુઃખ /du:kh/ sorrow, unhappiness. It is used sparingly 
+    in Gujarati with a few words borrowed from Sanskrit. The Avagraha is rarely used and 
+    excluded from the LGR. More details in Section 3.4.7, 
+    “Visarga and Avagraha” in [Proposal-Gujarati].</p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Default Whole Label Evaluation Rules and Actions</h3>
+    <p>The LGR includes the set of required default WLE rules and actions applicable to 
+     the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+     default prohibition on leading combining marks is equivalent to ensuring that 
+     a label only starts with a consonant or vowel.</p> 
+        
+    <h3>Gujarati-specific Rules</h3>
+    <p>These rules have been drafted to ensure that the prospective Gujarati label conforms
+    to akshar formation norms as desired in Gujarati script.  These norms are exclusively 
+    presented as context rules.    </p>
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C    →    Consonant
+    <br/>M     →    Matra
+    <br/>V    →    Vowel
+    <br/>B    →    Anusvara
+    <br/>X    →    Visarga
+    <br/>H    →    Halant/Virama
+    <br/>N    →    Nukta
+    <br/>C1   →   Consonants used with Nukta
+    </p>
+    
+    <p>The rules are: </p>
+     <ul>
+     <li>1. N: must be preceded by any of the specific set of Consonants (C1)</li>
+     <li>2. H: must be preceded either by C or N</li>
+     <li>3. X: must be preceded by any of V, C, N or M</li>
+     <li>4. B: must be preceded by any of V, C, N or M</li>
+     <li>5. M: must be preceded either by C or N</li>
+     </ul>
+
+     <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Gujarati].</p>
+    
+    <h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Gujarati script was developed by the Neo-Brahmi Generation Panel (NBGP) the members 
+    of which have experience in linguistics and computational linguistics in a wide variety of languages
+    written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation Panel, there are 
+    nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a 
+    separate LGR, with the Neo-Brahmi GP ensuring that the fundamental philosophy behind building 
+    each LGR is in sync with all other Brahmi-derived scripts. For further details on methodology and contributors, 
+    see Sections 4 and 8 in [Proposal-Gujarati], as well as [RZ-LGR-5-Overview].</p>
+
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+
+    <dt>[EGIDS]</dt>
+     <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+
+    <dt>[Proposal-Gujarati]</dt>
+     <dd>Neo-Brahmi Generation Panel, “Proposal for a Gujarati Script Root Zone Label Generation Ruleset (LGR)”, 6 March 2019, https://www.icann.org/en/system/files/files/proposal-gujarati-lgr-06mar19-en.pdf</dd>
+
+    <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+
+    <dt>[RZ-LGR-5-Overview]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+      <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+      <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+     <dt>[SIL-Ethnologue]</dt>
+     <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+     <dt>[Unicode 11.0]</dt>
+      <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+      https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     </dl>
+     <p>For references consulted particularly in designing the repertoire for the Gujarati script for the Root Zone 
+     please see details in the <a href="#table_of_references">Table of References</a> below. 
+     Reference [0] refers to the Unicode Standard version in which the
+     corresponding code points were initially encoded. Reference [101] corresponds to a source
+     given in [Proposal-Gujarati] justifying the inclusion of the corresponding code points. Entries in the table may have
+     multiple source reference values.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="6" comment="Any code point originally encoded in Unicode 4.0">The Unicode Standard 4.0</reference>
+      <reference id="101">Omniglot, “Gujarati” https://www.omniglot.com/writing/gujarati.htm (Accessed on 6 Jan. 2018)</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0A82" when="follows-V-C-N-or-M" tag="Anusvara sc:Gujr" ref="0 101" />
+    <char cp="0A83" when="follows-V-C-N-or-M" tag="sc:Gujr Visarga" ref="0 101" />
+    <char cp="0A85" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A86" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A87" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A88" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A89" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A8A" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A8B" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A8C" tag="sc:Gujr Vowel" ref="6 101" />
+    <char cp="0A8D" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A8F" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A90" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A91" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A93" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A94" tag="sc:Gujr Vowel" ref="0 101" />
+    <char cp="0A95" tag="C1 Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A96" tag="C1 Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A97" tag="C1 Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A98" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A99" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9A" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9B" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9C" tag="C1 Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9D" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9E" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0A9F" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA0" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA1" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA2" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA3" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA4" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA5" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA6" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA7" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AA8" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAA" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAB" tag="C1 Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAC" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAD" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAE" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AAF" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB0" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB2" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB3" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB5" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB6" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB7" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB8" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0AB9" tag="Consonant sc:Gujr" ref="0 101" />
+    <char cp="0ABC" when="follows-specific-C" tag="Nukta sc:Gujr" ref="0 101" />
+    <char cp="0ABE" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0ABF" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC0" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC1" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC2" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC3" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC4" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC5" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC7" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC8" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0AC9" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0ACB" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0ACC" when="follows-C-or-N" tag="Matra sc:Gujr" ref="0 101" />
+    <char cp="0ACD" when="follows-C-or-N" tag="Halant sc:Gujr" ref="0 101" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Gujarati consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Gujarati vowel letter" />
+    <class name="M" from-tag="Matra" comment="Any Gujarati vowel sign" />
+    <class name="N" from-tag="Nukta" comment="The Gujarati Nukta" />
+    <class name="C1" from-tag="C1" comment="Consonants used with Gujarati Nukta" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-specific-C" comment="Section 7, WLE 1: N must be preceded by a specific set of Cs">
+      <look-behind>
+        <class by-ref="C1" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-or-N" comment="Section 7, WLE 2: Halant must be preceded by C or N; WLE 5: M: must be preceded by C or N">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-N-or-M" comment="Section 7, WLE 3 and WLE 4: Visarga and Anusvara must be preceded by V, C, N or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="N" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Thai Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Thai</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+
+     <h1>Root Zone Label Generation Rules for the Thai Script</h1>
+      
+      <h2>Overview</h2>
+      <p>This file contains Label Generation Rules (LGR) for the Thai script for the 
+      Root Zone. For more details on this LGR and additional background on the script, see “Proposal for the Thai Script Root Zone LGR” [Proposal-Thai].
+      This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+      The format of this file follows [RFC 7940]. </p>
+
+<h2>Repertoire</h2>
+      <p>In addition to the 68 single code points according to Section 5 “Repertoire” in [Proposal-Thai], three 
+      sequences have been defined. The sequence U+0E4D U+0E32 was defined to replace the 
+      disallowed U+0E33 (SARA AM) and to facilitate implementation of WLE rule 
+      <b>follows-consonant-tone</b> as a context rule. The other two sequences were   defined to 
+      restrict U+0E45 (LAKKHANGYAO) from appearing in any context  other than 
+      these sequences. Accordingly, while U+0E45 is not listed by itself it brings the total of   
+      distinct code points to 69.</p>
+      
+      <p>The repertoire only includes code points used by languages that are actively written in the Thai script. 
+       The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+      <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories,
+      and one or more   references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+      Comments identify the language using the code point.</p>
+
+      <h2>Variants</h2>
+      <p>According to Section 6, “Variants” in [Proposal-Thai], this LGR defines no variants.</p>
+      
+      <h2>Character Classes</h2>
+      <p>The Thai Script is an abugida in which consonant–vowel sequences are written as a unit: 
+       each unit is based on a consonant letter, and vowel, tone mark or diacritic notation are secondary.  
+       It is written with the combining marks stacked above or below the base consonant, like diacritics 
+       in European languages. However, although the concepts are quite similar, the implementations 
+       are significantly different.</p>
+       
+      <p><b>Consonants:</b> There are 44 characters that are classified as consonants; code points from this subset have 
+      been given the tag “cons”. See Section 5.1, “Consonants” in [Proposal-Thai].</p>
+      
+      <p><b>Vowels:</b> The 18 vowel symbols pronounced after a consonant are non-sequential: they can be located 
+      before (lv) , after (fv), above (av) or below (bv) the consonant, or in a combination of these positions, 
+      code points from this subset have been given the tags “fv1”, “fv2”, “fv3”, “av”, “bv”, or “lv”. There are three 
+      code point sequences defined that include vowels. (Code point sequences do not carry tag values; 
+      instead, for code point sequences the subset values are identified in comments). See Section 5.2, “Vowels” in [Proposal-Thai].</p>
+      
+      <p><b>Tones:</b> There are 5 phonemic tones: mid, low, falling, high, and rising. These 5 tones are represented 
+      by 4 tone marks plus the absence of a mark. Code points from this subset have been given the tag “tone”.
+     See section 5.3, “Tone Marks” in [Proposal-Thai].</p>
+      
+      <p><b>Diacritical Marks:</b> There are 3 diacritic symbols above that have been included here and given the tag “ad”. They differ in 
+      their frequency and purpose of usage. See also the discussion in Section 5.4, “Diacritics” in [Proposal-Thai].</p>
+      <ul>
+      <li>U+0E47 (MAITAIKHU) and U+0E4C (THANTHAKHAT)       are commonly used for words in everyday communication</li>
+      <li>U+0E4D (NIKHAHIT) is included because of its use to decompose U+0E33 ( ําา ) THAI CHARACTER SARA AM,  
+       which is in common use. However, NIKHAHIT may also be used by itself.</li>
+      </ul>
+      <p>A fourth above diacritic, U+0E4E (YAMAKKAN), has been excluded from the Root Zone LGR repertoire
+      because it is rarely used in Modern Thai or even in older Pali manuscripts; it is 
+      more common to replace it with U+0E3A (PHINTHU), a below diacritic, which has been given the tag “bd”. Moreover, excluding U+0E4E (YAMAKKAN) 
+      also eliminates the chance of confusion between U+0E4E (YAMAKKAN) and U+0E4C (THANTHAKHAT). 
+      Both look similar, are always placed at the same position in the word cell, and they are normally displayed in a small size.</p>
+      
+      <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+      <h3>Default Whole Label Evaluation Rules and Actions</h3>
+      <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone and defined in [MSR-5].  They are marked with &#x235F;.</p> 
+      <h3>Thai-specific Rules</h3>
+      <p>The rules provided in this LGR as described in Section 7 of [Proposal-Thai] reasonably restrict labels so that they conform to Thai syllable structure. 
+      These constraints are exclusively presented as context rules. </p>
+      <p>The rules are: </p>
+      <ul>
+        <li><b>A leading-vowel must precede a consonant</b> &mdash; See Section 7.2 in [Proposal-Thai]</li>
+        <li><b>A below-vowel must follow a consonant</b> &mdash; See Section 7.3 in [Proposal-Thai]</li>
+        <li><b>An above-vowel must follow a consonant</b> &mdash; See Section 7.3 in [Proposal-Thai]</li>
+        <li><b>A below diacritic must follow a consonant</b> &mdash; See Section 7.3 in [Proposal-Thai]</li>
+        <li><b>An above-diacritic MAITAIKHU must follow a consonant</b> &mdash; See Section 7.3 in [Proposal-Thai]</li>
+        <li><b>A vowel MAIHAN AKAT must be in between a consonant and either tone or consonant</b> &mdash; See Section 7.4 in [Proposal-Thai]</li>
+        <li><b>A vowel SARA A can follow a consonant, a tone or a vowel SARA AA</b> &mdash; See Section 7.5 in [Proposal-Thai]</li>
+        <li><b>A vowel SARA AA, or an above diacritic NIKHAHIT followed by a vowel SARA AA can follow a consonant or a tone</b> &mdash; See Sections 7.6 and 7.9 in [Proposal-Thai]</li>
+        <li><b>A tone-mark, THANTHAKHAT, NIKHAHIT can only follow a consonant, above-vowel or below-vowel</b> &mdash; See section 7.7 and 7.8 in [Proposal-Thai]</li>
+      </ul>
+      
+      <h2>Methodology and Contributors</h2>
+       <p>The Root Zone LGR for the Thai script was developed by the Thai Generation Panel. For methodology and contributors, see Sections 4 and 8 in [Proposal-Thai], as well as [RZ-LGR-5-Overview].</p>
+       
+       <h2>References</h2> 
+       <p>The following general references are cited in this document:</p>
+       <dl class="references">
+        <dt>[MSR-5]</dt>
+        <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+        https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf         </dd>
+        <dt>[Proposal-Thai]</dt>
+        <dd>Thai Generation Panel, “Proposal for the Thai Script Root Zone LGR”, 25 May 2017,
+              https://www.icann.org/en/system/files/files/proposal-thai-lgr-25may17-en.pdf</dd>
+        <dt>[RFC 7940]</dt>
+        <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+        <dt>[RZ-LGR-5-Overview]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+        <dt>[RZ-LGR-5]</dt>
+        <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+           <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+        <dt>[Unicode 11.0]</dt>
+        <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+          https://www.unicode.org/versions/Unicode11.0.0/</dd>
+       </dl>
+       <p>For references consulted particularly in designing the repertoire for the Thai script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        Reference [0] refers to the Unicode Standard version        in which the 
+        corresponding code points were initially encoded. References [100] and [101] correspond to sources given in [Proposal-Thai] for justifying 
+        the inclusion of for the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="100">Thai Industrial Standard (TIS) 1566-2541(1988) https://www.ratchakitcha.soc.go.th/DATA/PDF/2542/E/088/9.PDF</reference>
+      <reference id="101">Computers and the Thai Language https://lexitron.nectec.or.th/KM_HL5001/file_HL5001/Paper/Inter%20Journal/krrn_52085.pdf</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0E01" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E02" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E03" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E04" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E05" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E06" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E07" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E08" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E09" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0A" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0B" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0C" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0D" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0E" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E0F" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E10" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E11" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E12" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E13" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E14" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E15" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E16" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E17" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E18" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E19" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1A" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1B" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1C" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1D" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1E" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E1F" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E20" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E21" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E22" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E23" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E24" tag="fv3 sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E24 0E45" ref="0 100 101" comment="fv2, Thai" />
+    <char cp="0E25" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E26" tag="fv3 sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E26 0E45" ref="0 100 101" comment="fv2, Thai" />
+    <char cp="0E27" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E28" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E29" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E2A" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E2B" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E2C" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E2D" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E2E" tag="cons sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E30" when="follow-consonant-tone-sara-aa" tag="fv1 sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E31" when="between-consonant-and-ct" tag="av sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E32" when="follows-consonant-tone" tag="fv1 sara-aa sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E34" when="follows-consonant" tag="av sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E35" when="follows-consonant" tag="av sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E36" when="follows-consonant" tag="av sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E37" when="follows-consonant" tag="av sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E38" when="follows-consonant" tag="bv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E39" when="follows-consonant" tag="bv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E3A" when="follows-consonant" tag="bd sc:Thai" ref="0 100 101" comment="= phinthu; Thai" />
+    <char cp="0E40" when="precedes-consonant" tag="lv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E41" when="precedes-consonant" tag="lv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E42" when="precedes-consonant" tag="lv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E43" when="precedes-consonant" tag="lv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E44" when="precedes-consonant" tag="lv sc:Thai" ref="0 100 101" comment="Thai" />
+    <char cp="0E47" when="follows-consonant" tag="ad sc:Thai" ref="0 100 101" comment="= maitaikhu; Thai" />
+    <char cp="0E48" when="follows-consonant-av-bv" tag="sc:Thai tone" ref="0 100 101" comment="Thai" />
+    <char cp="0E49" when="follows-consonant-av-bv" tag="sc:Thai tone" ref="0 100 101" comment="Thai" />
+    <char cp="0E4A" when="follows-consonant-av-bv" tag="sc:Thai tone" ref="0 100 101" comment="Thai" />
+    <char cp="0E4B" when="follows-consonant-av-bv" tag="sc:Thai tone" ref="0 100 101" comment="Thai" />
+    <char cp="0E4C" when="follows-consonant-av-bv" tag="ad sc:Thai" ref="0 100 101" comment="= thanthakhat; Thai" />
+    <char cp="0E4D" when="follows-consonant-av-bv" tag="ad sc:Thai" ref="0 100 101" comment="= nikhahit; Thai" />
+    <char cp="0E4D 0E32" when="follows-consonant-tone" ref="0 100 101" comment="= sara am sequence; Thai" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="above-vowel" from-tag="av" comment="Any Thai above vowel" />
+    <class name="below-vowel" from-tag="bv" comment="Any Thai below vowel" />
+    <class name="consonant" from-tag="cons" comment="Any Thai consonant" />
+    <class name="sara-aa" from-tag="sara-aa" comment="Thai SARA AA" />
+    <class name="tone" from-tag="tone" comment="Any Thai tone mark" />
+    <union name="c-av-bv" comment="Any Thai consonant, vowel-above or vowel-below">
+      <class by-ref="consonant" />
+      <class by-ref="above-vowel" />
+      <class by-ref="below-vowel" />
+    </union>
+    <union name="ct" comment="Any Thai consonant or tone mark">
+      <class by-ref="consonant" />
+      <class by-ref="tone" />
+    </union>
+    <union name="ctaa" comment="Any Thai consonant, tone or sara-aa">
+      <class by-ref="consonant" />
+      <class by-ref="tone" />
+      <class by-ref="sara-aa" />
+    </union>
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="precedes-consonant" comment="WLE 7.2: check if current cp is preceding a consonant">
+      <anchor />
+      <look-ahead>
+        <class by-ref="consonant" />
+      </look-ahead>
+    </rule>
+    <rule name="follows-consonant" comment="WLE 7.3: check if current cp is following a consonant">
+      <look-behind>
+        <class by-ref="consonant" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="between-consonant-and-ct" comment="WLE 7.4: check if current cp is in between a consonant and either tone or consonant">
+      <look-behind>
+        <class by-ref="consonant" />
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <class by-ref="ct" />
+      </look-ahead>
+    </rule>
+    <rule name="follow-consonant-tone-sara-aa" comment="WLE 7.5: U+0E30 (THAI CHARACTER SARA A, ะ) can follow a consonant, a tone or U+0E32 (THAI CHARACTER SARA AA, า)">
+      <look-behind>
+        <class by-ref="ctaa" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-tone" comment="WLE 7.6, 7.9: check if current cp is following a consonant or a tone">
+      <look-behind>
+        <class by-ref="ct" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-consonant-av-bv" comment="WLE 7.7, 7.8: A tone-mark, THANTHAKHAT, NIKAHIT can only follow a consonant, above-vowel or below-vowel">
+      <look-behind>
+        <class by-ref="c-av-bv" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

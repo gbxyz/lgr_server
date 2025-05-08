@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Hebrew Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Hebr</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    
+    <h1>Root Zone Label Generation Rules for the Hebrew Script</h1>
+ 
+    <h2>Overview</h2>
+    <p>This file contains a set of Label Generation Rules (LGR) for the Hebrew script for the Root Zone. 
+    For more details on this LGR and additional background on the script, see “Proposal for a Hebrew Script Root
+    Zone Label Generation Ruleset (LGR)”, Version 1.3 [Proposal-Hebrew].
+    This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+    The format of this file follows [RFC 7940].</p>
+
+    <h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Hebrew], the Hebrew LGR contains 27 single code points, 5 of which are variants (final forms) of 5 others. 
+     The repertoire supports the Hebrew and Yiddish languages with restrictions appropriate for domain names. The repertoire is
+     based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+      
+    <p>The Hebrew script is written from right to left. More details can be found in Section 3, “Background About the Script and Languages Using it” in [Proposal-Hebrew].</p>
+
+    <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+      
+    <p>Each code point is tagged with the script or scripts with which the code point is used,
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below. 
+    Comments provide additional information for some code points.</p>
+
+    <p>Code points outside the Hebrew script that are listed in this file are targets
+    for out-of-repertoire variants and are identified by a reflexive (identity)
+    variant of type “out-of-repertoire-var”. They do not form part of the
+    repertoire.</p>
+
+    <h2>Variants</h2>
+    <p>According to Section 6, “Variants”, in [Proposal-Hebrew], this LGR defines five in-script variants, which are final forms of five in-script letters.</p>
+
+    <p><b>Additional Variants:</b> This LGR inherits additional blocked cross-script variants by integration; they may not be listed here unless they result in
+    in-script variants. However, for consistency, the variant mappings to ASCII code points are listed in full. See the merged, Common LGR [RZ-LGR-5] 
+    for details of all applicable cross-script variants, including any not listed here; always use the Common LGR for determining cross-script collisions of labels.</p>
+
+     <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that 
+     differ only by these variants mutually exclusive: whichever label containing either of 
+     these variants is chosen earlier would be delegated, while any other equivalent label should be blocked.</p>
+
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+    <h2>Character Classes</h2>
+    <p>The LGR does not define character classes.</p>
+
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Default Whole Label Evaluation Rules and Actions</h3>
+    <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone and defined in [MSR-5]. They are marked with &#x235F;.</p>
+    <h3>Hebrew-specific Rules</h3>
+    <p>According to Section 7, “Whole Label Evaluation (WLE) Rules” in [Proposal-Hebrew], the LGR does not define rules specific to the Hebrew script.</p>
+
+    <h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Hebrew script was developed by the Hebrew Generation Panel. For methodology and contributors, see Sections 4 and 8 in [Proposal-Hebrew], as well as [RZ-LGR-5-Overview].</p>
+    <p>[IL-IDN] was consulted during the work on this LGR.</p>
+
+    <h3>Changes from LGR-4</h3>
+
+    <p>As result of integration with additional scripts, this LGR has been updated. This update does not change the set of labels available
+    under this LGR. For the prior version see [RZ-LGR-4-Hebr]. For consistency across RZ-LGRs, imposed variants to ASCII
+    code points, but not to other scripts, are now explicitly listed.
+    Additional cross-script variants for this script exist and are defined in [RZ-LGR-5].</p>.
+
+    <h2>References</h2> 
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+
+     <dt>[MSR-5]</dt>
+     <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021
+     https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf     </dd>
+
+     <dt>[Proposal-Hebrew]</dt> 
+     <dd>Hebrew Generation Panel, “Proposal for a Hebrew Script Root Zone Label Generation Ruleset (LGR)”, Version 1.3, 24 April 2019, https://www.icann.org/en/system/files/files/proposal-hebrew-lgr-24apr19-en.pdf</dd>
+
+     <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+
+      <dt>[RFC 8228]</dt>
+     <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+     https://www.rfc-editor.org/info/rfc8228</dd>
+
+     <dt>[RZ-LGR-5-Overview]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+    <dt>[RZ-LGR-4-Hebr]</dt>
+    <dd>ICANN, Root Zone Label Generation Rules for the Hebrew Script (und-Hebr), Version 4, 5 November 2020 (XML)
+    https://www.icann.org/sites/default/files/lgr/lgr-4-hebrew-script-05nov20-en.xml <br/>
+    <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/lgr-4-hebrew-script-05nov20-en.html</i></dd>
+
+     <dt>[Unicode 11.0]</dt>
+     <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     
+     <dt>[IL-IDN]</dt>
+     <dd>Hebrew IDN Table for .IL 
+     https://www.iana.org/domains/idn-tables/tables/il_he_1.0.html</dd>
+           
+     </dl>
+     <p>For references consulted particularly in designing the repertoire for the Hebrew script for the Root Zone 
+     please see details in the <a href="#table_of_references">Table of References</a> below. 
+     Reference [0] refers to the Unicode Standard version in which the
+     corresponding code points were initially encoded. Reference [101] corresponds to a source
+     given in [Proposal-Hebrew] justifying the inclusion of the corresponding code points. Entries in the table may have
+     multiple source reference values.</p>
+    ]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="101">Omniglot, Hebrew (עברית) https://omniglot.com/writing/hebrew.htm</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0069" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="05D5" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="006F" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="05E1" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="05D0" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D1" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D2" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D3" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D4" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D5" tag="sc:Hebr" ref="0 101">
+      <var cp="0069" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="05D6" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D7" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D8" tag="sc:Hebr" ref="0 101" />
+    <char cp="05D9" tag="sc:Hebr" ref="0 101" />
+    <char cp="05DA" tag="sc:Hebr" ref="0 101" comment="Final form">
+      <var cp="05DB" type="blocked" comment="Nominal form variant" />
+    </char>
+    <char cp="05DB" tag="sc:Hebr" ref="0 101" comment="Nominal form">
+      <var cp="05DA" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="05DC" tag="sc:Hebr" ref="0 101" />
+    <char cp="05DD" tag="sc:Hebr" ref="0 101" comment="Final form">
+      <var cp="05DE" type="blocked" comment="Nominal form variant" />
+    </char>
+    <char cp="05DE" tag="sc:Hebr" ref="0 101" comment="Nominal form">
+      <var cp="05DD" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="05DF" tag="sc:Hebr" ref="0 101" comment="Final form">
+      <var cp="05E0" type="blocked" comment="Nominal form variant" />
+    </char>
+    <char cp="05E0" tag="sc:Hebr" ref="0 101" comment="Nominal form">
+      <var cp="05DF" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="05E1" tag="sc:Hebr" ref="0 101">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="05E2" tag="sc:Hebr" ref="0 101" />
+    <char cp="05E3" tag="sc:Hebr" ref="0 101" comment="Final form">
+      <var cp="05E4" type="blocked" comment="Nominal form variant" />
+    </char>
+    <char cp="05E4" tag="sc:Hebr" ref="0 101" comment="Nominal form">
+      <var cp="05E3" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="05E5" tag="sc:Hebr" ref="0 101" comment="Final form">
+      <var cp="05E6" type="blocked" comment="Nominal form variant" />
+    </char>
+    <char cp="05E6" tag="sc:Hebr" ref="0 101" comment="Nominal form">
+      <var cp="05E5" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="05E7" tag="sc:Hebr" ref="0 101" />
+    <char cp="05E8" tag="sc:Hebr" ref="0 101" />
+    <char cp="05E9" tag="sc:Hebr" ref="0 101" />
+    <char cp="05EA" tag="sc:Hebr" ref="0 101" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

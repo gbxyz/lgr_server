@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Oriya Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Orya</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Oriya Script</h1>
+    
+    <h2>Overview</h2>
+    <p>This file contains Label Generation Rules (LGR) for the Oriya (Odia) script for the Root Zone. 
+     For more details on this LGR and additional background on the script, see “Proposal for an Oriya Script Root Zone 
+     Label Generation Ruleset (LGR)” [Proposal-Oriya]. 
+     This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+     The format of this file follows [RFC 7940].</p>
+    
+   <p>While Oriya is the name under which the script is encoded in Unicode, and is therefore used here
+   to formally identify the script, the name Odia has become the preferred name in English for both script 
+   and language as it is closer to the pronunciation of their native names.</p>
+
+<h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Oriya], the Oriya LGR contains 62 single code points. 
+      This repertoire covers the Oriya (Odia) language as well as all other languages written with the Oriya script and
+      ranging from 1 to 4 on the [EGIDS] scale.</p>
+        
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+     <p>Code points outside the Oriya script that are listed in this file are targets
+     for out-of-script variants and are identified by a reflexive (identity)
+     variant of type “out-of-repertoire-var”. They do not form part of the
+     repertoire.</p>
+
+    <p>Each code point is tagged with the script or scripts with which the code point is used, one or more tag other character categories, 
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+    Comments provide alternate names of some code points.</p>
+
+    <h2>Variants</h2>
+    <p>This LGR defines one set of cross-script variants with the Malayalam script, 
+    two sets of cross-script variants with the Myanmar script and no in-script variants. 
+    For details, see Section 6, “Variants”, in [Proposal-Oriya].</p>
+
+    <p><b>Additional Variants:</b> This LGR inherits additional blocked cross-script variants by integration; they may not be listed here unless they result in
+    in-script variants. For consistency      with other RZ-LGRs, cross-script variants to ASCII code points are listed explicitly as well. 
+    See the merged, Common LGR [RZ-LGR-5] for details of all applicable cross-script variants,
+    including any not listed here; always use the Common LGR for determining cross-script collisions of labels.</p>
+    
+    <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that differ only by these 
+    variants mutually exclusive: whichever label containing either of these variants is chosen earlier would be delegated, 
+    while any other equivalent label should be blocked. There is no preference among these variants.</p>
+    
+    <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+    <h2>Character Classes</h2>
+    <p>The basic characters in Oriya are classified into eight main categories. 
+    They are Consonants, Vowels, Matra, Halant, Nukta, Visarga, Candrabindu and Anusvara. </p>
+
+    <p><b>Consonants:</b> The Oriya script is a syllabic alphabet in which all consonants 
+    have an inherent vowel. Diacritics, which can appear above, below, before, or after the consonant 
+    they belong to, are used to change the inherent vowel. More details in Section 3.5, “Structured consonants” and Section 3.6, “Unstructured consonants” in [Proposal-Oriya].</p>
+
+    <p><b>Vowels and Matras:</b> A dependent vowel sign or “matra” is used to represent a vowel sound that is not inherent 
+    to the consonant. It is always depicted in combination with a single consonant, or with a consonant cluster. When vowels
+     occur independently the are written with standalone vowel letters.
+    More details in Section 3.12, “Matra sign (Dependent Vowel)” in [Proposal-Oriya]. </p>
+    
+    <p><b>Halant:</b> A Halant, also known as Virama, is used after a consonant to “strip” 
+    it of its inherent vowel. The Halant form of a consonant is the form produced by adding the Halant, 
+    encoded as U+0B4D ( ୍ ) ORIYA SIGN VIRAMA
+    to the nominal shape. A Halant follows all but the last consonant in every Oriya 
+    syllable. More details in Section 3.7, “The Implicit Vowel Killer Halant” in [Proposal-Oriya].</p>
+
+    <p><b>Nukta:</b> The nukta sign ( ଼ ) is used in the Oriya language just like in many other scripts used in South Asia. 
+     It can be commonly used with U+0B21 ( ଡ ), U+0B22 ( ଢ ). More details in Section 3.8, “Nukta” in [Proposal-Oriya].</p>
+
+    <p><b>Visarga:</b> U+0B03 ORIYA SIGN VISARGA is frequently used in Sanskrit and represents a sound 
+    very close to /h/. More details in Section 3.9, “Visarga &amp; Avagraha” in [Proposal-Oriya].</p>
+
+    <h3>Nasalization:</h3>
+    <p><b>Candrabindu:</b>  The Candrabindu denotes nasalization of the preceding vowel and consonants  
+    as in ଅଁଳା /ãala/name of seasonal fruit (U+0B05 U+0B01 U+0B33 U+0B3E). Oriya users commonly use it for writing the words 
+    and sounds of Sanskrit. More details in Section 3.10, “Nasalization: Candrabindu” in [Proposal-Oriya].</p>
+
+   <p><b>Anusvara:</b> Anusvara replaces a conjunct group of a Nasal Consonant+Halant+Consonant belonging to 
+  a particular varga (plosive). The Anusvara represents a homorganic nasal. Before a non-varga consonant (non-plosive) the 
+  Anusvara represents a nasal sound. More details in Section 3.11, “Anusvara” in [Proposal-Oriya].</p>
+
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Default Whole Label Evaluation Rules and Actions</h3>
+    <p>The LGR includes the set of required default WLE rules and actions applicable to 
+        the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+          default prohibition on leading combining marks is equivalent to ensuring that 
+          a label only starts with a consonant or vowel.</p> 
+        
+    <h3>Oriya-specific Rules</h3>
+    <p>These rules have been formulated so that they can be adopted for  LGR specification.</p>
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C → Consonant
+    <br/>M → Matra
+    <br/>V → Vowel
+    <br/>B → Anusvara
+    <br/>H → Halant
+    <br/>N → Nukta
+    <br/>C1 → Consonants used with Nukta
+    <br/>X → Visarga
+    <br/>D → Candrabindu
+    </p>
+    
+    <p>The rules are: </p>
+     <ul>
+     <li>1. N: must be preceded by C1</li>
+     <li>1. B: must be preceded by V, C, N or M</li>
+     <li>3. X: must be preceded by V, C, N or M</li>
+     <li>4. D: must be preceded by V, C, N or M</li>
+     <li>5. H: must be preceded by C or N</li>
+     <li>6. M: must be preceded by C or N</li>
+     </ul>
+    
+     <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Oriya].</p>
+    
+    <h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Oriya script was developed by the Neo-Brahmi Generation Panel (NBGP) the members 
+     of which have experience in linguistics and computational linguistics in a wide variety of languages
+     written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation Panel, there are 
+    nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a 
+    separate LGR, with the Neo-Brahmi GP ensuring that the fundamental philosophy behind building 
+    each LGR is in sync with all other Brahmi-derived scripts.  For further details on methodology and 
+    contributors, see Sections 4 and 8 in [Proposal-Oriya], as well as [RZ-LGR-5-Overview].</p>
+         
+    <h3>Changes from LGR-4</h3>
+
+    <p>As result of integration with additional scripts, this LGR has been updated. This update does not change the set of labels available
+    under this LGR. For the prior version see [RZ-LGR-4-Orya]. For consistency across RZ-LGRs, imposed variants to ASCII
+    code points and to the Myanmar script are now explicitly listed.</p>
+    
+    <p>Note that the listing of variants for U+0B20 is limited to cross-script variants to both ASCII code points and more closely related scripts. 
+    Additional cross-script variants for this code point exist and are defined in [RZ-LGR-5].</p>.
+    
+    <h2>References</h2> 
+    
+    <p>The following general references are cited in this document:</p>
+    <dl class="references">
+
+     <dt>[EGIDS]</dt>
+     <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+
+    <dt>[Proposal-Oriya]</dt> 
+     <dd>Neo-Brahmi Generation Panel, “Proposal for an Oriya Script Root Zone Label Generation Rule-set “, 6 March 2019, https://www.icann.org/en/system/files/files/proposal-oriya-lgr-06mar19-en.pdf</dd>
+
+    <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+     
+     <dt>[RFC 8228]</dt>
+     <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+      https://www.rfc-editor.org/info/rfc8228</dd>
+
+     <dt>[RZ-LGR-4-Orya]</dt>
+      <dd>ICANN, Root Zone Label Generation Rules for the Oriya Script (und-Orya), Version 4, 5 November 2020 (XML)
+      https://www.icann.org/sites/default/files/lgr/lgr-4-oriya-script-05nov20-en.xml <br/>
+      <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/lgr-4-oriya-script-05nov20-en.html</i></dd>
+
+     <dt>[RZ-LGR-5-Overview]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+     <dt>[SIL-Ethnologue]</dt>
+     <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+     <dt>[Unicode 11.0]</dt>
+     <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     </dl>
+      <p>For references consulted particularly in designing the repertoire for the Oriya script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        References [0] to [6] refer to the Unicode Standard versions in which the
+        corresponding code points were initially encoded. References [101] and above correspond to sources
+        given in [Proposal-Oriya] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="6" comment="Any code point originally encoded in Unicode 4.0">The Unicode Standard 4.0</reference>
+      <reference id="101">Omniglot, “Oriya” https://www.omniglot.com/writing/oriya.htm</reference>
+      <reference id="102">Wikipedia, “Odia (Oriya) alphabet” https://en.wikipedia.org/wiki/Odia_alphabet</reference>
+      <reference id="103">Wikipedia. “Odia language” https://en.wikipedia.org/wiki/Odia_language</reference>
+      <reference id="104">Wikipedia, “Oriya (Unicode block)” https://en.wikipedia.org/wiki/Oriya_(Unicode_block)</reference>
+      <reference id="105">Odisha State Govt. Primary School Grade 1 e-book “HasaKhela”: by Odisha Primary Education Programme Authority https://opepa.odisha.gov.in/website/Download/e-Text-Book/CLass%20I/Hasa%20Khela%20Part%20II/Haso%20Khelo-II-Page-112.pdf</reference>
+      <reference id="3" comment="Any code point originally encoded in Unicode 3.0">The Unicode Standard 3.0</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="006F" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0B20" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0D20" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="101D" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0B01" when="follows-V-C-N-or-M" tag="Candrabindu sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B02" when="follows-V-C-N-or-M" tag="Anusvara sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B03" when="follows-V-C-N-or-M" tag="sc:Orya Visarga" ref="0 101 102 103 104 105" />
+    <char cp="0B05" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B06" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B07" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B08" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B09" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B0A" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B0B" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B0F" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B10" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B13" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B14" tag="sc:Orya Vowel" ref="0 101 102 103 104 105" />
+    <char cp="0B15" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B16" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B17" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B18" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B19" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1A" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1B" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1C" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1D" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1E" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B1F" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B20" tag="Consonant sc:Orya" ref="0 101 102 103 104 105">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0D20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="101D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0B21" tag="C1 Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B22" tag="C1 Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B23" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B24" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B25" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B26" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B27" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B28" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2A" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2B" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2C" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2D" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2E" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B2F" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B30" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B32" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B33" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B36" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B37" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B38" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B39" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B3C" when="follows-C1" tag="Nukta sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B3E" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B3F" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B40" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B41" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B42" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B43" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B47" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105">
+      <var cp="1031" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0B48" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B4B" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B4C" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B4D" when="follows-C-or-N" tag="Halant sc:Orya" ref="0 101 102 103 104 105" comment="= pulli" />
+    <char cp="0B56" when="follows-C-or-N" tag="Matra sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B5F" tag="Consonant sc:Orya" ref="0 101 102 103 104 105" />
+    <char cp="0B71" tag="Consonant sc:Orya" ref="6 101 102 103 104 105" />
+    <char cp="0D20" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0B20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D20" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="101D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="101D" tag="sc:Mymr" ref="3" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0B20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D20" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="101D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="1031" tag="sc:Mymr" ref="3" comment="Not part of repertoire">
+      <var cp="0B47" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="1031" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Oriya consonant" />
+    <class name="M" from-tag="Matra" comment="Any Oriya vowel sign" />
+    <class name="V" from-tag="Vowel" comment="Any Oriya vowel letter" />
+    <class name="N" from-tag="Nukta" comment="The Oriya Nukta" />
+    <class name="C1" from-tag="C1" comment="Specific consonants preceding Oriya Nukta" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C1" comment="Section 7, WLE 1: N must be preceded by C1">
+      <look-behind>
+        <class by-ref="C1" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-V-C-N-or-M" comment="Section 7, WLE 2: B must be preceded by V, C, N or M; WLE 3: X must be preceded by V, C, N or M; WLE 4: D must be preceded by V, C, N or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V" />
+          <class by-ref="C" />
+          <class by-ref="N" />
+          <class by-ref="M" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-or-N" comment="Section 7, WLE 5: H must be preceded by C or N; WLE 6: M must be preceded by C or N">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

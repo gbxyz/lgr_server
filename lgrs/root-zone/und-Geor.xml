@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Georgian Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Geor</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Georgian Script</h1>
+    
+  <h2>Overview</h2>
+  <p>This file contains a set of Label Generation Rules for Georgian Mkhedruli (modern) for the Root Zone. 
+  For more details on this LGR and additional background on the script, see “Proposal for a Georgian Script Root Zone LGR” [Proposal-Georgian].
+  This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+  The format of this file follows [RFC 7940]. </p>
+
+<h2>Repertoire</h2>
+  <p>The repertoire is described in Section 5, “Repertoire” of [Proposal-Georgian] and only includes the 33 code points used by 
+      languages that are actively written in the Mkhedruli alphabet. The repertoire is
+      based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+      <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+      <p>Each code point is tagged with the script or scripts with which the code point is used, 
+      and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.</p>
+
+   <h2>Variants</h2>
+   <p>According to Section 6, “Variants” in [Proposal-Georgian], this LGR defines no variants.</p>
+
+    <p><b>Additional Variants:</b> This LGR inherits additional blocked cross-script variants by integration; they may not be listed here unless they result in
+    in-script variants. See the merged, Common LGR [RZ-LGR-5] for details of all applicable cross-script variants,
+    including any not listed here; always use the Common LGR for determining cross-script collisions of labels.</p>
+   
+   <h2>Character Classes</h2>
+   <p>This LGR does not define character classes.</p>
+   
+   <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+            <h3>Default Whole Label Evaluation Rules and Actions</h3> 
+            <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone and defined in [MSR-5]. They are marked with &#x235F;.</p> 
+   <h3>Georgian-specific Rules</h3>
+   <p>According to Section 7, “Whole Label Evaluation (WLE) Rules” in [Proposal-Georgian], this LGR does not define rules specific to Georgian. </p>
+
+   <h2>Methodology and Contributors</h2>
+   <p>The Root Zone LGR for Georgian Mhkeduli was developed by the Georgian Generation Panel. For methodology and contributors, see Sections 4 and 8 in [Proposal-Georgian], as well as [RZ-LGR-5-Overview].</p>
+
+   <h2>References</h2> 
+   <p>The following general references are cited in this document: </p>
+  <dl class="references">
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf</dd>
+    <dt>[Proposal-Georgian]</dt>
+    <dd>Georgian Generation Panel, “Proposal for the Georgian Script Root Zone LGR”, 14 November 2016,
+     https://www.icann.org/en/system/files/files/proposal-georgian-lgr-24nov16-en.pdf</dd> 
+    <dt>[RFC 7940]</dt>
+    <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+      <dt>[RZ-LGR-5-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+     <dt>[Unicode 11.0]</dt>
+    <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+    https://www.unicode.org/versions/Unicode11.0.0/</dd>
+  </dl>
+  <p>For references consulted particularly in designing the repertoire for the Georgian script for the Root Zone 
+      please see details in the <a href="#table_of_references">Table of References</a> below.  
+      Reference [0] refers to the Unicode Standard version in which corresponding code points 
+      were initially encoded. Reference [100] corresponds to a source given in [Proposal-Georgian] for justifying 
+      the inclusion of for the corresponding code points. Entries in the table may have 
+      multiple source reference values.</p>
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="100">Omniglot, “Georgian Mkhedruli”, https://www.omniglot.com/writing/georgian.htm#mkhedruli</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="10D0" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D1" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D2" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D3" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D4" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D5" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D6" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D7" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D8" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10D9" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DA" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DB" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DC" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DD" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DE" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10DF" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E0" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E1" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E2" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E3" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E4" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E5" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E6" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E7" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E8" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10E9" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10EA" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10EB" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10EC" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10ED" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10EE" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10EF" tag="sc:Geor" ref="0 100" comment="Georgian" />
+    <char cp="10F0" tag="sc:Geor" ref="0 100" comment="Georgian" />
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

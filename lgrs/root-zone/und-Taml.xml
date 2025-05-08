@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Tamil Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Taml</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+<h1>Root Zone Label Generation Rules for the Tamil Script</h1>
+
+<h2>Overview</h2>
+<p>This file contains Label Generation Rules (LGR) for the Tamil script for the Root Zone. 
+For more details on this LGR and additional background on the script, see “Proposal for a Tamil Script Root Zone Label Generation Rule-Set (LGR)” [Proposal-Tamil].
+This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2>
+<p>According to Section 5, “Repertoire” in [Proposal-Tamil] the Tamil LGR contains 48 single code points and 4 sequences.
+This LGR caters to the Tamil language written using Tamil script.</p>
+<p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+<p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+<p>Code points outside the Tamil script that are listed in this file are targets
+for out-of-script variants and are identified by a reflexive (identity)
+variant of type “out-of-repertoire-var”. They do not form part of the
+repertoire.</p>
+
+<p>Each code point is tagged with the script or scripts with which the code point is used, one or more ohter character categories,
+and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+Comments provide alternate names of some code points.</p>
+
+<h2>Variants</h2>
+<p>According to Section 6, “Variants”, in [Proposal-Tamil], this LGR defines four sequences as in-script variants. 
+Two of them are variants to single code points; the other two are variants of each other; all defined variants 
+look exactly alike and can cause confusion even to a careful observer. </p>
+
+<p>In addition to these, this LGR defines 6 cross-script variants with the Malayalam script. </p>
+
+   <p><b>Variant Disposition:</b>  Except as noted, variants are of type “blocked”, making labels that 
+    differ only by these variants mutually exclusive: whichever label containing either of 
+    these variants is chosen earlier would be delegated, while any other equivalent label should be blocked.</p>
+
+    <p>For historical reasons, there are two sequences that both represent the same akshar (Shri) with exactly the same rendered form. 
+    These two sequences are thus semantically identical and users may choose either one, except 
+    that a single label must use one of these forms consistently.
+    This variant pair is thus being defined as “allocatable” variant. (For more details see Section 6.1 in [Proposal-Tamil].)</p>
+    
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+<h2>Character Classes</h2>
+<p>Tamil is an alphasyllabary and the heart of the writing system is
+the Akshar. This is the unit which is instinctively recognized by users of the script.
+The writing system of Tamil could be summed up as composed of Consonants,
+the Implicit Vowel Killer: Halant, Vowels and Visarga/Aytham.</p>
+
+<p><b>Consonants:</b> More details in Section 3.3.1, “The Consonants” in [Proposal-Tamil].</p>
+<p><b>Halant / Virama:</b> All consonants contain an implicit vowel /a/. A special
+sign is needed to denote that this implicit vowel is stripped off. This is known
+as the Pulli and encoded as U+0BCD ( ் ) TAMIL SIGN VIRAMA. The virama thus joins two adjacent consonants. In Tamil, there
+are only two cases where this forms conjuncts. More details in Section 3.3.2, “Virama/Pulli” of
+the [Proposal-Tamil].</p>
+
+<p><b>Vowels and Matras:</b> Separate symbols exist for all Vowels that are pronounced independently
+either at the beginning or after another vowel sound. To indicate a Vowel sound other than
+the implicit one following a consonant, a Vowel sign (matra) is attached to the consonant.
+Since the consonant has a built-in /a/, there are equivalent Matras for all vowels excepting the அ.
+More details in Section 3.3.3, “Vowels” in [Proposal-Tamil].</p>
+
+<p><b>Visarga:</b> The Visarga (or Aytham) is  used in Tamil to represent a sound very close to /ḵ/.
+More details in Section 3.3.4, “Visarga/Aytham” in [Proposal-Tamil].</p>
+
+<h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+<h3>Default Whole Label Evaluation Rules and Actions</h3>
+<p>The LGR includes the set of required default WLE rules and actions applicable to
+the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+          default prohibition on leading combining marks is equivalent to ensuring that 
+          a label only starts with a consonant or vowel.</p>
+<h3>Tamil-specific Rules and Action</h3>
+<p>These rules have been drafted to ensure that the prospective Tamil label conforms
+to akshar formation norms as desired in Tamil script.  These norms are exclusively
+presented as context rules.</p>
+<p>The following symbols are used in the WLE rules:
+<br/>C    →    Consonant
+<br/>M    →    Matra
+<br/>H    →    Haleant / Virama  =Pulli
+<br/>X    →    Visarga = Aytham
+</p>
+<p>The rules are: </p>
+<ol>
+<li>H: must be preceded by C</li>
+<li>M: must be preceded by C</li>
+<li>X: cannot be preceded by X</li>
+</ol>
+<p>The following whole-label rule and associated action prevent the mixing of two allocatable variants of the same sequence within the same label. 
+This reduces overproduction of variant labels. </p> 
+<ol start="4">
+<li>Two representations of ‘Shri’ cannot be mixed in the same label</li>
+</ol>
+<p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Tamil].</p>
+<h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Tamil script was developed by the Neo-Brahmi Generation Panel (NBGP) the members 
+     of which have experience in linguistics and computational linguistics in a wide variety of languages
+     written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation Panel, there are 
+    nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a 
+    separate LGR, with the Neo-Brahmi GP ensuring that the fundamental philosophy behind building 
+    each LGR is in sync with all other Brahmi-derived scripts. For further details on methodology and
+    contributors, see Sections 4 and 8 in [Proposal-Tamil], as well as [RZ-LGR-5-Overview].</p>
+   <h3>Change from Version 4</h3>
+   <p>Changed the implementation of rule “preceded-by-X” to use “look-behind” instead of “look-ahead”.
+   As the rule prevents two adjacent Visargas, the change has no effect on the restriction imposed,
+   but the change makes it easier for a reader to verify that the rule is correctly implemented.</p>
+   
+<h2>References</h2>
+<p>The following general references are cited in this document:</p>
+<dl class="references">
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+<dt>[Proposal-Tamil]</dt>
+<dd>Neo-Brahmi Generation Panel, “Proposal for a Tamil Script Root Zone Label Generation Rule-Set (LGR)”, 6 March 2019, https://www.icann.org/en/system/files/files/proposal-tamil-lgr-06mar19-en.pdf</dd>
+<dt>[RFC 7940]</dt>
+<dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd>
+
+    <dt>[RFC 8228]</dt>
+    <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+    https://www.rfc-editor.org/info/rfc8228</dd>
+      <dt>[RZ-LGR-5-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+     <dt>[Unicode 11.0]</dt>
+<dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1)
+https://www.unicode.org/versions/Unicode11.0.0/</dd>
+</dl>
+      <p>For references consulted particularly in designing the repertoire for the Tamil script for the Root Zone 
+        please see details in the <a href="#table_of_references">Table of References</a> below. 
+        References [0] and  [7] refer to the Unicode Standard versions in which the
+        corresponding code points were initially encoded. References [101] and above correspond to sources
+        given in [Proposal-Tamil] justifying the inclusion of the corresponding code points. Entries in the table may have
+        multiple source reference values.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="7" comment="Any code point originally encoded in Unicode 4.1">The Unicode Standard 4.1</reference>
+      <reference id="101">Omniglot, “Tamil”, https://www.omniglot.com/writing/tamil.htm (Accessed on 21  Nov. 2017)</reference>
+      <reference id="102">Unicode 11.0.0, South and Central Asia-I, Page 488-493, R5 and R5a, https://www.unicode.org/versions/Unicode11.0.0/ch12.pdf (Accessed on 5  July. 2018)</reference>
+      <reference id="103">Tamil Sign Visarga, https://charbase.com/0b83-unicode-tamil-sign-visarga (Accessed on 27  Nov. 2017)</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0B83" not-when="preceded-by-X" tag="sc:Taml Visarga" ref="0 103" comment="= aytham" />
+    <char cp="0B85" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B86" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B87" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B88" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B89" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B8A" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B8E" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B8F" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B90" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B92" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B92 0BB3" comment="homoglyph of U+0B94">
+      <var cp="0B94" type="blocked" comment="Tamil homoglyph" />
+    </char>
+    <char cp="0B93" tag="sc:Taml Vowel" ref="0 101" />
+    <char cp="0B94" tag="sc:Taml Vowel" ref="0 101">
+      <var cp="0B92 0BB3" type="blocked" comment="Tamil homoglyph" />
+    </char>
+    <char cp="0B95" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0B99" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0B9A" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0B9C" tag="Consonant sc:Taml" ref="0 102">
+      <var cp="0D1C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0B9E" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0B9F" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BA3" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BA4" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BA8" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BA9" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BAA" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BAE" tag="Consonant sc:Taml" ref="0 102">
+      <var cp="0D25" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BAF" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB0" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB1" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB2" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB3" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB4" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB5" tag="Consonant sc:Taml" ref="0 102">
+      <var cp="0D16" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BB6" tag="Consonant sc:Taml" ref="7 102" />
+    <char cp="0BB6 0BCD 0BB0 0BC0">
+      <var cp="0BB8 0BCD 0BB0 0BC0" type="allocatable" comment="Alternate for Tamil SHRII" />
+    </char>
+    <char cp="0BB7" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB8" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BB8 0BCD 0BB0 0BC0" comment="Alternate for Tamil SHRII">
+      <var cp="0BB6 0BCD 0BB0 0BC0" type="allocatable" comment="Alternate for Tamil SHRII" />
+    </char>
+    <char cp="0BB9" tag="Consonant sc:Taml" ref="0 102" />
+    <char cp="0BBE" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BBF" when="follows-C" tag="Matra sc:Taml" ref="0 102">
+      <var cp="0D3F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BC0" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BC1" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BC2" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BC6" when="follows-C" tag="Matra sc:Taml" ref="0 102">
+      <var cp="0D46" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BC6 0BB3" when="follows-C" comment="homoglyph of U+0BCC">
+      <var cp="0BCC" type="blocked" comment="Tamil Homoglyph" />
+    </char>
+    <char cp="0BC7" when="follows-C" tag="Matra sc:Taml" ref="0 102">
+      <var cp="0D47" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0BC8" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BCA" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BCB" when="follows-C" tag="Matra sc:Taml" ref="0 102" />
+    <char cp="0BCC" when="follows-C" tag="Matra sc:Taml" ref="0 102">
+      <var cp="0BC6 0BB3" type="blocked" comment="Tamil homoglyph" />
+    </char>
+    <char cp="0BCD" when="follows-C" tag="Halant sc:Taml" ref="0 102" comment="= pulli" />
+    <char cp="0D16" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0BB5" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D16" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0D1C" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0B9C" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D1C" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0D25" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0BAE" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D25" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0D3F" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0BBF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D3F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0D46" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0BC6" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D46" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0D47" tag="sc:Mlym" ref="0" comment="Not part of repertoire">
+      <var cp="0BC7" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0D47" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Tamil consonant" />
+    <class name="X" from-tag="Visarga" comment="The Tamil Visarga (aytham)" />
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C" comment="Section 7, WLE 1, 2: H and M must be preceded by C">
+      <look-behind>
+        <class by-ref="C" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="preceded-by-X" comment="Section 7, WLE 3 , X cannot be preceded by X">
+      <look-behind>
+        <class by-ref="X" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="no-mix-sri-shri" comment="Section 7: WLE 4: Two representations of ‘Shri’ cannot be mixed in the same label">
+      <choice>
+        <rule>
+          <char cp="0BB6 0BCD 0BB0 0BC0" />
+          <any count="0+" />
+          <char cp="0BB8 0BCD 0BB0 0BC0" />
+        </rule>
+        <rule>
+          <char cp="0BB8 0BCD 0BB0 0BC0" />
+          <any count="0+" />
+          <char cp="0BB6 0BCD 0BB0 0BC0" />
+        </rule>
+      </choice>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="invalid" match="no-mix-sri-shri" comment="do not mix two representations of ‘Shri’ in the same label" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

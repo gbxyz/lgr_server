@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone Label Generation Rules for the Greek Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Grek</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Greek Script</h1>
+
+<h2>Overview</h2>
+<p>This file contains Label Generation Rules (LGR) for the Greek script for the Root Zone. 
+For more details on this LGR and additional background on the script, see “Proposal for a Greek Script Root Zone Label Generation Ruleset (LGR)” 
+[Proposal-Greek]. 
+This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5].
+The format of this file follows [RFC 7940].
+</p>
+
+  <h2>Repertoire</h2>
+  <p>The Root Zone LGR for the Greek script lists 36 unique code points.
+   The repertoire includes code points used by the modern-day Greek language, which is the official 
+   language of Greece and Cyprus. The repertoire also covers the Pomak language, which is the only “non-Greek” language that uses 
+   Greek characters nowadays. For more details, see Section 5 “Repertoire” in [Proposal-Greek]).</p>
+
+  <p>The repertoire is based on [MSR-5], which is a subset of Unicode 11.0 [Unicode 11.0]. No Greek code points from MSR-5
+   have been excluded.
+  </p>
+
+        <p>Code points outside the Greek script that are listed in this file are targets
+        for out-of-script variants and are identified by a reflexive (identity)
+        variant of type “out-of-repertoire-var”. They do not form part of the
+        repertoire.</p>  
+        
+        <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+        
+        <p>Each code point is tagged with the script or scripts with which the code points is used,
+        and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.</p>
+
+  <h2>Variants</h2>
+  <p>According to Section 6 “Variants”, in [Proposal-Greek], this LGR defines the 
+   following categories of variants:</p>
+
+  <h3>Vowels with/without Tonos and/or Diaeresis</h3>
+   <p>Vowels without tonos and/or diaeresis are treated as allocatable in-script variants of their forms
+    without tonos and/or dialytika. The variants in the opposite direction and between forms with tonos and dialytika, 
+    for example, are of type “blocked”. To reduce the number of allocatable labels in case the applied-for label contains 
+    multiple vowels with diacritics, the LGR defines special variant types and actions so that only two allocatable variants 
+    are allowed for each label: the label as applied-for (original label), and the label with all unaccented vowels 
+    (base forms). Note that this restriction is independent of the restriction on variants of sigma, see below, so that a 
+    total of up to four allocatable labels may exist.</p>
+
+   <p>For more details, see Section 6.1.2 in [Proposal-Greek]).</p>
+
+  <h3>Sigma and Final Sigma</h3>
+   <p>‘Sigma’ is the 18th character of the Greek alphabet, corresponding to /s/. There are two forms of lowercase sigma: 
+    U+03C3 GREEK SMALL LETTER SIGMA and U+03C2 GREEK SMALL LETTER FINAL SIGMA. The final sigma is used instead of the 
+    lowercase sigma at the end of words, but it may also occur at other points of a label. The lowercase sigma is treated 
+    as an allocatable in-script variant of the final sigma, but not in the reverse. To reduce the number of allocatable labels
+    in case the applied-for label contains multiple final sigmas, the LGR defines special variant types and actions so that 
+    only two allocatable variants are allowed for each label: the label as applied-for (original label), and the label with 
+    only regular sigmas. Note that this restriction is independent of the restriction on variants of vowels, 
+    see above, so that a total of up to four allocatable labels may exist.</p>
+
+   <p>For more details, see Section 6.1.3 in [Proposal-Greek]).</p>
+
+  <h3>In-script Variant Mapping Types</h3>
+   <p>Code points for the accented forms of vowels have been given a reflexive variant type of “r-diac”. The code point 
+   for the final form has been given the reflexive variant type “r-final”. 
+    (By convention, the prefix “r-“ marks a type used in a reflexive variant mapping, that is, it represents an instance 
+    of the original code point at that location in a variant label, see Section 5.3.4 in [RFC 7940].)</p>
+
+   <p>Variant mappings to the base forms of vowels are of type “base” and the variant mapping to the nonfinal form of sigma
+    is of type “nonfinal”. Special &lt;action&gt; elements defined for this LGR use these types to ensure the following 
+    restrictions. 
+    (See also <a href="#greek_specific_actions">“Greek-specific Actions”</a> below.)</p>
+
+    <ul>
+    <li><b>blocked</b> &mdash;  a variant label containing a blocked variant will receive a disposition of “blocked”.</li>
+    <li><b>r-diac r-final</b> &mdash; a label containing one or more of these reflexive variant types 
+       and no others represents an original label 
+       and receives a disposition of “allocatable” </li>
+    <li><b>base nonfinal</b> &mdash; a label containing one or more of these variant types and no others 
+       represents a label that contains only unaccented vowels and/or standard sigmas 
+       and receives a disposition of “allocatable” </li> 
+    <li><b>base r-final</b> &mdash; a label containing one or more of these variant types and no others
+       represents a label that contains only unaccented vowels but any sigma forms as in the applied-for label
+       and receives a disposition of “allocatable” </li>
+    <li><b>r-diac nonfinal</b> &mdash; a label containing one or more of these variant types and no others 
+        represents a label that contains any vowel forms as in the applied-for label and only nonfinal sigmas 
+        and receives a disposition of “allocatable” </li>
+    <li><b>base nonfinal</b> &mdash; any label remaining containing any of these variant types
+        represents a variant label that contains a mixture of vowel forms or sigmas
+        and receives a disposition of “blocked” </li>
+    </ul>
+    
+    <p>As result of these actions, any label as applied for may result in at most four allocatable labels, however, if it is
+    applied for without diacritics or final sigmas it will not result in any allocatable variant labels.</p>
+
+   <h3>Cross-script variants</h3>
+    <p>Cross-script variants are defined based on “identical” appearance. Such out-of-repertoire variants are defined with a 
+     comment “Cross-script homoglyph” or “Cross-script near homoglyph”. The largest number of such variants are with the 
+     closely related scripts, Armenian, Cyrillic and Latin, but a few simple letter shapes also may have correspondence with those in
+     less related scripts.</p>
+
+    <p>For more details, see Section 6.1.4 in [Proposal-Greek]).</p>
+
+    <p><b>Additional Variants:</b> This LGR inherits additional blocked cross-script variants by integration; they may not be listed here unless they result in
+    in-script variants. However, for consistency, the variant mappings among the related scripts Armenian, Cyrillic, Greek
+    and Latin are listed in full. Any variants required for cross-script transitivity are generally not marked. See the merged, Common LGR [RZ-LGR-5] for details of all applicable cross-script variants, 
+    including any not    listed here; always use the Common LGR for determining cross-script collisions of labels. </p>
+
+    <h2>Character Classes</h2>
+    <p>The LGR defines no character classes.</p>
+
+  <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+  <h3>Default Whole Label Evaluation Rules and Actions</h3>
+   <p>The LGR includes the set of required default WLE rules and actions applicable to the Root Zone and defined in [MSR-5].  
+    They are marked with &#x235F;.</p> 
+ 
+  <h3>Greek specific Rules</h3>
+   <p>This LGR does not define Greek-specific Whole Label Evaluation Rules.</p>
+
+    <h3>Default Actions</h3>
+    <p>The LGR includes the set of required default actions applicable to the Root Zone and defined in [MSR-5]. 
+    They are marked with &#x235F;.</p>
+
+    <h3 id="greek_specific_actions">Greek-specific Actions</h3>
+    <p>The LGR contains additional Greek-specific actions as described in Section 7 “Whole Label Evaluation (WLE) Rules and Actions” of
+     [Proposal-Greek]. These resolve the extended set of variant types into a disposition for
+     variant labels of either “allocatable” or “blocked”. Greek-specific actions that are
+     triggered by the LGR-specific variant types described above limit the “allocatable” variant
+     labels to those containing only unaccented vowel or nonfinal sigma variants or both, while
+     disallowing mixed use of accented and unaccented vowels or final and nominal forms of sigma, except
+     as in the original applied-for label. To account for original labels, reflexive variant 
+     mappings with an “r-” prefix are used. (See [RFC 7940]).</p>
+
+    <p>Note that variant mapping types are not symmetric: they depend on which code point is considered
+     the source or the target in a given mapping. As specified in [RFC 7940], mapping types are evaluated
+     for each permutation of a label and its variants, with code points that are unchanged in a given
+     label given the type of their “reflexive” mapping. The actions finally evaluate the collected set
+     of mapping types and resolve them into one of two dispositions for the variant label.
+     Per [RFC 7940] actions are always applied one after the other, and the evaluation stops at the first 
+     action that assigns a disposition to a given label.</p>
+
+    <p>For more information on how to assign a variant label disposition under this LGR, see Section 8,
+     “Designing Dispositions and Whole Label Evaluation Rules (WLE)” in [Proposal-Greek].
+     The specification of variants in the LGR follows the guidelines in [RFC 8228].</p>
+
+  <h2>Methodology and Contributors</h2>
+
+    <p>The Root Zone LGR for the Greek script was developed by the Greek Generation Panel. The process followed 
+    by the Panel was according to work plan given in “Proposal for the Generation Panel for the 
+    Greek Script Label Generation Ruleset for the Root Zone”. For additional detail on methodology and 
+    contributors see Sections 4 and 8 in [Proposal-Greek], as well as [RZ-LGR-5-Overview].
+    </p>
+
+  <h2>References</h2> 
+
+    <p>The following general references are cited in this document:</p>
+    
+    <dl class="references">
+
+     <dt>[MSR-5]</dt>
+     <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+     https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf</dd>
+
+     <dt>[Proposal-Greek]</dt> 
+     <dd>Greek Generation Panel, “Proposal for a Greek Script Root Zone Label 
+     Generation Ruleset (LGR)”, 1 February 2022, https://www.icann.org/en/system/files/files/proposal-greek-lgr-01feb22-en.pdf</dd>
+
+     <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, 
+     RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940. </dd>
+     
+     <dt>[RFC 8228]</dt>
+      <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+      https://www.rfc-editor.org/info/rfc8228</dd>
+
+     <dt>[EGIDS]</dt>
+     <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+     
+    <dt>[RZ-LGR-5-Overview]</dt>
+    <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+    <dt>[RZ-LGR-5]</dt>
+    <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+     <dt>[SIL-Ethnologue]</dt>
+     <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+     <dt>[Unicode 11.0]</dt>
+      <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+      https://www.unicode.org/versions/Unicode11.0.0/</dd>
+    </dl>
+
+    <p>For references consulted particularly in designing the repertoire for the Greek script for the Root Zone 
+     please see details in the <a href="#table_of_references">Table of References</a> below.
+     Reference [0] refers to the Unicode Standard version in which corresponding code 
+    points were initially encoded. Reference [101] corresponds to the source given 
+   in [Proposal-Greek] for justifying the inclusion of the corresponding code points. 
+    Single code point or ranges may have multiple source reference values.</p>]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="101">Wikipedia, “Greek Alphabet”, https://en.wikipedia.org/wiki/Greek_alphabet</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0061" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0061" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00E1" type="blocked" />
+      <var cp="03AC" type="blocked" />
+      <var cp="03B1" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0430" type="blocked" />
+    </char>
+    <char cp="0069" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="006E" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="blocked" />
+      <var cp="03B7" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="006F" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00F3" type="blocked" />
+      <var cp="03BF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03CC" type="blocked" />
+      <var cp="043E" type="blocked" />
+      <var cp="0585" type="blocked" />
+    </char>
+    <char cp="0070" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0070" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03C1" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0440" type="blocked" />
+    </char>
+    <char cp="0073 0073" comment="Not part of repertoire">
+      <var cp="0073 0073" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00DF" type="blocked" />
+      <var cp="03B2" type="blocked" />
+      <var cp="0455 0455" type="blocked" />
+    </char>
+    <char cp="0075" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0075" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" />
+      <var cp="03C5" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CB" type="blocked" />
+      <var cp="03CD" type="blocked" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="0076" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0076" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03BD" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="0079" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0079" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0263" type="blocked" />
+      <var cp="03B3" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0443" type="blocked" />
+      <var cp="04AF" type="blocked" />
+    </char>
+    <char cp="00DF" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0073 0073" type="blocked" />
+      <var cp="00DF" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03B2" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0455 0455" type="blocked" />
+    </char>
+    <char cp="00E1" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0061" type="blocked" />
+      <var cp="00E1" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03AC" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03B1" type="blocked" />
+      <var cp="0430" type="blocked" />
+    </char>
+    <char cp="00ED" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03B9" type="blocked" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="00EF" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" />
+      <var cp="03CA" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="00F3" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" />
+      <var cp="00F3" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03BF" type="blocked" />
+      <var cp="03CC" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="043E" type="blocked" />
+      <var cp="0585" type="blocked" />
+    </char>
+    <char cp="00FA" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" />
+      <var cp="03C5" type="blocked" />
+      <var cp="03CB" type="blocked" />
+      <var cp="03CD" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="00FC" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" />
+      <var cp="03C5" type="blocked" />
+      <var cp="03CB" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CD" type="blocked" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="0131" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="0144" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03B7" type="blocked" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="014B" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03AE" type="blocked" />
+      <var cp="03B7" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="01A1" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="01A1" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03C2" type="blocked" />
+      <var cp="03C3" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="025B" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="025B" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03AD" type="blocked" />
+      <var cp="03B5" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0263" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0079" type="blocked" />
+      <var cp="0263" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03B3" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0443" type="blocked" />
+      <var cp="04AF" type="blocked" />
+    </char>
+    <char cp="0269" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="028B" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="03B0" type="blocked" />
+      <var cp="03C5" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CB" type="blocked" />
+      <var cp="03CD" type="blocked" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="0390" tag="sc:Grek" ref="0 101">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03AF" type="blocked" comment="Diacritic variant" />
+      <var cp="03B9" type="base" comment="Base form variant" />
+      <var cp="03CA" type="blocked" comment="Diacritic variant" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="03AC" tag="sc:Grek" ref="0 101">
+      <var cp="0061" type="blocked" />
+      <var cp="00E1" type="blocked" />
+      <var cp="03AC" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03B1" type="base" comment="Base form variant" />
+      <var cp="0430" type="blocked" />
+    </char>
+    <char cp="03AD" tag="sc:Grek" ref="0 101">
+      <var cp="025B" type="blocked" />
+      <var cp="03AD" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03B5" type="base" comment="Base form variant" />
+    </char>
+    <char cp="03AE" tag="sc:Grek" ref="0 101">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03B7" type="base" comment="Base form variant" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="03AF" tag="sc:Grek" ref="0 101">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" comment="Diacritic variant" />
+      <var cp="03AF" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03B9" type="base" comment="Base form variant" />
+      <var cp="03CA" type="blocked" comment="Diacritic variant" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="03B0" tag="sc:Grek" ref="0 101">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03C5" type="base" comment="Base form variant" />
+      <var cp="03CB" type="blocked" comment="Diacritic variant" />
+      <var cp="03CD" type="blocked" comment="Diacritic variant" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="03B1" tag="sc:Grek" ref="0 101">
+      <var cp="0061" type="blocked" />
+      <var cp="00E1" type="blocked" />
+      <var cp="03AC" type="blocked" comment="Diacritic variant" />
+      <var cp="0430" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03B2" tag="sc:Grek" ref="0 101">
+      <var cp="0073 0073" type="blocked" />
+      <var cp="00DF" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0455 0455" type="blocked" />
+    </char>
+    <char cp="03B3" tag="sc:Grek" ref="0 101">
+      <var cp="0079" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0263" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0443" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="04AF" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03B4" tag="sc:Grek" ref="0 101" />
+    <char cp="03B5" tag="sc:Grek" ref="0 101">
+      <var cp="025B" type="blocked" />
+      <var cp="03AD" type="blocked" comment="Diacritic variant" />
+    </char>
+    <char cp="03B6" tag="sc:Grek" ref="0 101" />
+    <char cp="03B7" tag="sc:Grek" ref="0 101">
+      <var cp="006E" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03AE" type="blocked" comment="Diacritic variant" />
+      <var cp="0572" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0578" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="03B8" tag="sc:Grek" ref="0 101" />
+    <char cp="03B9" tag="sc:Grek" ref="0 101">
+      <var cp="0069" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0269" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0390" type="blocked" comment="Diacritic variant" />
+      <var cp="03AF" type="blocked" comment="Diacritic variant" />
+      <var cp="03CA" type="blocked" comment="Diacritic variant" />
+      <var cp="0456" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="03BA" tag="sc:Grek" ref="0 101">
+      <var cp="043A" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03BB" tag="sc:Grek" ref="0 101" />
+    <char cp="03BC" tag="sc:Grek" ref="0 101" />
+    <char cp="03BD" tag="sc:Grek" ref="0 101">
+      <var cp="0076" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03BE" tag="sc:Grek" ref="0 101" />
+    <char cp="03BF" tag="sc:Grek" ref="0 101">
+      <var cp="006F" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="00F3" type="blocked" />
+      <var cp="03CC" type="blocked" comment="Diacritic variant" />
+      <var cp="043E" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0585" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="03C0" tag="sc:Grek" ref="0 101" />
+    <char cp="03C1" tag="sc:Grek" ref="0 101">
+      <var cp="0070" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0440" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03C2" tag="sc:Grek" ref="0 101">
+      <var cp="01A1" type="blocked" />
+      <var cp="03C2" type="r-final" comment="Final form" />
+      <var cp="03C3" type="nonfinal" comment="Nominal form variant" />
+    </char>
+    <char cp="03C3" tag="sc:Grek" ref="0 101">
+      <var cp="01A1" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03C2" type="blocked" comment="Final form variant" />
+    </char>
+    <char cp="03C4" tag="sc:Grek" ref="0 101">
+      <var cp="0442" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="03C5" tag="sc:Grek" ref="0 101">
+      <var cp="0075" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03B0" type="blocked" comment="Diacritic variant" />
+      <var cp="03CB" type="blocked" comment="Diacritic variant" />
+      <var cp="03CD" type="blocked" comment="Diacritic variant" />
+      <var cp="057D" type="blocked" comment="Cross-script near homoglyph" />
+    </char>
+    <char cp="03C6" tag="sc:Grek" ref="0 101">
+      <var cp="0444" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="03C7" tag="sc:Grek" ref="0 101" />
+    <char cp="03C8" tag="sc:Grek" ref="0 101" />
+    <char cp="03C9" tag="sc:Grek" ref="0 101">
+      <var cp="03CE" type="blocked" comment="Diacritic variant" />
+    </char>
+    <char cp="03CA" tag="sc:Grek" ref="0 101">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" comment="Diacritic variant" />
+      <var cp="03AF" type="blocked" comment="Diacritic variant" />
+      <var cp="03B9" type="base" comment="Base form variant" />
+      <var cp="03CA" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="03CB" tag="sc:Grek" ref="0 101">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" comment="Diacritic variant" />
+      <var cp="03C5" type="base" comment="Base form variant" />
+      <var cp="03CB" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="03CD" type="blocked" comment="Diacritic variant" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="03CC" tag="sc:Grek" ref="0 101">
+      <var cp="006F" type="blocked" />
+      <var cp="00F3" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03BF" type="base" comment="Base form variant" />
+      <var cp="03CC" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="043E" type="blocked" />
+      <var cp="0585" type="blocked" />
+    </char>
+    <char cp="03CD" tag="sc:Grek" ref="0 101">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" comment="Diacritic variant" />
+      <var cp="03C5" type="base" comment="Base form variant" />
+      <var cp="03CB" type="blocked" comment="Diacritic variant" />
+      <var cp="03CD" type="r-diac" comment="Greek letter with diacritic" />
+      <var cp="057D" type="blocked" />
+    </char>
+    <char cp="03CE" tag="sc:Grek" ref="0 101">
+      <var cp="03C9" type="base" comment="Base form variant" />
+      <var cp="03CE" type="r-diac" comment="Greek letter with diacritic" />
+    </char>
+    <char cp="0430" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0061" type="blocked" />
+      <var cp="00E1" type="blocked" />
+      <var cp="03AC" type="blocked" />
+      <var cp="03B1" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0430" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="043A" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="03BA" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="043A" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="043E" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" />
+      <var cp="00F3" type="blocked" />
+      <var cp="03BF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03CC" type="blocked" />
+      <var cp="043E" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0585" type="blocked" />
+    </char>
+    <char cp="0440" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0070" type="blocked" />
+      <var cp="03C1" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0440" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0442" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="03C4" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0442" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0443" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0079" type="blocked" />
+      <var cp="0263" type="blocked" />
+      <var cp="03B3" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0443" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="04AF" type="blocked" />
+    </char>
+    <char cp="0444" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="03C6" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0444" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0455 0455" comment="Not part of repertoire">
+      <var cp="0073 0073" type="blocked" />
+      <var cp="00DF" type="blocked" />
+      <var cp="03B2" type="blocked" />
+      <var cp="0455 0455" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0456" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="0457" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" />
+      <var cp="03CA" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="04AF" tag="sc:Cyrl" ref="0" comment="Not part of repertoire">
+      <var cp="0079" type="blocked" />
+      <var cp="0263" type="blocked" />
+      <var cp="03B3" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0443" type="blocked" />
+      <var cp="04AF" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0572" tag="sc:Armn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="blocked" />
+      <var cp="03B7" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0572" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="0578" tag="sc:Armn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="blocked" />
+      <var cp="03B7" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="1E45" type="blocked" />
+    </char>
+    <char cp="057D" tag="sc:Armn" ref="0" comment="Not part of repertoire">
+      <var cp="0075" type="blocked" />
+      <var cp="00FA" type="blocked" />
+      <var cp="00FC" type="blocked" />
+      <var cp="028B" type="blocked" />
+      <var cp="03B0" type="blocked" />
+      <var cp="03C5" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CB" type="blocked" />
+      <var cp="03CD" type="blocked" />
+      <var cp="057D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="0582" tag="sc:Armn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" comment="Cross-script near homoglyph" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="1EC9" type="blocked" />
+    </char>
+    <char cp="0585" tag="sc:Armn" ref="0" comment="Not part of repertoire">
+      <var cp="006F" type="blocked" />
+      <var cp="00F3" type="blocked" />
+      <var cp="03BF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="03CC" type="blocked" />
+      <var cp="043E" type="blocked" />
+      <var cp="0585" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="1E45" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="006E" type="blocked" />
+      <var cp="0144" type="blocked" />
+      <var cp="014B" type="blocked" />
+      <var cp="03AE" type="blocked" />
+      <var cp="03B7" type="blocked" />
+      <var cp="0572" type="blocked" />
+      <var cp="0578" type="blocked" />
+      <var cp="1E45" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+    <char cp="1EC9" tag="sc:Latn" ref="0" comment="Not part of repertoire">
+      <var cp="0069" type="blocked" />
+      <var cp="00ED" type="blocked" />
+      <var cp="00EF" type="blocked" />
+      <var cp="0131" type="blocked" />
+      <var cp="0269" type="blocked" />
+      <var cp="0390" type="blocked" />
+      <var cp="03AF" type="blocked" />
+      <var cp="03B9" type="blocked" />
+      <var cp="03CA" type="blocked" />
+      <var cp="0456" type="blocked" />
+      <var cp="0457" type="blocked" />
+      <var cp="0582" type="blocked" />
+      <var cp="1EC9" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="valid" all-variants="r-diac r-final" comment="any remaining label containing only original code points is valid" />
+    <action disp="allocatable" all-variants="base nonfinal" comment="any label with all unaccented vowels and all standard sigmas is allocatable" />
+    <action disp="allocatable" all-variants="base r-final" comment="any label with all unaccented vowels and sigmas as applied for is allocatable" />
+    <action disp="allocatable" all-variants="r-diac nonfinal" comment="any label with all vowels as applied for and all standard sigmas is allocatable" />
+    <action disp="blocked" any-variant="base nonfinal" comment="any variant label with a mix of vowel accents or sigma forms is blocked" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>

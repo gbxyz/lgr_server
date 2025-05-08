@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<lgr xmlns="urn:ietf:params:xml:ns:lgr-1.0">
+  <meta>
+    <version comment="Root Zone LGR for the Gurmukhi Script">5</version>
+    <date>2022-05-26</date>
+    <language>und-Guru</language>
+    <scope type="domain">.</scope>
+    <unicode-version>11.0.0</unicode-version>
+    <description type="text/html"><![CDATA[
+    <h1>Root Zone Label Generation Rules for the Gurmukhi Script</h1>
+
+    <h2>Overview</h2>
+    <p>This file contains Label Generation Rules (LGR) for the Gurmukhi script for the Root Zone.
+    For more details on this LGR and additional background on the script, see “Proposal for a Gurmukhi Script Root Zone 
+     Label Generation Ruleset (LGR)” [Proposal-Gurmukhi]. 
+    This file is one of a set of LGR files that together form an integrated LGR for the DNS Root Zone [RZ-LGR-5]. 
+    The format of this file follows [RFC 7940].</p>
+
+<h2>Repertoire</h2>
+    <p>According to Section 5, “Repertoire” in [Proposal-Gurmukhi], the Gurmukhi script LGR contains 56 single code points.
+     This Repertoire covers the Punjabi language written using the Gurmukhi script. Punjabi ([EGIDS] level 2) is the only language 
+     currently using the Gurmukhi script.</p>
+        
+    <p>The repertoire is based on [MSR-5], which is a subset of [Unicode 11.0].</p>
+
+     <p>As part of the Root Zone, this LGR includes neither decimal digits nor the HYPHEN-MINUS.</p>
+
+     <p>Code points outside the Gurmukhi script that are listed in this file are targets
+        for out-of-script variants and are identified by a reflexive (identity)
+        variant of type “out-of-repertoire-var”. They do not form part of the
+        repertoire.</p>
+
+    <p>Each code point is tagged with the script or scripts with which the code point is used, one or more other character categories,
+    and one or more references documenting sufficient justification for inclusion in the repertoire; see “References” below.
+    For code points that are part of the repertoire, comments identify the language using the code point, as well as alternate names of some code points.</p>
+      
+    <h2>Variants</h2>
+    <p>The Gurmukhi and Devanagari scripts are closely related to each other and there are many
+    code points in both scripts which  can be confused with code points in the other script. Five sequences of
+    Devanagari code points are defined as variants of single Gurmukhi code points. Additional
+    cross-script variant analysis identified a smaller set of code points from the Bengali script. Where these
+    can cause confusion even to a careful observer, they have been defined as variants. Variants due to 
+    transitivity among cross-script variants are not marked.</p>
+
+    <p>There are no in-script variants 
+    defined for Gurmukhi. See Section 6, “Variants”, in [Proposal-Gurmukhi].</p>
+
+    <p><b>Variant Disposition:</b> All variants are of type “blocked”, making labels that differ only by 
+    these variants mutually exclusive: whichever label containing either of these variants is chosen 
+    earlier would be delegated, while any other variant labels should be blocked.</p>
+ 
+   <p>This LGR does not define allocatable variants.</p>
+
+    <p>The specification of variants in the Root Zone LGR follows the guidelines in [RFC 8228].</p>
+
+    <h2>Character Classes</h2>
+    <p>Gurmukhi is an alphasyllabary and the heart of the writing system is 
+    the Akshar. This is the unit which is instinctively recognized by users of the script.
+    The elements of the writing system consist of Consonants, Implicit 
+    Vowel Killer: Halant, Vowels, Bindi, Tippi, Addak, Nukta and Visarga.</p>
+    
+    <p><b>Consonants:</b> Gurmukhi consonants contain an implicit vowel schwa /ə/. 
+    They are also used without any modification to represent consonant sounds without an implicit /ə/ vowel 
+    More details in Section 3.3.1, “The Consonants” in [Proposal-Gurmukhi]. </p>
+    
+    <p><b>Virama:</b> Unlike the Halant in other Neo-Brahmi scripts, U+094D ( ् ) GURMUKHI SIGN VIRAMA is not used in general 
+    to strip a consonant letter’s implicit vowel. The Virama is only used to create a conjunct where the letter 
+    U+0A39 HA, U+0A30 RA or U+0A35 VA is the second element in a conjunct. 
+    More details in Section 3.3.2,  “The Implicit Vowel Killer: Virama” in [Proposal-Gurmukhi].
+    </p>
+
+    <p><b>Vowels and Matras:</b> Punjabi has seven long vowels and three short vowels (ਅ /ə/, ਇ /I/, and ਉ /U/) . Each of them, except U+0A05 
+    have a corresponding vowel sign, or matra, which is used to modify the vowel inherent in the preceding consonant. 
+    More details in Section 3.3.3, “Vowels” in [Proposal-Gurmukhi].</p>
+    
+    <p><b>Bindi:</b> Bindi represents a homo-organic nasal. Bindi is used with all 
+    long vowels and the short vowel U+0A09, as well as with the matras of long vowels, except the matra U+0A42. More 
+    details in Section 3.3.4.1, “The Bindi” in [Proposal-Gurmukhi].</p>
+    
+    <p><b>Tippi:</b> Tippi is used to nasalize short vowels /ə/ and /I/ at all places,
+     as well as /U/ and /u/ after a consonant.  Therefore, Tippi comes after consonants without
+     a vowel sign (representing the matra of /ə/ “mukta” ) and after the matra of /I/ ( ਿ )  following vowel carriers
+     and consonants, such as in ਸੰ and ਸਿੰ. The matras of /U/ ( ੁ,)  and /u/ ( ੂ ) 
+     following a consonant also take a Tippi.  In addition, Tippi is used in gemination
+     for nasal consonants ਙ, ਞ, ਨ and ਮ.
+     More details in Section 3.3.4.2, “The Tippi” in [Proposal-Gurmukhi].</p>
+
+    <p><b>Addak:</b> Addak is used to mark the gemination of the following consonant. 
+    In Punjabi, addak usually can follow mukta, aunkar ( ੁ ) and sihari ( ਿ ), and the 
+    vowel signs of the short vowels /ə/, /u/ and /i/. It geminates the consonant that 
+    follows it; therefore it cannot occur at the end of a label. More details in  Section 3.3.4.3
+    “The Addak” in [Proposal-Gurmukhi].</p>
+    
+    <p><b>Nukta:</b> Called <i>pairin bindi</i> in Punjabi, Nukta is used with the six
+    consonants (ਸ, ਖ, ਗ, ਜ, ਫ and ਲ ) defined as set C1 to represent the phonemes of words of Sanskrit
+    and Perso-Arabic sources. More details in Section 3.3.4.4, “Nukta” in [Proposal-Gurmukhi]. </p>
+      
+    <h2>Whole Label Evaluation (WLE) and Context Rules</h2>
+    <h3>Default Whole Label Evaluation Rules and Actions</h3>
+    <p>The LGR includes the set of required default WLE rules and actions applicable to 
+        the Root Zone and defined in [MSR-5]. They are marked with &#x235F;. The 
+          default prohibition on leading combining marks is equivalent to ensuring that 
+          a label only starts with a consonant or vowel.</p> 
+        
+    <h3>Gurmukhi-specific Rules</h3>
+    <p>These rules have been drafted to ensure that the prospective Gurmukhi label conforms
+    to akshar formation norms as desired in Gurmukhi script.  These norms are exclusively 
+    presented as context rules.</p>
+    <p>The following symbols are used in the WLE rules: 
+    <br/>C   →   Consonant
+    <br/>M   →   Matra
+    <br/>V   →   Vowel
+    <br/>B   →   Bindi 
+    <br/>D   →   Tippi
+    <br/>A   →   Addak
+    <br/>H   →   Virama / Halant
+    <br/>N   →   Nukta
+    <br/>M1 →    { ਿ(U+0A3F),  ੁ (U+0A41) } (Short matras)
+    <br/>M2 →    M - M1  (Long matras)
+    <br/>V1 →    { ਅ (U+0A05),  ਇ (U+0A07),  ਉ (U+0A09)} (Short Vowels)
+    <br/>V2 →    V - V1  (Long Vowel)
+    <br/>C1 →    {ਖ (U+0A16), ਗ (U+0A17), ਜ (U+0A1C), ਫ (U+0A2B), ਲ (U+0A32), ਸ (U+0A38)}
+    <br/>C2 →    { ਰ (U+0A30), ਵ (U+0A35), ਹ (U+0A39)}
+    <br/>C3 →    C – {ਙ (U+0A19), ਞ (U+0A1E), ਣ (U+0A23), ਹ (U+0A39), ੜ (U+0A5C)}
+    </p>
+    
+    <p>The rules are: </p>
+     <ul>
+     <li>7.1 N: must be preceded by C1</li>
+     <li>7.2 H: must be preceded by C or N and followed by C2</li>
+     <li>7.3 M: must be preceded by C or N</li>
+     <li>7.4 B: must be preceded by specific V or M</li>
+     <li>7.5 D: must be preceded by C, N or specific V or M</li>
+     <li>7.6 A: must be preceded by C, N or specific V or M and followed by C3</li>
+     </ul>
+    
+     <p>More details in Section 7, “Whole Label Evaluation Rules (WLE)” in [Proposal-Gurmukhi].</p>
+    
+    <h2>Methodology and Contributors</h2>
+    <p>The Root Zone LGR for the Gurmukhi script was developed by the Neo-Brahmi Generation Panel (NBGP) the members 
+     of which have experience in linguistics and computational linguistics in a wide variety of languages
+     written with Neo-Brahmi scripts. Under the Neo-Brahmi Generation Panel, there are 
+    nine scripts belonging to separate Unicode blocks. Each of these scripts has been assigned a 
+    separate LGR, with the Neo-Brahmi GP ensuring that the fundamental philosophy behind building 
+    those LGRs are in sync with all other Brahmi-derived scripts. For further details on methodology and contributors, 
+    see Sections 4 and 8 in [Proposal-Gurmukhi], as well as [RZ-LGR-5-Overview].</p>
+
+    <h2>References</h2> 
+
+     <p>The following general references are cited in this document:</p>
+
+    <dl class="references">
+     <dt>[EGIDS]</dt>
+     <dd>Lewis and Simons, “EGIDS: Expanded Graded Intergenerational Disruption Scale,”
+      documented in [SIL-Ethnologue] and summarized here:
+      https://en.wikipedia.org/wiki/Expanded_Graded_Intergenerational_Disruption_Scale_(EGIDS)</dd>
+
+    <dt>[MSR-5]</dt>
+    <dd>Integration Panel, “Maximal Starting Repertoire — MSR-5 Overview and Rationale”, 24 June 2021,
+    https://www.icann.org/en/system/files/files/msr-5-overview-24jun21-en.pdf    </dd>
+
+    <dt>[Proposal-Gurmukhi]</dt> 
+     <dd>Neo-Brahmi Generation Panel, “Proposal for a Gurmukhi Script Root Zone Label Generation Ruleset (LGR)”, 22 April 2019, 
+      https://www.icann.org/en/system/files/files/proposal-gurmukhi-lgr-22apr19-en.pdf
+      </dd>
+
+    <dt>[RFC 7940]</dt>
+     <dd>Davies, K. and A. Freytag, “Representing Label Generation Rulesets Using XML”, RFC 7940, August 2016, https://www.rfc-editor.org/info/rfc7940</dd> 
+     
+     <dt>[RFC 8228]</dt>
+     <dd>A. Freytag, “Guidance on Designing Label Generation Rulesets (LGRs) Supporting Variant Labels”, RFC 8228, August 2017,
+      https://www.rfc-editor.org/info/rfc8228</dd>
+      
+      <dt>[RZ-LGR-5-Overview]</dt>
+       <dd>Integration Panel, “Root Zone Label Generation Rules (RZ LGR-5): Overview and Summary”, 26 May 2022, https://www.icann.org/sites/default/files/lgr/rz-lgr-5-overview-26may22-en.pdf</dd>
+
+     <dt>[RZ-LGR-5]</dt>
+     <dd>Integration Panel, “Root Zone Label Generation Rules (RZ-LGR-5)”, 26 May 2022 (XML), https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.xml <br/>
+     <i>non-normative HTML presentation: https://www.icann.org/sites/default/files/lgr/rz-lgr-5-common-26may22-en.html</i></dd>
+
+     <dt>[SIL-Ethnologue]</dt>
+     <dd>David M. Eberhard, Gary F. Simons &amp; Charles D. Fennig (eds.). 2021.
+     Ethnologue: Languages of the World, Twenty fourth edition. Dallas, Texas: SIL
+     International. Online version available as https://www.ethnologue.com</dd>
+
+     <dt>[Unicode 11.0]</dt>
+     <dd>The Unicode Consortium. The Unicode Standard, Version 11.0.0, (Mountain View, CA: The Unicode Consortium, 2018. ISBN 978-1-936213-19-1) 
+     https://www.unicode.org/versions/Unicode11.0.0/</dd>
+     </dl>
+     <p>For references consulted particularly in designing the repertoire for the Gurmukhi script for the Root Zone 
+     please see details in the <a href="#table_of_references">Table of References</a> below. 
+     Reference [0] refers to the Unicode Standard version in which the
+     corresponding code points were initially encoded. References [101] and above correspond to sources
+     justifying the inclusion of the corresponding code points. Entries in the table may have
+     multiple source reference values.</p>
+
+]]></description>
+    <references>
+      <reference id="0" comment="Any code point originally encoded in Unicode 1.1">The Unicode Standard 1.1</reference>
+      <reference id="101">Gurmukhi Unicode chart (Accessed on 21 May 2018) https://unicode.org/charts/PDF/U0A00.pdf</reference>
+      <reference id="105">Omniglot, https://www.omniglot.com/writing/punjabi.htm (Accessed on 10 Nov. 2017)</reference>
+      <reference id="110">Gurmukhi Alphabet :: Lesson 11, “Gurmukhi Vowel Signs Group-1 Mukta and Kanna”, https://elearnpunjabi.com (Accessed on 10 Nov. 2017)</reference>
+      <reference id="112">A reference Grammar of Punjabi, https://pt.learnpunjabi.org/assets/A%20Reference%20Grammar_Final.pdf (Accessed on 10 Nov. 2017)</reference>
+      <reference id="11" comment="Any code point originally encoded in Unicode 6.0">The Unicode Standard 6.0</reference>
+    </references>
+  </meta>
+  <data>
+    <char cp="0902" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0902" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="093A" type="blocked" />
+      <var cp="0A02" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0907" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0907" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A19" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0909" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0909" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A24" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0917" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0917" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A17" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0918" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0918" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A2C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="091F" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="091F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A1F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0920" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0920" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A20" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0922" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0922" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A2B" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0924 094D 0924" comment="Not part of repertoire">
+      <var cp="0924 094D 0924" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A1C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092A" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="092A" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A27" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092A 094D 091F 093F" comment="Not part of repertoire">
+      <var cp="092A 094D 091F 093F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A07" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092A 094D 091F 0940" comment="Not part of repertoire">
+      <var cp="092A 094D 091F 0940" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A08" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092A 094D 091F 0946" comment="Not part of repertoire">
+      <var cp="092A 094D 091F 0946" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="092A 094D 091F 0947" type="blocked" />
+      <var cp="0A0F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092A 094D 091F 0947" comment="Not part of repertoire">
+      <var cp="092A 094D 091F 0946" type="blocked" />
+      <var cp="092A 094D 091F 0947" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A0F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092D" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="092D" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A2E" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="092E" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="092E" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="09AE" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A38" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0935" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0935" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A15" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0939" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0939" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A35" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="093A" tag="sc:Deva" ref="11" comment="Not part of repertoire">
+      <var cp="0902" type="blocked" />
+      <var cp="093A" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A02" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="093C" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="093C" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A3C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="093F" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="093F" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="09BF" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A3F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0940" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0940" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A40" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0945" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0945" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A71" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0946" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0946" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0947" type="blocked" />
+      <var cp="0A47" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A4B" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0947" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0946" type="blocked" />
+      <var cp="0947" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A47" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A4B" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0948" tag="sc:Deva" ref="0" comment="Not part of repertoire">
+      <var cp="0948" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A48" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0956" tag="sc:Deva" ref="11" comment="Not part of repertoire">
+      <var cp="0956" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A41" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0957" tag="sc:Deva" ref="11" comment="Not part of repertoire">
+      <var cp="0957" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A42" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="09AE" tag="sc:Beng" ref="0" comment="Not part of repertoire">
+      <var cp="092E" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="09AE" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A38" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="09BF" tag="sc:Beng" ref="0" comment="Not part of repertoire">
+      <var cp="093F" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="09BF" type="out-of-repertoire-var" comment="Out-of-repertoire" />
+      <var cp="0A3F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A02" when="follows-specific-V-or-M" tag="Bindi sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0902" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="093A" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A05" tag="sc:Guru V1 Vowel" ref="0 101 105 112" comment="= aira; Punjabi" />
+    <char cp="0A06" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A07" tag="sc:Guru V1 Vowel" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092A 094D 091F 093F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A08" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092A 094D 091F 0940" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A09" tag="sc:Guru V1 Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A0A" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A0F" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092A 094D 091F 0946" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="092A 094D 091F 0947" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A10" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A13" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A14" tag="sc:Guru Vowel" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A15" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0935" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A16" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A17" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0917" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A18" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A19" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0907" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A1A" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A1B" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A1C" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0924 094D 0924" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A1D" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A1E" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A1F" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="091F" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A20" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0920" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A21" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A22" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A23" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A24" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0909" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A25" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A26" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A27" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092A" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A28" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A2A" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A2B" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0922" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A2C" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0918" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A2D" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A2E" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092D" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A2F" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A30" tag="C2 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A32" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A35" tag="C2 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0939" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A38" tag="C1 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="092E" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="09AE" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A39" tag="C2 Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A3C" when="follows-C1" tag="Nukta sc:Guru" ref="0 101 105 112" comment="= pairin bindi; Punjabi">
+      <var cp="093C" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A3E" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 110 112" comment="= kanna; Punjabi" />
+    <char cp="0A3F" when="follows-C-or-N" tag="M1 Matra sc:Guru" ref="0 101 105 112" comment="= sihari; Punjabi">
+      <var cp="093F" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="09BF" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A40" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= bihari; Punjabi">
+      <var cp="0940" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A41" when="follows-C-or-N" tag="M1 Matra sc:Guru" ref="0 101 105 112" comment="= aunkar; Punjabi">
+      <var cp="0956" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A42" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= dulainkar; Punjabi">
+      <var cp="0957" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A47" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= lanvan; Punjabi">
+      <var cp="0946" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0947" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A4B" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A48" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= dulavan; Punjabi">
+      <var cp="0948" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A4B" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= hora; Punjabi">
+      <var cp="0946" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0947" type="blocked" comment="Cross-script homoglyph" />
+      <var cp="0A47" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+    <char cp="0A4C" when="follows-C-or-N" tag="Matra sc:Guru" ref="0 101 105 112" comment="= kanaura; Punjabi" />
+    <char cp="0A4D" when="follows-C-or-N-and-precedes-C2" tag="sc:Guru Virama" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A5C" tag="Consonant sc:Guru" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A70" when="follows-C-N-or-specific-V-or-M" tag="sc:Guru Tippi" ref="0 101 105 112" comment="Punjabi" />
+    <char cp="0A71" when="follows-C-N-or-specific-V-or-M-and-precedes-C3" tag="Addak sc:Guru" ref="0 101 105 112" comment="Punjabi">
+      <var cp="0945" type="blocked" comment="Cross-script homoglyph" />
+    </char>
+  </data>
+  <!--Rules section goes here-->
+  <rules>
+    <!--Character class definitions go here-->
+    <class name="C" from-tag="Consonant" comment="Any Gurmukhi consonant" />
+    <class name="V" from-tag="Vowel" comment="Any Gurmukhi independent vowel" />
+    <class name="M" from-tag="Matra" comment="Any  Gurmukhi vowel sign (matra)" />
+    <class name="N" from-tag="Nukta" comment="The Gurmukhi Nukta" />
+    <class name="V1" from-tag="V1" comment="Specific vowels that are used with Gurmukhi Addak" />
+    <difference name="V2" comment="Specific vowels that are used with Gurmukhi Bindi">
+      <class by-ref="V" />
+      <class by-ref="V1" />
+    </difference>
+    <class name="M1" from-tag="M1" comment="Gurmukhi short matras" />
+    <difference name="M2" comment="Gurmukhi long matras">
+      <class by-ref="M" />
+      <class by-ref="M1" />
+    </difference>
+    <class name="C1" from-tag="C1" comment="Specific consonants preceding Gurmukhi Nukta" />
+    <class name="C2" from-tag="C2" comment="Specific consonants following Gurmukhi Halant" />
+    <difference name="C3" comment="Specific consonants following Gurmukhi Addak">
+      <class by-ref="C" />
+      <class>0A19 0A1E 0A23 0A39 0A5C</class>
+    </difference>
+    <!--Whole label evaluation and context rules go here-->
+    <rule name="leading-combining-mark" comment="Default WLE rule matching labels with leading combining marks &#x235F;">
+      <start />
+      <union>
+        <class property="gc:Mn" />
+        <class property="gc:Mc" />
+      </union>
+    </rule>
+    <rule name="follows-C1" comment="Section 7.1. N: must be preceded by C1">
+      <look-behind>
+        <class by-ref="C1" />
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-or-N-and-precedes-C2" comment="Section 7.2. H: must be preceded by C or N and followed by C2">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+        </choice>
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <class by-ref="C2" />
+      </look-ahead>
+    </rule>
+    <rule name="follows-C-or-N" comment="Section 7.3. M: must be preceded by C or N">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-specific-V-or-M" comment="Section 7.4. Bindi must be preceded by specific V or M">
+      <look-behind>
+        <choice>
+          <class by-ref="V2" />
+          <char cp="0A09" comment="GURMUKHI LETTER U" />
+          <rule>
+            <difference>
+              <class by-ref="M2" />
+              <class>0A42</class>
+            </difference>
+          </rule>
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-N-or-specific-V-or-M" comment="Section 7.5. Tippi must be preceded by C, N or specific V or M">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+          <rule>
+            <difference>
+              <class by-ref="V1" />
+              <class>0A09</class>
+            </difference>
+          </rule>
+          <class by-ref="M1" />
+          <char cp="0A42" comment="GURMUKHI LETTER SIGN DULAINKAR" />
+        </choice>
+      </look-behind>
+      <anchor />
+    </rule>
+    <rule name="follows-C-N-or-specific-V-or-M-and-precedes-C3" comment="Section 7.6. Addak must be preceded by C, N or specific V or M and followed by C3">
+      <look-behind>
+        <choice>
+          <class by-ref="C" />
+          <class by-ref="N" />
+          <class by-ref="V1" />
+          <char cp="0A10" comment="GURMUKHI LETTER AI" />
+          <class by-ref="M1" />
+          <char cp="0A48" comment="GURMUKHI VOWEL SIGN AI" />
+        </choice>
+      </look-behind>
+      <anchor />
+      <look-ahead>
+        <class by-ref="C3" />
+      </look-ahead>
+    </rule>
+    <!--Action elements go here - order defines precedence-->
+    <action disp="invalid" match="leading-combining-mark" comment="labels with leading combining marks are invalid &#x235F;" />
+    <action disp="invalid" any-variant="out-of-repertoire-var" comment="any variant label with a code point out of repertoire is invalid &#x235F;" />
+    <action disp="blocked" any-variant="blocked" comment="any variant label containing blocked variants is blocked &#x235F;" />
+    <action disp="allocatable" all-variants="allocatable" comment="variant labels with all variants allocatable are allocatable &#x235F;" />
+    <action disp="valid" comment="catch all (default action) &#x235F;" />
+  </rules>
+</lgr>
