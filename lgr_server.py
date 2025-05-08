@@ -26,7 +26,7 @@ class LGRServer(BaseHTTPRequestHandler):
 
     def run():
         p = ArgumentParser("LGR Server", " A simple REST API for accessing Label Generation Rulesets (LGRS)")
-        p.add_argument("--lgr-set", choices=["full-variant-set", "second-level-reference"])
+        p.add_argument("--lgr-set", choices=["root-zone", "full-variant-set", "second-level-reference"])
 
         args = p.parse_args()
 
