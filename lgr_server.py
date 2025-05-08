@@ -8,14 +8,14 @@ import json
 import idna
 import subprocess
 import picu
+import re
 from lgr.parser.xml_parser import XMLParser
 import munidata
 from munidata import UnicodeDataVersionManager
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import unquote
 from urllib.parse import urlparse
 from pprint import pprint
-from glob import glob
-from getopt import getopt
 
 class LGRServer(BaseHTTPRequestHandler):
 
@@ -60,7 +60,7 @@ class LGRServer(BaseHTTPRequestHandler):
             exit()
 
     def do_GET(self):
-        segments = urlparse(self.path).path[1:].split("/")
+        segments = unquote(urlparse(self.path).path[1:], LGRServer.charset).split("/")
 
         if (len(segments) < 2 or len(segments) > 3):
             self.send_response(400)
@@ -74,7 +74,11 @@ class LGRServer(BaseHTTPRequestHandler):
             return
 
         tag = segments[0]
-        a_label = segments[1]
+
+        if re.match("^xn--", segments[1], re.IGNORECASE):
+            a_label = segments[1]
+        else:
+            a_label = idna.encode(segments[1]).decode(LGRServer.charset)
 
         lgr = self.get_lgr(tag)
 
@@ -84,8 +88,8 @@ class LGRServer(BaseHTTPRequestHandler):
             self.send_header("access-control-allow-origin", "*")
             self.end_headers()
             self.wfile.write(bytes(json.dumps({
-                "error": 400,
-                "message": "Invalid tag '{}'".format(tag),
+                "error": 404,
+                "message": "Unknown tag '{}'".format(tag),
             }, indent=2), LGRServer.charset))
             return
 
@@ -94,6 +98,13 @@ class LGRServer(BaseHTTPRequestHandler):
         (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
 
         if 2 == len(segments):
+            try:
+                index_label = "".join(map(chr, lgr.generate_index_label(code_points)))
+                approx_variants = lgr.estimate_variant_number(code_points)
+            except:
+                index_label = None
+                approx_variants = 0
+
             response = {
                 'u_label':              "".join(map(chr, code_points)),
                 'a_label':              a_label,
@@ -102,11 +113,20 @@ class LGRServer(BaseHTTPRequestHandler):
                 'invalid_code_points':  list(map(lambda cp: cp[0], invalid_code_points)),
                 'eligible':             eligible,
                 'disposition':          disposition,
-                'approx_variants':      lgr.estimate_variant_number(code_points),
+                'index_label':          index_label,
+                'approx_variants':      approx_variants,
             }
 
-            if (eligible):
-                response['index_label'] = "".join(map(chr, lgr.generate_index_label(code_points)))
+        elif "variants" != segments[2]:
+            self.send_response(400)
+            self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
+            self.send_header("access-control-allow-origin", "*")
+            self.end_headers()
+            self.wfile.write(bytes(json.dumps({
+                "error": 400,
+                "message": "Invalid path '{}'".format(self.path),
+            }, indent=2), LGRServer.charset))
+            return
 
         else:
             if not eligible:
