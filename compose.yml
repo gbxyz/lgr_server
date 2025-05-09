@@ -1,7 +1,9 @@
-version: "3"
-
 services:
   server:
     build: .
+    volumes:
+      - ./lgr_server.py:/app/lgr_server.py
+      - ./entrypoint.sh:/app/entrypoint.sh
+      - ./lgrs:/app/lgrs
     ports:
       - 8080:8080

@@ -1,37 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from argparse import ArgumentParser
-import os
-
-import pkgconfig
-import json
 import idna
-import subprocess
-import picu
-import re
-from lgr.parser.xml_parser import XMLParser
+import json
 import munidata
-from munidata import UnicodeDataVersionManager
+import os
+import picu
+import pkgconfig
+import re
+import subprocess
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import unquote
-from urllib.parse import urlparse
+from lgr.parser.xml_parser import XMLParser
+from munidata import UnicodeDataVersionManager
 from pprint import pprint
+from urllib.parse import urlparse, unquote
 
 class LGRServer(BaseHTTPRequestHandler):
 
     charset     = "utf-8"
     unimanager  = UnicodeDataVersionManager()
-    lgr_dir     = "{}/lgrs/second-level-reference".format(os.path.abspath(os.path.dirname(__file__)))
+    lgr_dir     = "{}/lgrs".format(os.path.abspath(os.path.dirname(__file__)))
     lgrs        = {}
 
     def run():
-        p = ArgumentParser("LGR Server", " A simple REST API for accessing Label Generation Rulesets (LGRS)")
-        p.add_argument("--lgr-set", choices=["root-zone", "full-variant-set", "second-level-reference"])
-
-        args = p.parse_args()
-
         LGRServer.icu_libver = int(float(pkgconfig.modversion("icu-uc")))
+        print("Detected ICU version {}.".format(LGRServer.icu_libver))
 
         if str(LGRServer.icu_libver) not in picu.loader.KNOWN_ICU_VERSIONS:
             print("Note: monkey patching picu.loader.KNOWN_ICU_VERSIONS")
@@ -41,23 +34,29 @@ class LGRServer(BaseHTTPRequestHandler):
             print("Note: monkey patching munidata.idna.idnatables.IDNA_UNICODE_MAPPING")
             munidata.idna.idnatables.IDNA_UNICODE_MAPPING["15.0.0"] = munidata.idna.idnatables.IDNA_UNICODE_MAPPING["12.1.0"]
 
+        findcmd = [
+            "find",
+            "/usr/lib",
+            "-regextype", "sed",
+            "-iregex", ".*/libicu\\(uc\\|i18n\\).so.{0}".format(LGRServer.icu_libver)
+        ]
+
         libs = {}
-        findcmd = ["find", "/usr/lib", "-regextype", "sed", "-iregex", ".*/libicu\\(uc\\|i18n\\).so.{0}".format(LGRServer.icu_libver)]
         for path in subprocess.check_output(findcmd).decode(LGRServer.charset).strip().split("\n"):
             libs[os.path.splitext(os.path.basename(path))[0]] = path
 
         LGRServer.icu_libpath = libs["libicuuc.so"]
         LGRServer.icu_i18n_libpath = libs["libicui18n.so"]
 
-        if hasattr(args, "lgr_set") and args.lgr_set is not None:
-            LGRServer.lgr_dir = "{0}/lgrs/{1}".format(os.path.abspath(os.path.dirname(__file__)), args.lgr_set)
+        server_addr = "0.0.0.0"
+        server_port = 8080
+        server = HTTPServer(server_address=(server_addr, server_port), RequestHandlerClass=LGRServer)
 
-        server = HTTPServer(server_address=("0.0.0.0", 8080), RequestHandlerClass=LGRServer)
-
-        print("Server running on http://0.0.0.0:8080")
+        print("Server running on http://{0}:{1}".format(server_addr, server_port))
 
         try:
             server.serve_forever()
+
         except KeyboardInterrupt:
             exit()
 
@@ -74,37 +73,42 @@ class LGRServer(BaseHTTPRequestHandler):
     def do_GET(self):
         segments = unquote(urlparse(self.path).path[1:], LGRServer.charset).split("/")
 
-        if (len(segments) < 2 or len(segments) > 3):
-            self._error(400, "Invalid path '{}'".format(self.path))
-            return
+        if (len(segments) < 3 or len(segments) > 5):
+            return self._error(400, "Invalid path '{}'".format(self.path))
 
-        tag = segments[0]
+        set = segments.pop(0)
+        if set not in ["root-zone", "second-level-reference", "full-variant-set"]:
+            return self._error(404, "Invalid LGR set '{}'".format(set))
 
-        if re.match("^xn--", segments[1], re.IGNORECASE):
-            a_label = segments[1]
+        tag = segments.pop(0)
+        if not re.match(r"^([a-z]{2,3})(-[A-Za-z]{4})?$", tag):
+            return self._error(400, "Invalid tag '{}'".format(tag))
+
+        segment = segments.pop(0)
+        if re.match("^xn--", segment, re.IGNORECASE):
+            a_label = segment
+
         else:
             try:
-                a_label = idna.encode(segments[1]).decode(LGRServer.charset)
-            except:
-                self.send_response(400, "Invalid label '{}'".format(segments[1]))
-                return
+                a_label = idna.encode(segment).decode(LGRServer.charset)
 
-        lgr = self.get_lgr(tag)
+            except:
+                return self.send_response(400, "Invalid label '{}'".format(segment))
+
+        lgr = self.get_lgr(set, tag)
 
         if lgr is None:
-            self._error(400, "Unknown LGR '{}'".format(tag))
-            return
+            return self._error(400, "Unknown LGR '{}'".format(tag))
 
         try:
             code_points = tuple([ord(c) for c in idna.decode(a_label)])
 
         except:
-            self._error(400, "Invalid label '{}'".format(a_label))
-            return
+            return self._error(400, "Invalid label '{}'".format(a_label))
 
         (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
 
-        if 2 == len(segments):
+        if 0 == len(segments):
             try:
                 index_label = "".join(map(chr, lgr.generate_index_label(code_points)))
                 approx_variants = lgr.estimate_variant_number(code_points)
@@ -113,8 +117,10 @@ class LGRServer(BaseHTTPRequestHandler):
                 index_label = None
                 approx_variants = 0
 
+            u_label = "".join(map(chr, code_points))
+
             response = {
-                "u_label":              "".join(map(chr, code_points)),
+                "u_label":              u_label,
                 "a_label":              a_label,
                 "code_points":          code_points,
                 "tag":                  tag,
@@ -122,20 +128,18 @@ class LGRServer(BaseHTTPRequestHandler):
                 "eligible":             eligible,
                 "disposition":          disposition,
                 "index_label":          index_label,
+                "is_index_label":       u_label == index_label,
                 "approx_variants":      approx_variants,
             }
 
-            self.respond(200, json.dumps(response))
-            return
+            return self.respond(200, json.dumps(response))
 
-        elif "variants" != segments[2]:
-            self._error(400, "Invalid path '{}'".format(self.path))
-            return
+        elif "variants" != segments.pop(0):
+            return self._error(400, "Invalid path '{}'".format(self.path))
 
         else:
             if not eligible:
-                self._error(404, "Invalid label '{}'".format(a_label))
-                return
+                return self._error(400, "Invalid label '{}'".format(a_label))
 
             variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
 
@@ -152,24 +156,24 @@ class LGRServer(BaseHTTPRequestHandler):
                         "disposition":  v_disposition,
                     })
 
-        self.respond(200, json.dumps(response))
-        return
+        return self.respond(200, json.dumps(response))
 
-    def _get_lgr_filename(self, tag):
-        return "{0}/{1}.xml".format(LGRServer.lgr_dir, tag)
+    def _get_lgr_filename(self, set, tag):
+        return "{0}/{1}/{2}.xml".format(LGRServer.lgr_dir, set, tag)
 
-    def get_lgr(self, tag):
-        if not hasattr(LGRServer.lgrs, tag):
-            LGRServer.lgrs[tag] = None
+    def get_lgr(self, set, tag):
+        key = "{0}.{1}".format(set, tag)
+        if not hasattr(LGRServer.lgrs, key):
+            LGRServer.lgrs[key] = None
 
-            file = self._get_lgr_filename(tag);
+            file = self._get_lgr_filename(set, tag);
             if os.path.exists(file):
                 parser = XMLParser(file)
                 parser.unicode_database = LGRServer.unimanager.register(None, LGRServer.icu_libpath, LGRServer.icu_i18n_libpath, LGRServer.icu_libver)
 
-                LGRServer.lgrs[tag] = parser.parse_document()
+                LGRServer.lgrs[key] = parser.parse_document()
 
-        return LGRServer.lgrs[tag]
+        return LGRServer.lgrs[key]
 
 if __name__ == "__main__":
     LGRServer.run()

@@ -12,7 +12,7 @@ Using this API, a domain name registry or registrar can:
 ## Label validation
 
 ```
-# curl -s http://localhost:8080/und-Latn/xn--caf-dma | jq .
+# curl -s http://localhost:8080/root-zone/und-Latn/xn--caf-dma | jq .
 {
   "u_label": "café",
   "a_label": "xn--caf-dma",
@@ -27,11 +27,12 @@ Using this API, a domain name registry or registrar can:
   "eligible": true,
   "disposition": "valid",
   "index_label": "café",
+  "is_indel_label": true,
   "approx_variants": 4
 }
 ```
 
-A `GET` request of the form `/{table}/{label}` will return a JSON object with the structure above. `{table}` must correspond to a [language tag](https://datatracker.ietf.org/doc/html/rfc5646) and maps to a file in one of the [LGR sets](lgrs) (the default LGR set is the [second level reference](lgrs/second-level-reference) set). `{label}` is the domain name lable (e.g. `example`) in either A-label or U-label format.
+A `GET` request of the form `/{set}/{table}/{label}` will return a JSON object with the structure above. `{set}` refers to the specific [LGR set](lgrs/), while `{table}` must correspond to a [language tag](https://datatracker.ietf.org/doc/html/rfc5646) and maps to a file in the chosen LGR set. `{label}` is the domain name label (e.g. `example`) in either A-label or U-label format.
 
 * `u_label` - the "U-label" representation of the label in UTF-8
 * `a_label` - the "A-label" representation of the label in Punycode
@@ -41,6 +42,7 @@ A `GET` request of the form `/{table}/{label}` will return a JSON object with th
 * `eligible` - a boolean indicating whether the label is allocatable
 * `disposition` - one of `valid`, `invalid`, `blocked` or `allocatable`
 * `index_label` - the "index" of the set of variant labels to which the given label belongs
+* `is_index_label` - a boolean indicating whether the provided label is identical to the index label
 * `approx_variants` - the estimated number of variant labels. Some labels can generate geometrically large numbers of variants, so this provides a hint on the likely size of the response to a `/{table}/{label}/variants` request (see below)
 
 ## Getting variants
@@ -84,7 +86,7 @@ $ curl -s http://localhost:8080/und-Latn/xn--caf-dma/variants | jq .
 ]
 ```
 
-A `GET` request of the form `/{table}/{label}` will return a JSON array of objects, each of which represents a variant of `{label}`. Each object has `u_label`, `a_label`, `code_points` and `disposition` properties, whose semantics are the same as above.
+A `GET` request of the form `/{set}/{table}/{label}/variants` will return a JSON array of objects, each of which represents a variant of `{label}`. Each object has `u_label`, `a_label`, `code_points` and `disposition` properties, whose semantics are the same as above.
 
 ## LGR Sets
 
@@ -93,8 +95,6 @@ LGR Server comes bundled with three sets of LGRs:
 * [`root-zone`](lgrs/root-zone) ([more info](https://www.icann.org/resources/pages/root-zone-lgr-2015-06-21-en))
 * [`second-level-reference`](lgrs/second-level-reference) ([more info](https://www.icann.org/en/contracted-parties/registry-operators/second-level-reference-label-generation-rules-21-06-2015-en))
 * [`full-variant-set`](lgrs/full-variant-set) ([more info](https://newgtldprogram.icann.org/en/application-rounds/round2/rsp/full-variant-set-lgrs))
-
-You can specify which set you want to use by providing the `--lgr-set` argument when you start the server.
 
 ## Starting the server
 
