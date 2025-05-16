@@ -9,7 +9,7 @@ import picu
 import pkgconfig
 import re
 import subprocess
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from lgr.parser.xml_parser import XMLParser
 from munidata import UnicodeDataVersionManager
 from pprint import pprint
@@ -50,7 +50,7 @@ class LGRServer(BaseHTTPRequestHandler):
 
         server_addr = "0.0.0.0"
         server_port = 8080
-        server = HTTPServer(server_address=(server_addr, server_port), RequestHandlerClass=LGRServer)
+        server = ThreadingHTTPServer(server_address=(server_addr, server_port), RequestHandlerClass=LGRServer)
 
         print("Server running on http://{0}:{1}".format(server_addr, server_port))
 
