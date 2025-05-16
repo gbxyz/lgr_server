@@ -1,6 +1,6 @@
 # LGR Server
 
-LGR Server provides a high-performance API to validate domain name labels against the [Label Generation Rulesets (LGRs)](https://www.rfc-editor.org/rfc/rfc8228.html).
+LGR Server provides a simple API to validate domain name labels against the [Label Generation Rulesets (LGRs)](https://www.rfc-editor.org/rfc/rfc8228.html).
 
 Using this API, a domain name registry or registrar can:
 
@@ -103,6 +103,16 @@ Use `docker compose up`. This will expose the server on port 8080.
 ## Implementation
 
 LGR Server is written in Python, so it can make use of the ICANN [lgr-core](https://github.com/icann/lgr-core) library. This is my first serious piece of Python programming so please be gentle :)
+
+## Performance
+
+The time taken to answer `GET /{set}/{table}/{label}` requests depends on the LGR set, on my development machine, the typical RTTs are:
+
+* `root-zone`: 100ms
+* `second-level-reference`: 70ms
+* `full-variant-set`: 200ms
+
+The time taken to answer `GET /{set}/{table}/{label}/variants` increases geometrically with the length of `{label}`, so the time required to compute the variants of `foo` is about 4 times longer than the time required for `fo`, and for `foobar` it's about 30 times longer. So caution should be exercised when making these requests in-band, especially using user-provided (or attacker-provided) values for `{label}`.
 
 ## License
 
