@@ -146,9 +146,14 @@ class LGRServer(BaseHTTPRequestHandler):
             response = []
             for (v_label, v_disposition, _, _, _, _) in variant_labels:
                 v_ulabel = "".join(map(chr, v_label))
-                v_alabel = idna.encode(v_ulabel).decode(LGRServer.charset)
 
-                if (v_alabel != a_label):
+                try:
+                    v_alabel = idna.encode(v_ulabel).decode(LGRServer.charset)
+
+                except:
+                    v_alabel = None
+
+                if (v_alabel and v_alabel != a_label):
                     response.append({
                         "u_label":      v_ulabel,
                         "a_label":      v_alabel,
