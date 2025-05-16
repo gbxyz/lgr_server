@@ -100,6 +100,12 @@ LGR Server comes bundled with three sets of LGRs:
 
 Use `docker compose up`. This will expose the server on port 8080.
 
+Also:
+
+```
+$ docker run -p 8080:8080 gbxyz/lgr_server:latest
+```
+
 ## Implementation
 
 LGR Server is written in Python, so it can make use of the ICANN [lgr-core](https://github.com/icann/lgr-core) library. This is my first serious piece of Python programming so please be gentle :)
