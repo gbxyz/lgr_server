@@ -1,0 +1,191 @@
+openapi: 3.0.4
+info:
+  title: LGR Server
+  version: 0.1.0
+  description: This document describes the API of the LGR Server.
+
+externalDocs:
+  description: More information
+  url: https://github.com/gbxyz/lgr_server
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  "/{lgr_set}/{lgr}/{label}":
+    get:
+      description: Get information about a label.
+      parameters:
+        - $ref: "#/components/parameters/lgr_set"
+        - $ref: "#/components/parameters/lgr"
+        - $ref: "#/components/parameters/label"
+      responses:
+        '400':
+          description: Bad request.
+        '404':
+          description: Non-existent LGR set/LGR.
+        '200':
+          description: Successful request.
+          content:
+            'application/json':
+              schema:
+                type: object
+                required:
+                  - u_label
+                  - a_label
+                  - code_points
+                  - tag
+                  - invalid_code_points
+                  - eligible
+                  - disposition
+                  - index_label
+                  - is_indel_label
+                  - approx_variants
+                properties:
+                  u_label:
+                    $ref: "#/components/schemas/u_label"
+
+                  a_label:
+                    $ref: "#/components/schemas/a_label"
+
+                  code_points:
+                    $ref: "#/components/schemas/code_points"
+
+                  tag:
+                    $ref: "#/components/schemas/language_tag"
+
+                  invalid_code_points:
+                    $ref: "#/components/schemas/code_points"
+
+                  eligible:
+                    description: The eligibility of the string.
+                    type: boolean
+                    example: true
+
+                  disposition:
+                    $ref: "#/components/schemas/disposition"
+
+                  index_label:
+                    description: The "index" of the set of variant labels to which the given label belongs.
+                    type: string
+                    example: café
+
+                  is_index_label:
+                    description: Whether the provided label is identical to its index label.
+                    type: boolean
+                    example: true
+
+                  approx_variants:
+                    description: The estimated number of variant labels.
+                    type: integer
+                    min: 0
+
+  "/{lgr_set}/{lgr}/{label}/variants":
+    get:
+      description: Get the variants of a label.
+      parameters:
+        - $ref: "#/components/parameters/lgr_set"
+        - $ref: "#/components/parameters/lgr"
+        - $ref: "#/components/parameters/label"
+      responses:
+        '400':
+          description: Bad request.
+        '404':
+          description: Non-existent LGR set/LGR.
+        '200':
+          description: Successful request.
+          content:
+            'application/json':
+              schema:
+                type: array
+                minItems: 0
+                items:
+                  type: object
+                  required:
+                    - u_label
+                    - a_label
+                    - code_points
+                    - disposition
+                  properties:
+                    u_label:
+                      $ref: "#/components/schemas/u_label"
+                    a_label:
+                      $ref: "#/components/schemas/a_label"
+                    code_points:
+                      $ref: "#/components/schemas/code_points"
+                    disposition:
+                      $ref: "#/components/schemas/disposition"
+
+components:
+  schemas:
+    u_label:
+      description: Label in U-label format.
+      type: string
+      example: café
+      pattern: .+
+
+    a_label:
+      description: Label in A-label format.
+      type: string
+      pattern: ^xn--[a-zA-Z0-9\-]+$
+      example: xn--caf-dma
+
+    code_points:
+      description: The code points in the label.
+      type: array
+      minItems: 1
+      items:
+        type: integer
+        min: 0
+      example: [99,97,102,233]
+
+    disposition:
+      description: The disposition of the string.
+      type: string
+      enum:
+        - valid
+        - invalid
+        - blocked
+        - allocatable
+
+    language_tag:
+      description: A language tag (see RFC 5646) corresponding to the LGR.
+      type: string
+      pattern: .{2,}
+      example: und-Latn
+
+    lgr_set:
+      description: The identifier of an LGR Set.
+      type: string
+      enum:
+        - root-zone
+        - second-level-reference
+        - full-variant-set
+      example: second-level-reference
+
+  parameters:
+    lgr_set:
+      name: lgr_set
+      description: The identifier of an LGR Set.
+      required: true
+      in: path
+      schema:
+        $ref: "#/components/schemas/lgr_set"
+
+    lgr:
+      name: lgr
+      description: A language tag (see RFC 5646) corresponding to the LGR.
+      required: true
+      in: path
+      schema:
+        $ref: "#/components/schemas/language_tag"
+
+    label:
+      name: label
+      description: The label being checked, in either A-label or U-label format.
+      required: true
+      in: path
+      schema:
+        oneOf:
+          - $ref: "#/components/schemas/a_label"
+          - $ref: "#/components/schemas/u_label"
