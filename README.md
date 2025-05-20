@@ -9,6 +9,10 @@ Using this API, a domain name registry or registrar can:
 
 # API details
 
+## OpenAPI description
+
+* [YAML](openapi.yaml) ([view in Swagger Editor](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/gbxyz/lgr_server/refs/heads/main/openapi.yaml))
+
 ## Label validation
 
 ```
