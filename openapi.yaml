@@ -9,7 +9,10 @@ externalDocs:
   url: https://github.com/gbxyz/lgr_server
 
 servers:
-  - url: http://localhost:8080
+  - description: demo server
+    url: https://lgr.gavinbrown.xyz
+  - description: local instance
+    url: http://localhost:8080
 
 paths:
   "/{lgr_set}/{lgr}/{label}":
