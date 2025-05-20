@@ -7,17 +7,17 @@ Using this API, a domain name registry or registrar can:
 1. determine whether a given label is valid against a particular LGR; and
 2. determine if what variants (if any) the label has, and their disposition (blocked or allocatable).
 
-# Live Demo
+## Live demo
 
 A live demo of the server is available at <https://lgr.gavinbrown.xyz>.
 
-# API details
+## API details
 
-## OpenAPI description
+### OpenAPI description
 
 * [YAML](openapi.yaml) ([view in Swagger Editor](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/gbxyz/lgr_server/refs/heads/main/openapi.yaml))
 
-## Label validation
+### Label validation
 
 ```
 # curl -s http://localhost:8080/root-zone/und-Latn/xn--caf-dma | jq .
@@ -53,7 +53,7 @@ A `GET` request of the form `/{set}/{table}/{label}` will return a JSON object w
 * `is_index_label` - a boolean indicating whether the provided label is identical to the index label
 * `approx_variants` - the estimated number of variant labels. Some labels can generate geometrically large numbers of variants, so this provides a hint on the likely size of the response to a `/{table}/{label}/variants` request (see below)
 
-## Getting variants
+### Getting variants
 
 ```
 $ curl -s http://localhost:8080/und-Latn/xn--caf-dma/variants | jq .
