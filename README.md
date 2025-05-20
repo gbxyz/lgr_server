@@ -7,6 +7,10 @@ Using this API, a domain name registry or registrar can:
 1. determine whether a given label is valid against a particular LGR; and
 2. determine if what variants (if any) the label has, and their disposition (blocked or allocatable).
 
+# Live Demo
+
+A live demo of the server is available at <https://lgr.gavinbrown.xyz>.
+
 # API details
 
 ## OpenAPI description
