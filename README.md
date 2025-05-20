@@ -27,7 +27,7 @@ Using this API, a domain name registry or registrar can:
   "eligible": true,
   "disposition": "valid",
   "index_label": "café",
-  "is_indel_label": true,
+  "is_index_label": true,
   "approx_variants": 4
 }
 ```
