@@ -56,7 +56,7 @@ A `GET` request of the form `/{set}/{table}/{label}` will return a JSON object w
 ### Getting variants
 
 ```
-$ curl -s http://localhost:8080/und-Latn/xn--caf-dma/variants | jq .
+$ curl -s http://localhost:8080/root-zone/und-Latn/xn--caf-dma/variants | jq .
 [
   {
     "u_label": "caƒé",
