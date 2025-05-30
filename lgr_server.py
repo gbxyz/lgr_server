@@ -110,7 +110,7 @@ class LGRServer(BaseHTTPRequestHandler):
 
         if 0 == len(segments):
             try:
-                index_label = "".join(map(chr, lgr.generate_index_label(code_points)))
+                index_label = idna.encode("".join(map(chr, lgr.generate_index_label(code_points)))).decode(LGRServer.charset)
                 approx_variants = lgr.estimate_variant_number(code_points)
 
             except:

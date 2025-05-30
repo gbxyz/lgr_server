@@ -71,7 +71,7 @@ paths:
                   index_label:
                     description: The "index" of the set of variant labels to which the given label belongs.
                     type: string
-                    example: café
+                    example: xn--caf-dma
 
                   is_index_label:
                     description: Whether the provided label is identical to its index label.

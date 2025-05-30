@@ -34,7 +34,7 @@ A live demo of the server is available at <https://lgr.gavinbrown.xyz>.
   "invalid_code_points": [],
   "eligible": true,
   "disposition": "valid",
-  "index_label": "café",
+  "index_label": "xn--caf-dma",
   "is_index_label": true,
   "approx_variants": 4
 }
