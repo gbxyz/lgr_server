@@ -199,7 +199,7 @@ class LGRServer(BaseHTTPRequestHandler):
         elif not eligible:
             return self._error(404, "Invalid label '{}'".format(a_label))
 
-        elif "variants" == segments.pop(0):
+        elif "variants" == segments[0]:
             return self.label_variants(lgr, a_label, code_points)
 
         else:
