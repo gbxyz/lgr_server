@@ -17,6 +17,9 @@ from urllib.parse import urlparse, unquote
 
 class LGRServer(BaseHTTPRequestHandler):
 
+    #
+    # static properties
+    #
     charset     = "utf-8"
     unimanager  = UnicodeDataVersionManager()
     lgr_dir     = "{}/lgrs".format(os.path.abspath(os.path.dirname(__file__)))
@@ -24,7 +27,29 @@ class LGRServer(BaseHTTPRequestHandler):
     server_addr = "0.0.0.0"
     server_port = 8080
 
+    #
+    # static methods
+    #
     def run():
+        LGRServer.init_icu()
+
+        server = ThreadingHTTPServer(
+            server_address=(LGRServer.server_addr, LGRServer.server_port),
+            RequestHandlerClass=LGRServer
+        )
+
+        print("Server running on http://{0}:{1}".format(
+            LGRServer.server_addr,
+            LGRServer.server_port
+        ))
+
+        try:
+            server.serve_forever()
+
+        except KeyboardInterrupt:
+            exit()
+
+    def init_icu():
         LGRServer.icu_libver = int(float(pkgconfig.modversion("icu-uc")))
         print("Detected ICU version {}.".format(LGRServer.icu_libver))
 
@@ -50,16 +75,32 @@ class LGRServer(BaseHTTPRequestHandler):
         LGRServer.icu_libpath = libs["libicuuc.so"]
         LGRServer.icu_i18n_libpath = libs["libicui18n.so"]
 
-        server = ThreadingHTTPServer(server_address=(LGRServer.server_addr, LGRServer.server_port), RequestHandlerClass=LGRServer)
+    def get_lgr(set, tag):
+        key = "{0}.{1}".format(set, tag)
+        if not hasattr(LGRServer.lgrs, key):
+            LGRServer.lgrs[key] = None
 
-        print("Server running on http://{0}:{1}".format(LGRServer.server_addr, LGRServer.server_port))
+            file = LGRServer.get_lgr_filename(set, tag);
+            if os.path.exists(file):
+                parser = XMLParser(file)
 
-        try:
-            server.serve_forever()
+                parser.unicode_database = LGRServer.unimanager.register(
+                    None,
+                    LGRServer.icu_libpath,
+                    LGRServer.icu_i18n_libpath,
+                    LGRServer.icu_libver
+                )
 
-        except KeyboardInterrupt:
-            exit()
+                LGRServer.lgrs[key] = parser.parse_document()
 
+        return LGRServer.lgrs[key]
+
+    def get_lgr_filename(set, tag):
+        return "{0}/{1}/{2}.xml".format(LGRServer.lgr_dir, set, tag)
+
+    #
+    # instance methods
+    #
     def respond(self, code=400, body=""):
         self.send_response(code)
         self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
@@ -95,7 +136,7 @@ class LGRServer(BaseHTTPRequestHandler):
             except:
                 return self.send_response(400, "Invalid label '{}'".format(segment))
 
-        lgr = self.get_lgr(set, tag)
+        lgr = LGRServer.get_lgr(set, tag)
 
         if lgr is None:
             return self._error(400, "Unknown LGR '{}'".format(tag))
@@ -106,10 +147,22 @@ class LGRServer(BaseHTTPRequestHandler):
         except:
             return self._error(400, "Invalid label '{}'".format(a_label))
 
-        (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
+        (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(
+            code_points,
+            is_variant=False,
+            collect_log=False
+        )
 
         if 0 == len(segments):
-            return self.label_info(tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition)
+            return self.label_info(
+                tag,
+                lgr,
+                a_label,
+                code_points,
+                eligible,
+                invalid_code_points,
+                disposition
+            )
 
         elif "variants" != segments.pop(0):
             return self._error(400, "Invalid path '{}'".format(self.path))
@@ -147,7 +200,11 @@ class LGRServer(BaseHTTPRequestHandler):
         return self.respond(200, json.dumps(response))
 
     def label_variants(self, lgr, a_label, code_points):
-        variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
+        variant_labels = lgr.compute_label_disposition(
+            code_points,
+            include_invalid=True,
+            hide_mixed_script_variants=False
+        )
 
         response = []
         for (v_label, v_disposition, _, _, _, _) in variant_labels:
@@ -168,23 +225,6 @@ class LGRServer(BaseHTTPRequestHandler):
                 })
 
         return self.respond(200, json.dumps(response))
-
-    def _get_lgr_filename(self, set, tag):
-        return "{0}/{1}/{2}.xml".format(LGRServer.lgr_dir, set, tag)
-
-    def get_lgr(self, set, tag):
-        key = "{0}.{1}".format(set, tag)
-        if not hasattr(LGRServer.lgrs, key):
-            LGRServer.lgrs[key] = None
-
-            file = self._get_lgr_filename(set, tag);
-            if os.path.exists(file):
-                parser = XMLParser(file)
-                parser.unicode_database = LGRServer.unimanager.register(None, LGRServer.icu_libpath, LGRServer.icu_i18n_libpath, LGRServer.icu_libver)
-
-                LGRServer.lgrs[key] = parser.parse_document()
-
-        return LGRServer.lgrs[key]
 
 if __name__ == "__main__":
     LGRServer.run()
