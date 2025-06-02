@@ -97,7 +97,12 @@ class LGRServer(BaseHTTPRequestHandler):
         if not hasattr(LGRServer.lgrs, key):
             LGRServer.lgrs[key] = None
 
-            file = LGRServer.get_lgr_filename(set, tag);
+            file = "{0}/{1}/{2}.xml".format(
+                LGRServer.lgr_dir,
+                set,
+                tag
+            )
+
             if os.path.exists(file):
                 parser = XMLParser(file)
 
