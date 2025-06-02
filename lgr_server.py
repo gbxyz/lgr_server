@@ -21,6 +21,8 @@ class LGRServer(BaseHTTPRequestHandler):
     unimanager  = UnicodeDataVersionManager()
     lgr_dir     = "{}/lgrs".format(os.path.abspath(os.path.dirname(__file__)))
     lgrs        = {}
+    server_addr = "0.0.0.0"
+    server_port = 8080
 
     def run():
         LGRServer.icu_libver = int(float(pkgconfig.modversion("icu-uc")))
@@ -48,11 +50,9 @@ class LGRServer(BaseHTTPRequestHandler):
         LGRServer.icu_libpath = libs["libicuuc.so"]
         LGRServer.icu_i18n_libpath = libs["libicui18n.so"]
 
-        server_addr = "0.0.0.0"
-        server_port = 8080
-        server = ThreadingHTTPServer(server_address=(server_addr, server_port), RequestHandlerClass=LGRServer)
+        server = ThreadingHTTPServer(server_address=(LGRServer.server_addr, LGRServer.server_port), RequestHandlerClass=LGRServer)
 
-        print("Server running on http://{0}:{1}".format(server_addr, server_port))
+        print("Server running on http://{0}:{1}".format(LGRServer.server_addr, LGRServer.server_port))
 
         try:
             server.serve_forever()
