@@ -160,25 +160,24 @@ class LGRServer(BaseHTTPRequestHandler):
 
         segment = segments.pop(0)
         if re.match("^xn--", segment, re.IGNORECASE):
-            a_label = segment
+            try:
+                a_label = segment
+                code_points = tuple([ord(c) for c in idna.decode(a_label)])
+
+            except:
+                return self.send_response(404, "Invalid A-label '{}'".format(segment))
 
         else:
             try:
                 a_label = idna.encode(segment).decode(LGRServer.charset)
+                code_points = tuple([ord(c) for c in idna.decode(a_label)])
 
             except:
                 return self.send_response(404, "Invalid U-label '{}'".format(segment))
 
-        try:
-            code_points = tuple([ord(c) for c in idna.decode(a_label)])
-
         lgr = LGRServer.get_lgr(set, tag)
-
         if lgr is None:
             return self._error(404, "Unknown LGR '{}'".format(tag))
-
-        except:
-            return self._error(404, "Invalid label '{}'".format(a_label))
 
         (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(
             code_points,
