@@ -154,6 +154,8 @@ class LGRServer(BaseHTTPRequestHandler):
 
         tag = segments.pop(0)
         if not re.match(r"^([a-z]{2,3})(-[A-Za-z]{4})?$", tag):
+            # apart from ensuring that `tag` is likely to match a language tag
+            # this prevents directory traversal attacks
             return self._error(400, "Invalid tag '{}'".format(tag))
 
         segment = segments.pop(0)
