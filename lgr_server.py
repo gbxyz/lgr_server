@@ -109,57 +109,63 @@ class LGRServer(BaseHTTPRequestHandler):
         (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(code_points, is_variant=False, collect_log=False)
 
         if 0 == len(segments):
-            try:
-                index_label = idna.encode("".join(map(chr, lgr.generate_index_label(code_points)))).decode(LGRServer.charset)
-                approx_variants = lgr.estimate_variant_number(code_points)
-
-            except:
-                index_label = None
-                approx_variants = 0
-
-            u_label = "".join(map(chr, code_points))
-
-            response = {
-                "u_label":              u_label,
-                "a_label":              a_label,
-                "code_points":          code_points,
-                "tag":                  tag,
-                "invalid_code_points":  list(map(lambda cp: cp[0], invalid_code_points)),
-                "eligible":             eligible,
-                "disposition":          disposition,
-                "index_label":          index_label,
-                "is_index_label":       u_label == index_label,
-                "approx_variants":      approx_variants,
-            }
-
-            return self.respond(200, json.dumps(response))
+            return self.label_info(tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition)
 
         elif "variants" != segments.pop(0):
             return self._error(400, "Invalid path '{}'".format(self.path))
 
+        elif not eligible:
+            return self._error(404, "Invalid label '{}'".format(a_label))
+
         else:
-            if not eligible:
-                return self._error(400, "Invalid label '{}'".format(a_label))
+            return self.label_variants(lgr, a_label, code_points)
 
-            variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
+    def label_info(self, tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition):
+        try:
+            index_label = idna.encode("".join(map(chr, lgr.generate_index_label(code_points)))).decode(LGRServer.charset)
+            approx_variants = lgr.estimate_variant_number(code_points)
 
-            response = []
-            for (v_label, v_disposition, _, _, _, _) in variant_labels:
-                v_ulabel = "".join(map(chr, v_label))
+        except:
+            index_label = None
+            approx_variants = 0
 
-                try:
-                    v_alabel = idna.encode(v_ulabel).decode(LGRServer.charset)
+        u_label = "".join(map(chr, code_points))
 
-                except:
-                    v_alabel = None
+        response = {
+            "u_label":              u_label,
+            "a_label":              a_label,
+            "code_points":          code_points,
+            "tag":                  tag,
+            "invalid_code_points":  list(map(lambda cp: cp[0], invalid_code_points)),
+            "eligible":             eligible,
+            "disposition":          disposition,
+            "index_label":          index_label,
+            "is_index_label":       u_label == index_label,
+            "approx_variants":      approx_variants,
+        }
 
-                if (v_alabel and v_alabel != a_label):
-                    response.append({
-                        "u_label":      v_ulabel,
-                        "a_label":      v_alabel,
-                        "code_points":  v_label,
-                        "disposition":  v_disposition,
-                    })
+        return self.respond(200, json.dumps(response))
+
+    def label_variants(self, lgr, a_label, code_points):
+        variant_labels = lgr.compute_label_disposition(code_points, include_invalid=True, hide_mixed_script_variants=False)
+
+        response = []
+        for (v_label, v_disposition, _, _, _, _) in variant_labels:
+            v_ulabel = "".join(map(chr, v_label))
+
+            try:
+                v_alabel = idna.encode(v_ulabel).decode(LGRServer.charset)
+
+            except:
+                v_alabel = None
+
+            if (v_alabel and v_alabel != a_label):
+                response.append({
+                    "u_label":      v_ulabel,
+                    "a_label":      v_alabel,
+                    "code_points":  v_label,
+                    "disposition":  v_disposition,
+                })
 
         return self.respond(200, json.dumps(response))
 
