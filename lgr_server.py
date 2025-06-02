@@ -30,7 +30,12 @@ class LGRServer(BaseHTTPRequestHandler):
     #
     # static methods
     #
+
     def run():
+        """
+        run the server
+        """
+
         LGRServer.init_icu()
 
         server = ThreadingHTTPServer(
@@ -50,6 +55,11 @@ class LGRServer(BaseHTTPRequestHandler):
             exit()
 
     def init_icu():
+        """
+        picu and munidata need to know some information about the version of
+        ICU we're using. this method works that stuff out
+        """
+
         LGRServer.icu_libver = int(float(pkgconfig.modversion("icu-uc")))
         print("Detected ICU version {}.".format(LGRServer.icu_libver))
 
@@ -76,7 +86,13 @@ class LGRServer(BaseHTTPRequestHandler):
         LGRServer.icu_i18n_libpath = libs["libicui18n.so"]
 
     def get_lgr(set, tag):
+        """
+        this method instantiates an LGR object for the given set/tag, using an
+        in-memory cache to speed things up
+        """
+
         key = "{0}.{1}".format(set, tag)
+
         if not hasattr(LGRServer.lgrs, key):
             LGRServer.lgrs[key] = None
 
@@ -95,13 +111,15 @@ class LGRServer(BaseHTTPRequestHandler):
 
         return LGRServer.lgrs[key]
 
-    def get_lgr_filename(set, tag):
-        return "{0}/{1}/{2}.xml".format(LGRServer.lgr_dir, set, tag)
-
     #
     # instance methods
     #
-    def respond(self, code=400, body=""):
+
+    def respond(self, code=200, body=""):
+        """
+        construct a response and send it to the client
+        """
+
         self.send_response(code)
         self.send_header("content-type", "application/json; charset={}".format(LGRServer.charset))
         self.send_header("access-control-allow-origin", "*")
@@ -109,9 +127,16 @@ class LGRServer(BaseHTTPRequestHandler):
         self.wfile.write(body.encode(LGRServer.charset))
 
     def _error(self, code=400, message="Bad Request"):
+        """
+        construct an error response
+        """
         self.respond(code, json.dumps({"error": code, "message": message}, indent=2))
 
     def do_GET(self):
+        """
+        handle GET request
+        """
+
         segments = unquote(urlparse(self.path).path[1:], LGRServer.charset).split("/")
 
         if (len(segments) < 3 or len(segments) > 5):
