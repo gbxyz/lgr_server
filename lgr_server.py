@@ -196,14 +196,14 @@ class LGRServer(BaseHTTPRequestHandler):
                 disposition
             )
 
-        elif "variants" != segments.pop(0):
-            return self._error(400, "Invalid path '{}'".format(self.path))
-
         elif not eligible:
             return self._error(404, "Invalid label '{}'".format(a_label))
 
-        else:
+        elif "variants" == segments.pop(0):
             return self.label_variants(lgr, a_label, code_points)
+
+        else:
+            return self._error(400, "Invalid path '{}'".format(self.path))
 
     def label_info(self, tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition):
         try:
