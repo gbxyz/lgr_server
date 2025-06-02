@@ -26,6 +26,7 @@ class LGRServer(BaseHTTPRequestHandler):
     lgrs        = {}
     server_addr = "0.0.0.0"
     server_port = 8080
+    sets        = ["root-zone", "second-level-reference", "full-variant-set"]
 
     #
     # static methods
@@ -143,7 +144,7 @@ class LGRServer(BaseHTTPRequestHandler):
             return self._error(400, "Invalid path '{}'".format(self.path))
 
         set = segments.pop(0)
-        if set not in ["root-zone", "second-level-reference", "full-variant-set"]:
+        if set not in LGRServer.sets:
             return self._error(404, "Invalid LGR set '{}'".format(set))
 
         tag = segments.pop(0)
