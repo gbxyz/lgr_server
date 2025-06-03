@@ -159,7 +159,10 @@ class LGRServer(BaseHTTPRequestHandler):
             return self._error(400, "Invalid tag '{}'".format(tag))
 
         segment = segments.pop(0)
-        if re.match("^xn--", segment, re.IGNORECASE):
+        if (len(segment) < 1):
+            return self._error(404, "Empty label")
+
+        elif re.match("^xn--", segment, re.IGNORECASE):
             try:
                 a_label = segment
                 code_points = tuple([ord(c) for c in idna.decode(a_label)])
