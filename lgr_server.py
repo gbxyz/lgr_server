@@ -203,9 +203,12 @@ class LGRServer(BaseHTTPRequestHandler):
             return self.label_variants(lgr, a_label, code_points)
 
         else:
-            return self._error(400, "Invalid path '{}'".format(self.path))
+            return self.variant_info(lgr, a_label, code_points, segments[0])
 
     def label_info(self, tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition):
+        """
+        return information about the label
+        """
         try:
             index_label = idna.encode("".join(map(chr, lgr.generate_index_label(code_points)))).decode(LGRServer.charset)
             approx_variants = lgr.estimate_variant_number(code_points)
@@ -232,6 +235,9 @@ class LGRServer(BaseHTTPRequestHandler):
         return self.respond(200, json.dumps(response))
 
     def label_variants(self, lgr, a_label, code_points):
+        """
+        return a list of all the label's variants
+        """
         variant_labels = lgr.compute_label_disposition(
             code_points,
             include_invalid=True,
