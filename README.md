@@ -96,6 +96,10 @@ $ curl -s http://localhost:8080/root-zone/und-Latn/xn--caf-dma/variants | jq .
 
 A `GET` request of the form `/{set}/{table}/{label}/variants` will return a JSON array of objects, each of which represents a variant of `{label}`. Each object has `u_label`, `a_label`, `code_points` and `disposition` properties, whose semantics are the same as above.
 
+### Checking if one label is a variant of another
+
+A `GET` request of the form `/{set}/{table}/{label}/{variant}` will return a boolean JSON value (ie `true` or `false`) indicating whether `{variant}` is a variant of `{label}`.
+
 ## LGR Sets
 
 LGR Server comes bundled with three sets of LGRs:

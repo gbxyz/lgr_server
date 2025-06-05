@@ -206,7 +206,7 @@ class LGRServer(BaseHTTPRequestHandler):
             return self.label_variants(lgr, a_label, code_points)
 
         else:
-            return self.variant_info(lgr, a_label, code_points, segments[0])
+            return self.check_variant(lgr, a_label, code_points, segments[0])
 
     def label_info(self, tag, lgr, a_label, code_points, eligible, invalid_code_points, disposition):
         """
@@ -266,6 +266,31 @@ class LGRServer(BaseHTTPRequestHandler):
                 })
 
         return self.respond(200, json.dumps(response))
+
+    def check_variant(self, lgr, primary_label, primary_code_points, variant_label):
+        """
+        return information about a specific variant
+        """
+
+        if re.match("^xn--", variant_label, re.IGNORECASE):
+            try:
+                variant_code_points = tuple([ord(c) for c in idna.decode(variant_label)])
+
+            except:
+                return self._error(404, "Invalid A-label '{}'".format(variant_label))
+
+        else:
+            try:
+                variant_label = idna.encode(variant_label).decode(LGRServer.charset)
+                variant_code_points = tuple([ord(c) for c in idna.decode(variant_label)])
+
+            except:
+                return self._error(404, "Invalid U-label '{}'".format(variant_label))
+
+        variant_index_label = idna.encode("".join(map(chr, lgr.generate_index_label(variant_code_points)))).decode(LGRServer.charset)
+        primary_index_label = idna.encode("".join(map(chr, lgr.generate_index_label(primary_code_points)))).decode(LGRServer.charset)
+
+        self.respond(200, json.dumps(primary_index_label == variant_index_label))
 
 if __name__ == "__main__":
     LGRServer.run()
