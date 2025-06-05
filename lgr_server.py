@@ -168,7 +168,7 @@ class LGRServer(BaseHTTPRequestHandler):
                 code_points = tuple([ord(c) for c in idna.decode(a_label)])
 
             except:
-                return self.send_response(404, "Invalid A-label '{}'".format(segment))
+                return self._error(404, "Invalid A-label '{}'".format(segment))
 
         else:
             try:
@@ -176,7 +176,7 @@ class LGRServer(BaseHTTPRequestHandler):
                 code_points = tuple([ord(c) for c in idna.decode(a_label)])
 
             except:
-                return self.send_response(404, "Invalid U-label '{}'".format(segment))
+                return self._error(404, "Invalid U-label '{}'".format(segment))
 
         lgr = LGRServer.get_lgr(set, tag)
         if lgr is None:
