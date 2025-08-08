@@ -12,7 +12,7 @@ RUN <<END bash
 
 source venv/bin/activate
 
-pip --quiet install git+https://github.com/icann/lgr-core.git@a1f0551ec0c59f009b0ee9f81e4b45f8ea79ed4c
+pip --quiet install git+https://github.com/icann/lgr-core.git@v6.1.3
 
 pip --quiet install idna pkgconfig
 
