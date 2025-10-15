@@ -27,6 +27,7 @@ class LGRServer(BaseHTTPRequestHandler):
     server_addr = "0.0.0.0"
     server_port = 8080
     sets        = ["root-zone", "second-level-reference", "full-variant-set"]
+    max_variants = 256
 
     #
     # static methods
@@ -244,6 +245,12 @@ class LGRServer(BaseHTTPRequestHandler):
         """
         return a list of all the label's variants
         """
+
+        approx_variants = lgr.estimate_variant_number(code_points)
+
+        if approx_variants > LGRServer.max_variants:
+            return self._error(400, "Too many variants ({}) for '{}' (max {})".format(approx_variants, a_label, LGRServer.max_variants))
+
         variant_labels = lgr.compute_label_disposition(
             code_points,
             include_invalid=True,
