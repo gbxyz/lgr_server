@@ -145,6 +145,9 @@ class LGRServer(BaseHTTPRequestHandler):
 
         segments = unquote(urlparse(self.path).path[1:], LGRServer.charset).split("/")
 
+        if "heartbeat" == segments[0]:
+            return self.respond(200, json.dumps(True))
+
         if (len(segments) < 3 or len(segments) > 5):
             return self._error(400, "Invalid path '{}'".format(self.path))
 
