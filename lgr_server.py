@@ -38,6 +38,15 @@ class LGRServer(BaseHTTPRequestHandler):
         run the server
         """
 
+        if os.environ.get("LGR_SERVER_PORT"):
+            LGRServer.server_port = int(os.environ.get("LGR_SERVER_PORT"))
+
+        if os.environ.get("LGR_SERVER_ADDR"):
+            LGRServer.server_addr = os.environ.get("LGR_SERVER_ADDR")
+
+        if os.environ.get("LGR_SERVER_MAX_VARIANTS"):
+            LGRServer.max_variants = int(os.environ.get("LGR_SERVER_MAX_VARIANTS"))
+
         LGRServer.init_icu()
 
         server = ThreadingHTTPServer(
