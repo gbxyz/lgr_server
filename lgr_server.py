@@ -195,7 +195,7 @@ class LGRServer(BaseHTTPRequestHandler):
         if lgr is None:
             return self._error(404, "Unknown LGR '{}'".format(tag))
 
-        (eligible, _, invalid_code_points, disposition, _, _) = lgr.test_label_eligible(
+        (eligible, _, invalid_code_points, disposition, _, _, _) = lgr.test_label_eligible(
             code_points,
             is_variant=False,
             collect_log=False
