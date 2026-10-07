@@ -12,7 +12,7 @@ RUN <<END bash
 
 source venv/bin/activate
 
-pip --quiet install git+https://github.com/icann/lgr-core.git@v7.0.1
+pip --quiet install git+https://github.com/icann/lgr-core.git@v7.0.2
 
 pip --quiet install idna pkgconfig
 
@@ -20,4 +20,4 @@ END
 
 ADD . .
 
-ENTRYPOINT /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
